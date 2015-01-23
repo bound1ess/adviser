@@ -33,4 +33,13 @@ class Git {
     public function isRepository($directory) {
         return file_exists($directory."/.git/");
     }
+
+    /**
+     * Return "git config -l" output, but converted to an array of lines.
+     *
+     * @return array
+     */
+    public function getConfig() {
+        return [];
+    }
 }

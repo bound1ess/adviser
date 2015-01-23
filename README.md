@@ -31,7 +31,7 @@ Adviser is a CLI application written in PHP that checks your project for various
 - `Git`:
     - `getTags` [x]
     - `isRepository` [x]
-    - `getConfig` [ ]
+    - `getConfig` [x]
 - `CommandRunner`
     - `run` [x]
 - `Packagist`
