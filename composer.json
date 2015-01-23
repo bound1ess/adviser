@@ -1,0 +1,33 @@
+{
+    "name": "bound1ess/adviser",
+    "description": "A CLI application that checks your project for various possible improvements",
+    "keywords": ["CLI", "application", "suggest", "possible", "improvements"],
+    "homepage": "https://github.com/bound1ess/adviser",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bound1ess",
+            "email": "bound1ess.dev@gmail.com",
+            "homepage": "http://bound1ess.github.io",
+            "role": "developer"
+        }
+    ],
+    "bin": ["bin/adviser"],
+    
+    "require": {
+        "symfony/console": "2.6.*",
+        "symfony/yaml": "2.6.*",
+        "guzzlehttp/guzzle": "5.1.*",
+        "squizlabs/php_codesniffer": "2.2.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.4.*",
+        "mockery/mockery": "0.9.*"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Adviser\\": "src/Adviser/"
+        }
+    }
+}
