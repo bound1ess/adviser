@@ -21,6 +21,6 @@ class Git {
      * @return array
      */
     public function getTags() {
-        return ["0.0.0"];
+        return array_filter(explode(PHP_EOL, $this->runner->run("git tag")));
     }
 }
