@@ -15,7 +15,7 @@ Adviser is a CLI application written in PHP that checks your project for various
 3. Check if your project is framework agnostic or not.
 4. Check the source code using [PHP Code Sniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 5. Check for tests folder and a proper testing framework configuration.
-    - Support for **PhpSpec**, **PHPUnit**, **Behat**, *Codeception*.
+    - Support for **PhpSpec**, **PHPUnit**, **Behat**, **Codeception**.
 6. Check for CI (Continuous Integration) configuration file.
     - [Travis](https://travis-ci.org) is supported.
 7. Check for [SemVer](http://semver.org) support.
