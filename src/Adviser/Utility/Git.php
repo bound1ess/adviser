@@ -3,15 +3,15 @@
 class Git {
 
     /**
-     * @var Command
+     * @var CommandRunner
      */
     protected $runner;
 
     /**
-     * @param Command $runner
+     * @param CommandRunner $runner
      * @return Git
      */
-    public function __construct(Command $runner) {
+    public function __construct(CommandRunner $runner) {
         $this->runner = $runner;
     }
 
@@ -21,6 +21,6 @@ class Git {
      * @return array
      */
     public function getTags() {
-        return array_filter(explode(PHP_EOL, $this->runner->run("git tag")));
+        return array_filter(explode(PHP_EOL, $this->runner->run("git tag")["stdout"]));
     }
 }

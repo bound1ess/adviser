@@ -2,7 +2,7 @@
 
 use RuntimeException;
 
-class Command {
+class CommandRunner {
 
     /**
      * Run a command.

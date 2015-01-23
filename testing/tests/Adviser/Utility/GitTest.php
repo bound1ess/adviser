@@ -5,11 +5,13 @@ use Mockery;
 class GitTest extends \PHPUnit_Framework_TestCase {
 
     /** @test */ function it_returns_the_tags_list() {
-        $runner = Mockery::mock("Adviser\Utility\Command");
+        $runner = Mockery::mock("Adviser\Utility\CommandRunner");
         $runner->shouldReceive("run")
                ->once()
                ->with("git tag")
-               ->andReturn("0.0.0".PHP_EOL);
+               ->andReturn([
+                   "stdout" => "0.0.0".PHP_EOL,
+               ]);
 
         $this->assertEquals((new Git($runner))->getTags(), ["0.0.0"]);
     }
