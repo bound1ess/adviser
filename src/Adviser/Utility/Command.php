@@ -9,7 +9,7 @@ class Command {
      *
      * @throws RuntimeException
      * @param string $command
-     * @return CommandOutput
+     * @return array
      */
     public function run($command) {
         $pipes = [];
@@ -25,9 +25,26 @@ class Command {
             throw new RuntimeException;
         }
 
-        $output = new CommandOutput($pipes[2], $pipes[1]);
+        $output = [
+            "stdout" => $this->readAndClose($pipes[1]),
+            "stderr" => $this->readAndClose($pipes[2]),
+        ];
+
         proc_close($process);
 
         return $output;
+    }
+
+    /**
+     * Read stream contents and then close it.
+     *
+     * @param mixed $pipe
+     * @return string
+     */
+    protected function readAndClose($pipe) {
+        $content = stream_get_contents($pipe);
+        fclose($pipe);
+
+        return $content;
     }
 }
