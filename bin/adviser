@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+// This function attempts to load Composer's autoloader.
+function includeComposerAutoloader() {
+    if (file_exists($path = __DIR__."/../vendor/autoload.php")) {
+        return require $path;
+    }
+}
+
+// This function returns Adviser's current version value.
+function getAdviserVersion() {
+    $config = require __DIR__."/../data.php";
+
+    return $config["version"];
+}
+
+includeComposerAutoloader();
+
+// Create a new CLI application with help of excellent symfony/console package.
+$adviser = new Symfony\Component\Console\Application("Adviser", getAdviserVersion());
+
+// Exit with the returned status code.
+exit ($adviser->run());
+
+# vim: syntax=php
