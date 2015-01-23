@@ -15,6 +15,14 @@
             <directory>./testing/tests/</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory>./src/</directory>
+        </whitelist>
+        <blacklist>
+            <directory>./vendor/</directory>
+        </blacklist>
+    </filter>
 </phpunit>
 <!-- vim: syntax=xml
 -->
