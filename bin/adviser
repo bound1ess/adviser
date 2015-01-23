@@ -20,6 +20,9 @@ includeComposerAutoloader();
 // Create a new CLI application with help of excellent symfony/console package.
 $adviser = new Symfony\Component\Console\Application("Adviser", getAdviserVersion());
 
+// Add commands.
+$adviser->add(new Adviser\Commands\GiveAdviceCommand);
+
 // Exit with the returned status code.
 exit ($adviser->run());
 

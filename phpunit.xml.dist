@@ -16,4 +16,5 @@
         </testsuite>
     </testsuites>
 </phpunit>
-<!-- vim: syntax=xml -->
+<!-- vim: syntax=xml
+-->
