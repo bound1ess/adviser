@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit
+    colors="true"
+    processIsolation="false"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    >
+    <testsuites>
+        <testsuite name="Adviser Test Suite">
+            <directory>./testing/tests/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
+<!-- vim: syntax=xml -->
