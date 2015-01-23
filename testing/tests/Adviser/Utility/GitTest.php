@@ -29,14 +29,12 @@ class GitTest extends \PHPUnit_Framework_TestCase {
         $runner->shouldReceive("run")
                ->once()
                ->with("git config -l")
-               ->andReturn();
+               ->andReturn("foo=bar".PHP_EOL."baz=fuz".PHP_EOL);
 
-        $configKeys = array_keys((new Git($runner))->getConfig());
+        $config = (new Git($runner))->getConfig();
 
-        // It is hard to do anything else here - otherwise some tests might be "unstable".
-        $this->assertArrayHasKey("core.bare", $configKeys);
-        $this->assertArrayHasKey("core.logallrefupdates", $configKeys);
-        $this->assertArrayHasKey("core.filemode", $configKeys);
+        $this->assertArrayHasKey("baz", $config);
+        $this->assertEquals($config["foo"], "bar");
     }
 
     public function tearDown() {

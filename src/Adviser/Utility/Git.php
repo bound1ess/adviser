@@ -40,6 +40,15 @@ class Git {
      * @return array
      */
     public function getConfig() {
-        return [];
+        $lines = array_filter(explode(PHP_EOL, $this->runner->run("git config -l")));
+        $config = [];
+
+        foreach ($lines as $line) {
+            list ($key, $value) = explode("=", $line);
+
+            $config[$key] = $value;
+        }
+
+        return $config;
     }
 }
