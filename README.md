@@ -1,4 +1,4 @@
-# Adviser
+# Adviser [![Build Status](https://travis-ci.org/bound1ess/adviser.svg?branch=master)](https://travis-ci.org/bound1ess/adviser)
 
 Adviser is a CLI application written in PHP that checks your project for various possible improvements. Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
 
