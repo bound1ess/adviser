@@ -6,5 +6,8 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
         $output = (new Command)->run(getcwd()."/testing/utility-command.sh");
 
         $this->assertInstanceOf("Adviser\Utility\CommandOutput", $output);
+
+        $this->assertEquals($output->getStdout(), "from stdout");
+        $this->assertEquals($output->getStderr(), "from stderr");
     }
 }
