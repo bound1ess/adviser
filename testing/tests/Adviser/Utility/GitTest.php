@@ -18,6 +18,10 @@ class GitTest extends \PHPUnit_Framework_TestCase {
 
     /** @test */ function it_checks_if_git_repository_exists() {
         $git = new Git;
+
+        $this->assertTrue($git->isRepository(getcwd()));
+        // Unless....unless...
+        $this->assertFalse($git->isRepository($_SERVER["HOME"]));
     }
 
     public function tearDown() {

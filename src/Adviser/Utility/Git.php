@@ -23,4 +23,14 @@ class Git {
     public function getTags() {
         return array_filter(explode(PHP_EOL, $this->runner->run("git tag")["stdout"]));
     }
+
+    /**
+     * Check if given directory is a Git repository.
+     *
+     * @param string $directory
+     * @return boolean
+     */
+    public function isRepository($directory) {
+        return file_exists($directory."/.git/");
+    }
 }
