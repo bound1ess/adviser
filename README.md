@@ -1,6 +1,6 @@
 # Adviser
 
-Adviser is a CLI application written in PHP that checks your project for various possible improvements. Heavily inspired by [phppackagechecklist.com](https://phppackagechecklist.com).
+Adviser is a CLI application written in PHP that checks your project for various possible improvements. Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
 
 ## What It Does
 
@@ -27,3 +27,7 @@ Adviser is a CLI application written in PHP that checks your project for various
 ## Progress
 
 *Early stage.*
+
+## License
+
+This project is licensed under [the MIT license](https://github.com/bound1ess/adviser/blob/master/LICENSE).
