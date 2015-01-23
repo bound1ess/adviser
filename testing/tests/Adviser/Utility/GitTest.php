@@ -16,6 +16,10 @@ class GitTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals((new Git($runner))->getTags(), ["0.0.0"]);
     }
 
+    /** @test */ function it_checks_if_git_repository_exists() {
+        $git = new Git;
+    }
+
     public function tearDown() {
         Mockery::close();
     }
