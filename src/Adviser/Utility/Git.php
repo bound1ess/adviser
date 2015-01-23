@@ -21,7 +21,7 @@ class Git {
      * @return array
      */
     public function getTags() {
-        return array_filter(explode(PHP_EOL, $this->runner->run("git tag")["stdout"]));
+        return $this->splitIntoLines($this->runner->run("git tag")["stdout"]);
     }
 
     /**
@@ -40,7 +40,7 @@ class Git {
      * @return array
      */
     public function getConfig() {
-        $lines = array_filter(explode(PHP_EOL, $this->runner->run("git config -l")));
+        $lines = $this->splitIntoLines($this->runner->run("git config -l"));
         $config = [];
 
         foreach ($lines as $line) {
@@ -50,5 +50,15 @@ class Git {
         }
 
         return $config;
+    }
+
+    /**
+     * Split input string into lines.
+     *
+     * @param string $input
+     * @return array
+     */
+    protected function splitIntoLines($input) {
+        return array_filter(explode(PHP_EOL, $input));
     }
 }
