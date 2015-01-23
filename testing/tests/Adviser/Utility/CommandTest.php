@@ -7,7 +7,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertTrue(is_array($output));
 
-        $this->assertEquals($output["stdout"], "from stdout");
-        $this->assertEquals($output["stderr"], "from stderr");
+        $this->assertEquals($output["stdout"], "from stdout".PHP_EOL);
+        $this->assertEquals($output["stderr"], "from stderr".PHP_EOL);
     }
 }
