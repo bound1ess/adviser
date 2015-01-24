@@ -12,7 +12,9 @@ class ValidatorLoader {
         $validators = [];
 
         foreach ($config["validators"] as $validator) {
-            $validators[] = new $validator;
+            if (class_exists($validator)) {
+                $validators[] = new $validator(getcwd());
+            }
         }
 
         return $validators;
