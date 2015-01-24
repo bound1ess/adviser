@@ -1,13 +1,15 @@
 <?php namespace Adviser\Validators;
 
-class ValidatorLoader {
+class ValidatorLoader
+{
 
     /**
      * Load validators listed in the configuration file.
      *
      * @return array
      */
-    public function load() {
+    public function load()
+    {
         $config = require ADVISER_DIR."/config.php";
         $validators = [];
 

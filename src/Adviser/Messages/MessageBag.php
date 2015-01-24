@@ -1,6 +1,7 @@
 <?php namespace Adviser\Messages;
 
-class MessageBag {
+class MessageBag
+{
 
     /**
      * @var array
@@ -8,20 +9,22 @@ class MessageBag {
     protected $messages;
 
     /**
-     * @param array $messages
+     * @param  array      $messages
      * @return MessageBag
      */
-    public function __construct(array $messages = []) {
+    public function __construct(array $messages = [])
+    {
         $this->messages = $messages;
     }
 
     /**
      * Add a new message to the bag.
      *
-     * @param Message $message
+     * @param  Message $message
      * @return void
      */
-    public function throwIn(Message $message) {
+    public function throwIn(Message $message)
+    {
         $this->messages[] = $message;
     }
 
@@ -30,7 +33,8 @@ class MessageBag {
      *
      * @return array
      */
-    public function getAll() {
+    public function getAll()
+    {
         return $this->messages;
     }
 
@@ -39,7 +43,8 @@ class MessageBag {
      *
      * @return Message|null
      */
-    public function first() {
+    public function first()
+    {
         return array_key_exists(0, $this->messages) ? $this->messages[0] : null;
     }
 
@@ -48,7 +53,8 @@ class MessageBag {
      *
      * @return Message|null
      */
-    public function last() {
+    public function last()
+    {
         return count($this->messages) > 0 ? end($this->messages) : null;
     }
 }

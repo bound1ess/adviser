@@ -2,7 +2,8 @@
 
 use InvalidArgumentException;
 
-class Message {
+class Message
+{
 
     /**
      * @var integer
@@ -30,11 +31,12 @@ class Message {
     protected $level;
 
     /**
-     * @param string $message
-     * @param int $level
+     * @param  string  $message
+     * @param  int     $level
      * @return Message
      */
-    public function __construct($message, $level) {
+    public function __construct($message, $level)
+    {
         $this->message = (string) $message;
         $this->setLevel($level);
     }
@@ -42,10 +44,11 @@ class Message {
     /**
      * Format the message according to its level.
      *
-     * @param boolean $raw
+     * @param  boolean $raw
      * @return string
      */
-    public function format($raw = false) {
+    public function format($raw = false)
+    {
         $level = $raw ? null : $this->level;
 
         if ($level == static::NORMAL) {
@@ -68,7 +71,8 @@ class Message {
      *
      * @return integer
      */
-    public function getLevel() {
+    public function getLevel()
+    {
         return $this->level;
     }
 
@@ -76,12 +80,13 @@ class Message {
      * Validate and set appropriate level.
      *
      * @throws InvalidArgumentException
-     * @param integer $level
+     * @param  integer                  $level
      * @return void
      */
-    protected function setLevel($level) {
-        if ( ! in_array($level, [static::NORMAL, static::WARNING, static::ERROR])) {
-            throw new InvalidArgumentException;
+    protected function setLevel($level)
+    {
+        if (! in_array($level, [static::NORMAL, static::WARNING, static::ERROR])) {
+            throw new InvalidArgumentException();
         }
 
         $this->level = $level;

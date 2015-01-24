@@ -2,31 +2,36 @@
 
 use Mockery;
 
-class MessageBagTest extends \PHPUnit_Framework_TestCase {
+class MessageBagTest extends \PHPUnit_Framework_TestCase
+{
 
     protected $bag;
 
-    public function setUp() {
-        $this->bag = new MessageBag;
+    public function setUp()
+    {
+        $this->bag = new MessageBag();
     }
 
-    public function tearDown() {
+    public function tearDown()
+    {
         Mockery::close();
     }
 
-    protected function createMessage() {
+    protected function createMessage()
+    {
         return Mockery::mock("Adviser\Messages\Message");
     }
 
-    /** @test */ function it_adds_a_message() {
-        $this->assertCount(0, $this->bag->getAll());
+/** @test */ public function it_adds_a_message()
+ {
+     $this->assertCount(0, $this->bag->getAll());
 
-        $this->bag->throwIn($message1 = $this->createMessage());
-        $this->bag->throwIn($message2 = $this->createMessage());
+     $this->bag->throwIn($message1 = $this->createMessage());
+     $this->bag->throwIn($message2 = $this->createMessage());
 
-        $this->assertCount(2, $this->bag->getAll());
+     $this->assertCount(2, $this->bag->getAll());
 
-        $this->assertEquals($this->bag->first(), $message1);
-        $this->assertEquals($this->bag->last(), $message2);
-    }
+     $this->assertEquals($this->bag->first(), $message1);
+     $this->assertEquals($this->bag->last(), $message2);
+ }
 }

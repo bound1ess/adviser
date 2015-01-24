@@ -2,7 +2,8 @@
 
 use Adviser\Messages\MessageBag;
 
-abstract class AbstractValidator {
+abstract class AbstractValidator
+{
 
     /**
      * @var string
@@ -15,10 +16,11 @@ abstract class AbstractValidator {
     protected $utilities = [];
 
     /**
-     * @param string $directory
+     * @param  string            $directory
      * @return AbstractValidator
      */
-    public function __construct($directory) {
+    public function __construct($directory)
+    {
         $this->directory = $directory;
     }
 
@@ -27,21 +29,22 @@ abstract class AbstractValidator {
      *
      * @return MessageBag
      */
-    public abstract function handle();
+    abstract public function handle();
 
     /**
      * Get an instance or set it (utility classes).
      *
-     * @param string $name
-     * @param mixed|null $instance
+     * @param  string     $name
+     * @param  mixed|null $instance
      * @return mixed
      */
-    public function utility($name, $instance = null) {
+    public function utility($name, $instance = null)
+    {
         if (is_null($instance)) {
-            if ( ! array_key_exists($name, $this->utilities)) {
+            if (! array_key_exists($name, $this->utilities)) {
                 $class = "Adviser\Utility\\".$name;
 
-                return $this->utilities[$name] = new $class;
+                return $this->utilities[$name] = new $class();
             }
 
             return $this->utilities[$name];

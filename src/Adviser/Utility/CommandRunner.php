@@ -2,16 +2,18 @@
 
 use RuntimeException;
 
-class CommandRunner {
+class CommandRunner
+{
 
     /**
      * Run a command.
      *
      * @throws RuntimeException
-     * @param string $command
+     * @param  string           $command
      * @return array
      */
-    public function run($command) {
+    public function run($command)
+    {
         $pipes = [];
         $specification = [
             ["pipe", "r"],
@@ -21,8 +23,8 @@ class CommandRunner {
 
         $process = proc_open($command, $specification, $pipes, getcwd(), null);
 
-        if ( ! is_resource($process)) {
-            throw new RuntimeException;
+        if (! is_resource($process)) {
+            throw new RuntimeException();
         }
 
         $output = [
@@ -38,10 +40,11 @@ class CommandRunner {
     /**
      * Read stream contents and then close it.
      *
-     * @param mixed $pipe
+     * @param  mixed  $pipe
      * @return string
      */
-    protected function readAndClose($pipe) {
+    protected function readAndClose($pipe)
+    {
         $content = stream_get_contents($pipe);
         fclose($pipe);
 

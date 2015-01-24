@@ -1,6 +1,7 @@
 <?php namespace Adviser\Utility;
 
-class Git {
+class Git
+{
 
     /**
      * @var CommandRunner|null
@@ -8,10 +9,11 @@ class Git {
     protected $runner;
 
     /**
-     * @param CommandRunner|null $runner
+     * @param  CommandRunner|null $runner
      * @return Git
      */
-    public function __construct(CommandRunner $runner = null) {
+    public function __construct(CommandRunner $runner = null)
+    {
         $this->runner = $runner;
     }
 
@@ -20,17 +22,19 @@ class Git {
      *
      * @return array
      */
-    public function getTags() {
+    public function getTags()
+    {
         return $this->splitIntoLines($this->runner->run("git tag")["stdout"]);
     }
 
     /**
      * Check if given directory is a Git repository.
      *
-     * @param string $directory
+     * @param  string  $directory
      * @return boolean
      */
-    public function isRepository($directory) {
+    public function isRepository($directory)
+    {
         return file_exists($directory."/.git/");
     }
 
@@ -39,12 +43,13 @@ class Git {
      *
      * @return array
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         $lines = $this->splitIntoLines($this->runner->run("git config -l"));
         $config = [];
 
         foreach ($lines as $line) {
-            list ($key, $value) = explode("=", $line);
+            list($key, $value) = explode("=", $line);
 
             $config[$key] = $value;
         }
@@ -55,10 +60,11 @@ class Git {
     /**
      * Split input string into lines.
      *
-     * @param string $input
+     * @param  string $input
      * @return array
      */
-    protected function splitIntoLines($input) {
+    protected function splitIntoLines($input)
+    {
         return array_filter(explode(PHP_EOL, $input));
     }
 }
