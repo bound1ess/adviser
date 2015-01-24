@@ -50,7 +50,7 @@ Around `20%`.
 - `ValidatorLoader` [x]
 
 
-- `GitValidator` [ ]
+- `GitValidator` [x]
 - `ComposerValidator` [ ]
 - `FrameworkValidator` [ ]
 - `CodeStyleValidator` [ ]
