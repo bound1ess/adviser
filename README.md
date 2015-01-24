@@ -35,7 +35,7 @@ Adviser is a CLI application written in PHP that checks your project for various
 - `CommandRunner`
     - `run` [x]
 - `Packagist`
-    - `packageExists` [ ]
+    - `packageExists` [x]
 
 ### Validators
 
