@@ -10,4 +10,15 @@ class CommandRunnerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($output["stdout"], "from stdout".PHP_EOL);
         $this->assertEquals($output["stderr"], "from stderr".PHP_EOL);
     }
+
+    /** @test */ function it_throws_exception_if_something_goes_wrong() {
+        $this->setExpectedException("RuntimeException");
+
+        // Redefine for the current namespace.
+        function proc_open() {
+            return false;
+        }
+
+        (new CommandRunner)->run("something");
+    }
 }
