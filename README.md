@@ -41,8 +41,8 @@ Around `20%`.
 
 ### Messages
 
-- `Message` [ ]
-- `MessageBag` [ ]
+- `Message` [x]
+- `MessageBag` [x]
 
 ### Validators
 
