@@ -1,23 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-define("ADVISER_WD", __DIR__."/..");
+require __DIR__."/../src/bootstrap.php";
 
-// This function attempts to load Composer's autoloader.
-function includeComposerAutoloader() {
-    if (file_exists($path = ADVISER_WD."/vendor/autoload.php")) {
-        return require $path;
-    }
-}
-
-// This function returns Adviser's current version value.
-function getAdviserVersion() {
-    $config = require ADVISER_WD."/config.php";
-
-    return $config["version"];
-}
-
-includeComposerAutoloader();
+findComposerAutoloader();
 
 // Create a new CLI application with help of excellent symfony/console package.
 $adviser = new Symfony\Component\Console\Application("Adviser", getAdviserVersion());
