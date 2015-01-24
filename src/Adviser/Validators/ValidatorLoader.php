@@ -8,6 +8,9 @@ class ValidatorLoader {
      * @return array
      */
     public function load() {
-        return [];
+        $config = require ADVISER_WORKING_DIR."/config.php";
+        $validators = [];
+
+        
     }
 }

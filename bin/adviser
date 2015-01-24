@@ -1,18 +1,18 @@
 #!/usr/bin/env php
 <?php
 
-define("ADVISER_WORKING_DIR", getcwd());
+define("ADVISER_WD", __DIR__."/..");
 
 // This function attempts to load Composer's autoloader.
 function includeComposerAutoloader() {
-    if (file_exists($path = __DIR__."/../vendor/autoload.php")) {
+    if (file_exists($path = ADVISER_WD."/vendor/autoload.php")) {
         return require $path;
     }
 }
 
 // This function returns Adviser's current version value.
 function getAdviserVersion() {
-    $config = require __DIR__."/../config.php";
+    $config = require ADVISER_WD."/config.php";
 
     return $config["version"];
 }
@@ -25,7 +25,8 @@ $adviser = new Symfony\Component\Console\Application("Adviser", getAdviserVersio
 // Add commands.
 $adviser->add(new Adviser\Commands\GiveAdviceCommand);
 
-// Exit with the returned status code.
-exit ($adviser->run());
+// Run and exit with the returned status code.
+$adviser->setAutoExit(true);
+$adviser->run();
 
 # vim: syntax=php
