@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+define("ADVISER_WORKING_DIR", getcwd());
+
 // This function attempts to load Composer's autoloader.
 function includeComposerAutoloader() {
     if (file_exists($path = __DIR__."/../vendor/autoload.php")) {
@@ -10,7 +12,7 @@ function includeComposerAutoloader() {
 
 // This function returns Adviser's current version value.
 function getAdviserVersion() {
-    $config = require __DIR__."/../data.php";
+    $config = require __DIR__."/../config.php";
 
     return $config["version"];
 }

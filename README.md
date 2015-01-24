@@ -46,8 +46,8 @@ Around `20%`.
 
 ### Validators
 
-- `AbstractValidator` [ ]
-- `ValidatorLoader` [ ]
+- `AbstractValidator` [x]
+- `ValidatorLoader` [x]
 
 
 - `GitValidator` [ ]
