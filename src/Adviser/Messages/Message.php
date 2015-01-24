@@ -40,6 +40,19 @@ class Message {
     }
 
     /**
+     * Format the message according to its level.
+     *
+     * @return string
+     */
+    public function format() {
+        switch ($this->level) {
+            case static::NORMAL:  return "<info>{$this->message}</info>";
+            case static::WARNING: return "<comment>{$this->message}</comment>";
+            case static::ERROR:   return "<error>{$this->message}</error>";
+        }
+    }
+
+    /**
      * Validate and set appropriate level.
      *
      * @throws InvalidArgumentException
