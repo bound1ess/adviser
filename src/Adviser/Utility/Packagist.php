@@ -7,6 +7,19 @@ use Guzzle\Http\Exception\ClientErrorResponseException;
 class Packagist {
 
     /**
+     * @var Client
+     */
+    protected $client;
+
+    /**
+     * @param Client $client
+     * @return Packagist
+     */
+    public function __construct(Client $client) {
+        $this->client = $client;
+    }
+
+    /**
      * Check if package was published to Packagist.
      *
      * @param string $name
@@ -14,7 +27,7 @@ class Packagist {
      */
     public function packageExists($name) {
         try {
-            (new Client)->get($name);
+            $this->client->get($name);
 
             return true;
         } catch (ClientErrorResponseException $exception) {
