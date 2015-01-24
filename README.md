@@ -39,6 +39,11 @@ Around `20%`.
 - `Packagist`
     - `packageExists` [x]
 
+### Messages
+
+- `Message` [ ]
+- `MessageBag` [ ]
+
 ### Validators
 
 - `AbstractValidator` [ ]
