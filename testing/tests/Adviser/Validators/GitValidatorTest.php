@@ -16,10 +16,17 @@ class GitValidatorTest extends \PHPUnit_Framework_TestCase {
 
         $validator->utility("Git", $git);
 
+        // Not a Git repository.
         $messages = $validator->handle();
         $this->isMessageBag($messages);
 
-        $this->assertEquals($messages->getAll()[0]->getLevel(), Message::ERROR);
+        $this->assertEquals($messages->first()->getLevel(), Message::ERROR);
+
+        // Git repository.
+        $messages = $validator->handle();
+        $this->isMessageBag($messages);
+
+        $this->assertEquals($messages->first()->getLevel(), Message::NORMAL);
     }
 
     protected function isMessageBag($value) {
