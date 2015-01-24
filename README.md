@@ -26,6 +26,8 @@ Adviser is a CLI application written in PHP that checks your project for various
 
 ## Progress
 
+Around `20%`.
+
 ### Utility classes
 
 - `Git`:
@@ -39,7 +41,21 @@ Adviser is a CLI application written in PHP that checks your project for various
 
 ### Validators
 
-@todo
+- `AbstractValidator` [ ]
+- `ValidatorLoader` [ ]
+
+
+- `GitValidator` [ ]
+- `ComposerValidator` [ ]
+- `FrameworkValidator` [ ]
+- `CodeStyleValidator` [ ]
+- `TestValidator` [ ]
+- `CIValidator` [ ]
+- `SemVerValidator` [ ]
+- `ReadmeValidator` [ ]
+- `LicenseValidator` [ ]
+- `ContributingValidator` [ ]
+- `ChangelogValidator` [ ]
 
 ## License
 
