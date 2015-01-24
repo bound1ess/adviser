@@ -42,14 +42,25 @@ class Message {
     /**
      * Format the message according to its level.
      *
+     * @param boolean $raw
      * @return string
      */
-    public function format() {
-        switch ($this->level) {
-            case static::NORMAL:  return "<info>{$this->message}</info>";
-            case static::WARNING: return "<comment>{$this->message}</comment>";
-            case static::ERROR:   return "<error>{$this->message}</error>";
+    public function format($raw = false) {
+        $level = $raw ? null : $this->level;
+
+        if ($level == static::NORMAL) {
+            return "<info>{$this->message}</info>";
         }
+
+        if ($level == static::WARNING) {
+            return "<comment>{$this->message}</comment>";
+        }
+
+        if ($level == static::ERROR) {
+            return "<error>{$this->message}</error>";
+        }
+
+        return $this->message;
     }
 
     /**

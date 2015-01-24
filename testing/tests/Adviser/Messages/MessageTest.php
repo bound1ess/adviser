@@ -11,6 +11,8 @@ class MessageTest extends \PHPUnit_Framework_TestCase {
 
         $message = new Message("some message", Message::ERROR);
         $this->assertEquals($message->format(), "<error>some message</error>");
+
+        $this->assertEquals($message->format(true), "some message");
     }
 
     /** @test */ function it_throws_an_exception_if_invalid_level_is_passed() {
