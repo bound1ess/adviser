@@ -54,7 +54,7 @@ Around `25%`.
     - `packageExists` [x]
 - `Composer`:
     - `manifestExists` [x]
-    - `isManifestValid` [ ]
+    - `isManifestValid` [x]
     - `hasAutoloader` [ ]
     - `getSourceDirectories` [ ]
 
@@ -67,7 +67,6 @@ Around `25%`.
 
 - `AbstractValidator` [x]
 - `ValidatorLoader` [x]
-
 
 - `GitValidator` [x]
 - `ComposerValidator` [ ]

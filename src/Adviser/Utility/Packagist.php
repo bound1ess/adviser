@@ -13,12 +13,12 @@ class Packagist
     protected $client;
 
     /**
-     * @param  Client    $client
+     * @param Client|null $client
      * @return Packagist
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client = null)
     {
-        $this->client = $client;
+        $this->client = $client ?: new Client;
     }
 
     /**

@@ -4,17 +4,17 @@ class Git
 {
 
     /**
-     * @var CommandRunner|null
+     * @var CommandRunner
      */
     protected $runner;
 
     /**
-     * @param  CommandRunner|null $runner
+     * @param CommandRunner|null $runner
      * @return Git
      */
     public function __construct(CommandRunner $runner = null)
     {
-        $this->runner = $runner;
+        $this->runner = $runner ?: new CommandRunner;
     }
 
     /**
