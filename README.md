@@ -53,7 +53,7 @@ Around `25%`.
 - `Packagist`:
     - `packageExists` [x]
 - `Composer`:
-    - `manifestExists` [ ]
+    - `manifestExists` [x]
     - `isManifestValid` [ ]
     - `hasAutoloader` [ ]
     - `getSourceDirectories` [ ]
