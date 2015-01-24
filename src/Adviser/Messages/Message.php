@@ -64,6 +64,15 @@ class Message {
     }
 
     /**
+     * Get the message level.
+     *
+     * @return integer
+     */
+    public function getLevel() {
+        return $this->level;
+    }
+
+    /**
      * Validate and set appropriate level.
      *
      * @throws InvalidArgumentException

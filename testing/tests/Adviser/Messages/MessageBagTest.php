@@ -20,8 +20,13 @@ class MessageBagTest extends \PHPUnit_Framework_TestCase {
 
     /** @test */ function it_adds_a_message() {
         $this->assertCount(0, $this->bag->getAll());
-        $this->bag->throwIn($this->createMessage());
-        $this->bag->throwIn($this->createMessage());
+
+        $this->bag->throwIn($message1 = $this->createMessage());
+        $this->bag->throwIn($message2 = $this->createMessage());
+
         $this->assertCount(2, $this->bag->getAll());
+
+        $this->assertEquals($this->bag->first(), $message1);
+        $this->assertEquals($this->bag->last(), $message2);
     }
 }
