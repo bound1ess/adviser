@@ -3,14 +3,14 @@
 use Mockery;
 use Adviser\Messages\Message;
 
-class GitValidatorTest extends \PHPUnit_Framework_TestCase
+class GitValidatorTest extends ValidatorTestCase
 {
 
     /** @test */ public function it_does_its_job()
     {
         $validator = new GitValidator(null);
 
-        $git = $this->getGitUtilityMock();
+        $git = Mockery::mock("Adviser\Utility\Git");
 
         $git->shouldReceive("isRepository")
             ->times(4)
@@ -54,20 +54,5 @@ class GitValidatorTest extends \PHPUnit_Framework_TestCase
         $this->isMessageBag($messages);
 
         $this->assertEquals($messages->last()->getLevel(), Message::NORMAL);
-    }
-
-    protected function isMessageBag($value)
-    {
-        $this->assertInstanceOf("Adviser\Messages\MessageBag", $value);
-    }
-
-    protected function getGitUtilityMock()
-    {
-        return Mockery::mock("Adviser\Utility\Git");
-    }
-
-    public function tearDown()
-    {
-        Mockery::close();
     }
 }

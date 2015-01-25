@@ -3,7 +3,7 @@
 use Mockery;
 use Adviser\Messages\Message;
 
-class SemVerValidatorTest extends \PHPUnit_Framework_TestCase
+class SemVerValidatorTest extends ValidatorTestCase
 {
 
     /** @test */ function it_does_its_job()
@@ -43,15 +43,5 @@ class SemVerValidatorTest extends \PHPUnit_Framework_TestCase
         $this->isMessageBag($messages);
 
         $this->assertEquals($messages->first()->getLevel(), Message::NORMAL);
-    }
-
-    protected function isMessageBag($value)
-    {
-        $this->assertInstanceOf("Adviser\Messages\MessageBag", $value);
-    }
-
-    public function tearDown()
-    {
-        Mockery::close();
     }
 }
