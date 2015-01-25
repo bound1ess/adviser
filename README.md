@@ -56,7 +56,7 @@ Around `25%`.
     - `manifestExists` [x]
     - `isManifestValid` [x]
     - `hasAutoloader` [x]
-    - `getSourceDirectories` [ ]
+    - `getSourceDirectories` [x]
 
 ### Messages
 

@@ -61,6 +61,28 @@ class Composer
     }
 
     /**
+     * Read the manifest and return all source directories listed there.
+     *
+     * @param string $directory
+     * @return array
+     */
+    public function getSourceDirectories($directory)
+    {
+        if (is_null($manifest = $this->readManifest($directory))
+            or ! array_key_exists("autoload", $manifest)) {
+            return [];
+        }
+
+        $directories = [];
+
+        foreach ($manifest["autoload"] as $map) {
+            $directories = array_merge($directories, array_values($map));
+        }
+
+        return $directories;
+    }
+
+    /**
      * Read the manifest file.
      *
      * @param string $directory
@@ -76,7 +98,7 @@ class Composer
     }
 
     /**
-     * Will return either "./composer.phar" or "composer".
+     * Return either "./composer.phar" or "composer".
      *
      * @param string $directory
      * @return string

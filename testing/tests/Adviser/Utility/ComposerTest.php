@@ -40,6 +40,14 @@ class ComposerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($composer->hasAutoloader($_SERVER["HOME"], "psr-4"), null);
     }
 
+    /** @test */ public function it_returns_the_source_directories_listed_in_the_manifest()
+    {
+        $composer = new Composer();
+
+        $this->assertCount(0, $composer->getSourceDirectories($_SERVER["HOME"]));
+        $this->assertEquals($composer->getSourceDirectories(ADVISER_DIR), ["src/Adviser/"]);
+    }
+
     public function tearDown()
     {
         Mockery::close();
