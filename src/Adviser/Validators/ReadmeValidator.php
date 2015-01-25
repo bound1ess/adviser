@@ -22,7 +22,7 @@ class ReadmeValidator extends AbstractValidator
      */
     protected function lookForReadmeFile()
     {
-        if (file_exists($this->directory."/README.md")) {
+        if ($this->utility("File")->exists($this->directory."/README.md")) {
             return new Message("Your project has a README.md file.", Message::NORMAL);
         }
 
@@ -43,11 +43,11 @@ class ReadmeValidator extends AbstractValidator
     protected function checkIfExists($files)
     {
         foreach ($files as $file) {
-            if ( ! file_exists($this->directory."/".$file)) {
-                return false;
+            if ($this->utility("File")->exists($this->directory."/".$file)) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }
