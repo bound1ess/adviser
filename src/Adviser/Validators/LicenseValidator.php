@@ -22,11 +22,13 @@ class LicenseValidator extends AbstractValidator
      */
     protected function lookForLicenseFile()
     {
-        if ($this->utility("File")->exists($this->directory."/LICENSE")) {
+        $file = $this->utility("File");
+
+        if ($file->exists($this->directory."/LICENSE")) {
             return new Message("Your project has a LICENSE file.", Message::NORMAL);
         }
 
-        if ($this->anyExists(["License", "license"])) {
+        if ($file->anyExists(["License", "license"])) {
             return new Message(
                 "Looks like your project has a license file, but it's not LICENSE.",
                 Message::WARNING

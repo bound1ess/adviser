@@ -14,12 +14,16 @@ class ReadmeValidatorTest extends ValidatorTestCase
         $file = Mockery::mock("Adviser\Utility\File");
 
         $file->shouldReceive("exists")
-             ->times(1 + (1 + 4) + (1 + 4))
+             ->times(1 + 1 + 1)
              ->andReturn(
                  true, // 1st scenario.
-                 false, false, false, false, true, // 2nd scenario.
-                 false, false, false, false, false // 3rd scenario.
+                 false, // 2nd scenario.
+                 false // 3rd scenario.
              );
+
+        $file->shouldReceive("anyExists")
+             ->twice()
+             ->andReturn(true, false);
 
         $validator->utility("File", $file);
 
