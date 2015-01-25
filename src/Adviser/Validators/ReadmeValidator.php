@@ -6,6 +6,11 @@ class ReadmeValidator extends AbstractValidator
 {
 
     /**
+     * @var array
+     */
+    protected $files = ["Readme", "readme", "Readme.md", "readme.md"];
+
+    /**
      * @inheritdoc
      */
     public function handle()
@@ -28,7 +33,7 @@ class ReadmeValidator extends AbstractValidator
             return new Message("Your project has a README.md file.", Message::NORMAL);
         }
 
-        if ($file->anyExists(["Readme", "readme", "Readme.md", "readme.md"])) {
+        if ($file->anyExists($this->directory, $this->files)) {
             return new Message(
                 "Looks like your project has a readme file, but it's not README.md.",
                 Message::WARNING

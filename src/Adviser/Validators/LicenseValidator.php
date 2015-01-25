@@ -6,6 +6,11 @@ class LicenseValidator extends AbstractValidator
 {
 
     /**
+     * @var array
+     */
+    protected $files = ["License", "license"];
+
+    /**
      * @inheritdoc
      */
     public function handle()
@@ -28,7 +33,7 @@ class LicenseValidator extends AbstractValidator
             return new Message("Your project has a LICENSE file.", Message::NORMAL);
         }
 
-        if ($file->anyExists(["License", "license"])) {
+        if ($file->anyExists($this->directory, $this->files)) {
             return new Message(
                 "Looks like your project has a license file, but it's not LICENSE.",
                 Message::WARNING
