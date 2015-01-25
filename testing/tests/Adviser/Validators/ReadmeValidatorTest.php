@@ -3,18 +3,6 @@
 use Mockery;
 use Adviser\Messages\Message;
 
-// Mock for testing purposes.
-function file_exists()
-{
-    static $returnValue = [
-        true, // 1st scenario.
-        false, false, false, false, true, // 2nd scenario.
-        false, false, false, false, false, // 3rd scenario.
-    ];
-
-    return array_shift($returnValue);
-}
-
 class ReadmeValidatorTest extends ValidatorTestCase
 {
 
@@ -22,6 +10,18 @@ class ReadmeValidatorTest extends ValidatorTestCase
     {
         // Setup.
         $validator = new ReadmeValidator(null);
+
+        $file = Mockery::mock("Adviser\Utility\File");
+
+        $file->shouldReceive("exists")
+             ->times(1 + (1 + 4) + (1 + 4))
+             ->andReturn(
+                 true, // 1st scenario.
+                 false, false, false, false, true, // 2nd scenario.
+                 false, false, false, false, false // 3rd scenario.
+             );
+
+        $validator->utility("File", $file);
 
         // Testing.
         // 1st scenario: there is a README.md file, everything is cool.
