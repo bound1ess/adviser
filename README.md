@@ -74,7 +74,7 @@ Around `25%`.
 - `CodeStyleValidator` [ ]
 - `TestValidator` [ ]
 - `CIValidator` [ ]
-- `SemVerValidator` [ ]
+- `SemVerValidator` [x]
 - `ReadmeValidator` [ ]
 - `LicenseValidator` [ ]
 - `ContributingValidator` [ ]

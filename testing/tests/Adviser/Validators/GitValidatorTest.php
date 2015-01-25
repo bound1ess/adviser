@@ -6,7 +6,7 @@ use Adviser\Messages\Message;
 class GitValidatorTest extends \PHPUnit_Framework_TestCase
 {
 
-    /** @test */ public function it_checks_if_git_repository_is_present()
+    /** @test */ public function it_does_its_job()
     {
         $validator = new GitValidator(null);
 
