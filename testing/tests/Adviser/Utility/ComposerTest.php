@@ -36,6 +36,8 @@ class ComposerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($composer->hasAutoloader(ADVISER_DIR, "psr-0"));
         $this->assertTrue($composer->hasAutoloader(ADVISER_DIR, "psr-4"));
+
+        $this->assertEquals($composer->hasAutoloader($_SERVER["HOME"], "psr-4"), null);
     }
 
     public function tearDown()

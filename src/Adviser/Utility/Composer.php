@@ -52,14 +52,27 @@ class Composer
      */
     public function hasAutoloader($directory, $type)
     {
-        if ( ! $this->manifestExists($directory)) {
+        if (is_null($manifest = $this->readManifest($directory))) {
             return false;
         }
 
-        $manifest = json_decode(file_get_contents($directory."/composer.json"), true);
-
         return array_key_exists("autoload", $manifest)
             && array_key_exists($type, $manifest["autoload"]);
+    }
+
+    /**
+     * Read the manifest file.
+     *
+     * @param string $directory
+     * @return null|array
+     */
+    protected function readManifest($directory)
+    {
+        if ( ! $this->manifestExists($directory)) {
+            return null;
+        }
+
+        return json_decode(file_get_contents($directory."/composer.json"), true);
     }
 
     /**
