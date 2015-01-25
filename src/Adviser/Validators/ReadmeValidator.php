@@ -22,7 +22,32 @@ class ReadmeValidator extends AbstractValidator
      */
     protected function lookForReadmeFile()
     {
-        // @todo
-        return new Message("", Message::ERROR);
+        if (file_exists($this->directory."/README.md")) {
+            return new Message("Your project has a README.md file.", Message::NORMAL);
+        }
+
+        if ($this->checkIfExists(["Readme", "readme", "Readme.md", "readme.md"])) {
+            return new Message(
+                "Looks like your project has a readme file, but it is not README.md.",
+                Message::WARNING
+            );
+        }
+
+        return new Message("Your project does not have a readme file.", Message::ERROR);
+    }
+
+    /**
+     * @param array $files
+     * @return boolean
+     */
+    protected function checkIfExists($files)
+    {
+        foreach ($files as $file) {
+            if ( ! file_exists($this->directory."/".$file)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

@@ -7,9 +7,9 @@ use Adviser\Messages\Message;
 function file_exists()
 {
     static $returnValue = [
-        true,         // 1st scenario.
-        false, true,  // 2nd scenario.
-        false, false, // 3rd scenario.
+        true, // 1st scenario.
+        false, false, false, false, true, // 2nd scenario.
+        false, false, false, false, false, // 3rd scenario.
     ];
 
     return array_shift($returnValue);
