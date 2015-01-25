@@ -6,7 +6,7 @@ use Adviser\Messages\Message;
 class SemVerValidatorTest extends ValidatorTestCase
 {
 
-    /** @test */ function it_does_its_job()
+    /** @test */ public function it_does_its_job()
     {
         // Setup.
         $validator = new SemVerValidator(null);

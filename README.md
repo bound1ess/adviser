@@ -75,7 +75,7 @@ Around `25%`.
 - `TestValidator` [ ]
 - `CIValidator` [ ]
 - `SemVerValidator` [x]
-- `ReadmeValidator` [ ]
+- `ReadmeValidator` [x]
 - `LicenseValidator` [ ]
 - `ContributingValidator` [ ]
 - `ChangelogValidator` [ ]
