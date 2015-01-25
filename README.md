@@ -55,7 +55,7 @@ Around `25%`.
 - `Composer`:
     - `manifestExists` [x]
     - `isManifestValid` [x]
-    - `hasAutoloader` [ ]
+    - `hasAutoloader` [x]
     - `getSourceDirectories` [ ]
 
 ### Messages

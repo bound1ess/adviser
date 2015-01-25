@@ -43,6 +43,26 @@ class Composer
     }
 
     /**
+     * Check if an autoloader of given type was configured in the manifest file.
+     * Possible types: "psr-0", "psr-4", "classmap", "files".
+     *
+     * @param string $directory
+     * @param string $type
+     * @return boolean
+     */
+    public function hasAutoloader($directory, $type)
+    {
+        if ( ! $this->manifestExists($directory)) {
+            return false;
+        }
+
+        $manifest = json_decode(file_get_contents($directory."/composer.json"), true);
+
+        return array_key_exists("autoload", $manifest)
+            && array_key_exists($type, $manifest["autoload"]);
+    }
+
+    /**
      * Will return either "./composer.phar" or "composer".
      *
      * @param string $directory

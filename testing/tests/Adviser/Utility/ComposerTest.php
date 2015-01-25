@@ -30,6 +30,14 @@ class ComposerTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($composer->isManifestValid(ADVISER_DIR));
     }
 
+    /** @test */ public function it_checks_if_autoloader_was_configured_in_the_manifest_file()
+    {
+        $composer = new Composer();
+
+        $this->assertFalse($composer->hasAutoloader(ADVISER_DIR, "psr-0"));
+        $this->assertTrue($composer->hasAutoloader(ADVISER_DIR, "psr-4"));
+    }
+
     public function tearDown()
     {
         Mockery::close();
