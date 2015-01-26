@@ -26,6 +26,9 @@ Adviser is a CLI application written in PHP that checks your project for various
 8. Check for tests folder and a proper testing framework configuration.
     - Support for **PhpSpec**, **PHPUnit**, **Behat**, **Codeception**.
 
+9. Check for CI (Continuous Integration) configuration file.
+    - [Travis](https://travis-ci.org) is supported.
+
 #### In progress
 
 1. Check that the `composer.json` manifest file is present and valid.
@@ -34,9 +37,6 @@ Adviser is a CLI application written in PHP that checks your project for various
     - Extra: ensure that the source code is being stored in `src/`.
 
 3. Check the source code using [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
-
-5. Check for CI (Continuous Integration) configuration file.
-    - [Travis](https://travis-ci.org) is supported.
 
 ## Progress
 
@@ -76,7 +76,7 @@ Around `40%`.
 - `FrameworkValidator` [x]
 - `CodeStyleValidator` [ ]
 - `TestValidator` [x]
-- `CIValidator` [ ]
+- `CIValidator` [x]
 - `SemVerValidator` [x]
 - `ReadmeValidator` [x]
 - `LicenseValidator` [x]
