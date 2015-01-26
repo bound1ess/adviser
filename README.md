@@ -21,14 +21,14 @@ Adviser is a CLI application written in PHP that checks your project for various
 
 6. Check for a CONTRIB(UTING) file.
 
+7. Check if your project is framework agnostic or not.
+
 #### In progress
 
 1. Check that the `composer.json` manifest file is present and valid.
     - Check for a PSR-4 autoloader.
     - Check if your project is available on [Packagist](https://packagist.org).
     - Extra: ensure that the source code is being stored in `src/`.
-
-2. Check if your project is framework agnostic or not.
 
 3. Check the source code using [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 
@@ -73,7 +73,7 @@ Around `30%`.
 - `ValidatorLoader` [x]
 - `GitValidator` [x]
 - `ComposerValidator` [ ]
-- `FrameworkValidator` [ ]
+- `FrameworkValidator` [x]
 - `CodeStyleValidator` [ ]
 - `TestValidator` [ ]
 - `CIValidator` [ ]
