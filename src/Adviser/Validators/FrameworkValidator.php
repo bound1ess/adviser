@@ -1,5 +1,7 @@
 <?php namespace Adviser\Validators;
 
+use Adviser\Messages\Message, Adviser\Messages\MessageBag;
+
 class FrameworkValidator extends AbstractValidator
 {
 
