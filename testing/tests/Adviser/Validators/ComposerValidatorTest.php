@@ -44,33 +44,27 @@ class ComposerValidatorTest extends ValidatorTestCase
 
     protected function mockUtilities(ComposerValidator $validator)
     {
+        $manifest = [
+            "name" => "test/package",
+        ];
+
         $packagist = Mockery::mock("Adviser\Utility\Packagist");
 
         // We actually don't want to hit the Packagist API in our tests, so we use mocks.
         // We'll be called in "ComposerValidator::checkIfPackageWasPublished".
         $packagist->shouldReceive("packageExists")
                   ->twice()
-                  ->with("test/package")
+                  ->with($manifest["name"])
                   ->andReturn(false, true);
 
 
         $composer = Mockery::mock("Adviser\Utility\Composer");
 
-        // We need to mock these 3 methods for "ComposerValidator::isManifestOK".
+        // We need to mock this method for "ComposerValidator::isManifestOK".
         $composer->shouldReceive("readManifest")
-                 ->twice()
+                 ->times(5)
                  ->with(null)
-                 ->andReturn(["name" => "test/package"]);
-
-        $composer->shouldReceive("isManifestValid")
-                 ->twice()
-                 ->with(null)
-                 ->andReturn(false, true);
-
-        $composer->shouldReceive("manifestExists")
-                 ->times(3)
-                 ->with(null)
-                 ->andReturn(false, true, true);
+                 ->andReturn(null, $manifest);
 
         // This one is for "ComposerValidator::lookForAutoloader".
         $composer->shouldReceive("hasAutoloader")
@@ -82,7 +76,7 @@ class ComposerValidatorTest extends ValidatorTestCase
         $composer->shouldReceive("getSourceDirectories")
                  ->twice()
                  ->with(null)
-                 ->andReturn(false, true);
+                 ->andReturn([], ["testing/tests", "src/Adviser/"]);
 
 
         $validator->utility("Packagist", $packagist);

@@ -12,12 +12,14 @@ class ComposerValidator extends AbstractValidator
     {
         $bag = new MessageBag();
 
-        $bag->throwIn($message = $this->isManifestOK());
+        $message = $this->isManifestOK();
 
         if ($message->getLevel() != Message::ERROR) {
             $bag->throwIn($this->lookForAutoloader("psr-4"));
             $bag->throwIn($this->checkIfPackageWasPublished());
             $bag->throwIn($this->checkIfSourceCodeIsStoredIn("src"));
+        } else {
+            $bag->throwIn($message);
         }
 
         return $bag;
@@ -79,17 +81,17 @@ class ComposerValidator extends AbstractValidator
      */
     protected function checkIfSourceCodeIsStoredIn($directory)
     {
-        foreach ($this->utility("Composer")->getSourceDirectories($directory) as $path) {
-            if (strpos($path, "src") === 0) {
+        foreach ($this->utility("Composer")->getSourceDirectories($this->directory) as $path) {
+            if (strpos($path, $directory) === 0) {
                 return new Message(
-                    "Your project's code is in the src/ directory, so it's easy to find.",
+                    "Your project's source code is in the {$directory}/ directory.",
                     Message::NORMAL
                 );
             }
         }
 
         return new Message(
-            "Your project's source code is not in the src/ directory.",
+            "Your project's source code is not in the {$directory}/ directory.",
             Message::WARNING
         );
     }
