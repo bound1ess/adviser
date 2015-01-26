@@ -111,7 +111,7 @@ class Composer
      * @param string $directory
      * @return null|array
      */
-    protected function readManifest($directory)
+    public function readManifest($directory)
     {
         if ( ! $this->manifestExists($directory)) {
             return null;
