@@ -25,7 +25,11 @@ class TestValidatorTest extends ValidatorTestCase
         $composer->shouldReceive("getDependencies")
                  ->times(3)
                  ->with(null, true)
-                 ->andReturn([], ["phpspec/phpspec"], ["phpunit/phpunit"]);
+                 ->andReturn(
+                     ["weird/package", "behat/behat"],
+                     ["phpspec/phpspec"],
+                     ["phpunit/phpunit"]
+                 );
 
         $validator->utility("File", $file);
         $validator->utility("Composer", $composer);
