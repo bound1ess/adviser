@@ -12,7 +12,7 @@ class ComposerValidator extends AbstractValidator
     {
         $bag = new MessageBag();
 
-        $bag->throwIn($message = $this->isManifestValid());
+        $bag->throwIn($message = $this->isManifestOK());
 
         if ($message->getLevel() != Message::ERROR) {
             $bag->throwIn($this->lookForAutoloader("psr-4"));
@@ -26,9 +26,18 @@ class ComposerValidator extends AbstractValidator
     /**
      * @return Message
      */
-    protected function isManifestValid()
+    protected function isManifestOK()
     {
+        $composer = $this->utility("Composer");
 
+        if ( ! is_null($composer->readManifest($this->directory))) {
+            return new Message(
+                "Your manifest file (composer.json) is just fine.",
+                Message::NORMAL
+            );
+        }
+
+        return new Message("Something is wrong with your composer.json file.", Message::ERROR);
     }
 
     /**
@@ -37,7 +46,14 @@ class ComposerValidator extends AbstractValidator
      */
     protected function lookForAutoloader($name)
     {
+        if ( ! $this->utility("Composer")->hasAutoloader($this->directory, $name)) {
+            return new Message(
+                "You should be using the {$name} autoloader for your project instead.",
+                Message::WARNING
+            );
+        }
 
+        return new Message("Your project uses the {$name} autoloader.", Message::NORMAL);
     }
 
     /**
@@ -45,7 +61,16 @@ class ComposerValidator extends AbstractValidator
      */
     protected function checkIfPackageWasPublished()
     {
+        $manifest = $this->utility("Composer")->readManifest($this->directory);
 
+        if ( ! $this->utility("Packagist")->packageExists($manifest["name"])) {
+            return new Message("Your project is not on Packagist.", Message::WARNING);
+        }
+
+        return new Message(
+            "Your project is available at packagist.org/packages/{$manifest['name']}",
+            Message::NORMAL
+        );
     }
 
     /**
@@ -54,6 +79,18 @@ class ComposerValidator extends AbstractValidator
      */
     protected function checkIfSourceCodeIsStoredIn($directory)
     {
+        foreach ($this->utility("Composer")->getSourceDirectories($directory) as $path) {
+            if (strpos($path, "src") === 0) {
+                return new Message(
+                    "Your project's code is in the src/ directory, so it's easy to find.",
+                    Message::NORMAL
+                );
+            }
+        }
 
+        return new Message(
+            "Your project's source code is not in the src/ directory.",
+            Message::WARNING
+        );
     }
 }
