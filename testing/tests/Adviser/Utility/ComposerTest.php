@@ -54,6 +54,9 @@ class ComposerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(0, $composer->getDependencies($_SERVER["HOME"]));
         $this->assertContains("symfony/console", $composer->getDependencies(ADVISER_DIR));
+        $this->assertContains(
+            "phpunit/phpunit", $composer->getDependencies(ADVISER_DIR, true)
+        );
     }
 
     public function tearDown()

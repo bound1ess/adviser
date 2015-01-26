@@ -42,6 +42,10 @@ class TestValidator extends AbstractValidator
      */
     protected function checkTestingFrameworksConfiguration()
     {
-        // @todo
+        $packages = $this->utility("Composer")->getDependencies($this->directory, true);
+
+        foreach ($packages as $package) {
+            // @todo
+        }
     }
 }

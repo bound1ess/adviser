@@ -83,19 +83,26 @@ class Composer
     }
 
     /**
-     * Get the dependencies list ("require" only).
+     * Get the dependencies list.
      *
      * @param string $directory
+     * @param boolean $development
      * @return array
      */
-    public function getDependencies($directory)
+    public function getDependencies($directory, $development = false)
     {
-        if (is_null($manifest = $this->readManifest($directory))
-            or ! array_key_exists("require", $manifest)) {
+        if (is_null($manifest = $this->readManifest($directory))) {
             return [];
         }
 
-        return array_keys($manifest["require"]);
+        $get = function($key) use($manifest)
+        {
+            return array_key_exists($key, $manifest) ? array_keys($manifest[$key]) : [];
+        };
+
+        $production = $get("require");
+
+        return $development ? array_merge($get("require-dev"), $production) : $production;
     }
 
     /**
