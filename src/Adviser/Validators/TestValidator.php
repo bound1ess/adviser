@@ -56,6 +56,9 @@ class TestValidator extends AbstractValidator
                 continue; // This testing framework doesn't need a configuration file, skip.
             }
 
+            // Whether $package has a configuration file.
+            $configured = false;
+
             foreach ($this->frameworkToConfiguration[$package] as $file) {
                 // If there is a configuration file for this testing framework, that's cool.
                 if ($this->utility("File")->exists($this->directory."/".$file)) {
@@ -64,7 +67,18 @@ class TestValidator extends AbstractValidator
                         "Testing framework {$package} is configured in ./{$file}.",
                         Message::NORMAL
                     ));
+
+                    $configured = true;
+
+                    break;
                 }
+            }
+
+            if ( ! $configured) {
+                $bag->throwIn(new Message(
+                    "Package {$package} is not configured via a configuration file.",
+                    Message::WARNING
+                ));
             }
         }
 
