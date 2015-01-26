@@ -32,20 +32,50 @@ class TestValidator extends AbstractValidator
     {
         $bag = new MessageBag();
 
-        $bag->throwIn($this->checkTestingFrameworksConfiguration());
+        foreach ($this->checkTestingFrameworksConfiguration()->getAll() as $message) {
+            $bag->throwIn($message);
+        }
 
         return $bag;
     }
 
     /**
-     * @return Message
+     * @return MessageBag
      */
     protected function checkTestingFrameworksConfiguration()
     {
         $packages = $this->utility("Composer")->getDependencies($this->directory, true);
+        $bag = new MessageBag();
 
         foreach ($packages as $package) {
-            // @todo
+            if ( ! in_array($package, $this->testingFrameworks)) {
+                continue; // This is not what we're looking for, skip.
+            }
+
+            if ( ! array_key_exists($package, $this->frameworkToConfiguration)) {
+                continue; // This testing framework doesn't need a configuration file, skip.
+            }
+
+            foreach ($this->frameworkToConfiguration[$package] as $file) {
+                // If there is a configuration file for this testing framework, that's cool.
+                if ($this->utility("File")->exists($this->directory."/".$file)) {
+                    // Add a message to the message bag.
+                    $bag->throwIn(new Message(
+                        "Testing framework {$package} is configured in ./{$file}.",
+                        Message::NORMAL
+                    ));
+                }
+            }
         }
+
+        if (1 > count($bag->getAll())) {
+            // If no messages were added, something is probably wrong.
+            $bag->throwIn(new Message(
+                "Looks like you don't test your code, do you?",
+                Message::ERROR
+            ));
+        }
+
+        return $bag;
     }
 }
