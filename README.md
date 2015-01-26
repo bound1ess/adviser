@@ -57,6 +57,7 @@ Around `30%`.
     - `isManifestValid` [x]
     - `hasAutoloader` [x]
     - `getSourceDirectories` [x]
+    - `getDependencies` [x]
 - `File`:
     - `exists` [x]
     - `anyExists` [x]

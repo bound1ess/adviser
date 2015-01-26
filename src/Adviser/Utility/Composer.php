@@ -83,6 +83,22 @@ class Composer
     }
 
     /**
+     * Get the dependencies list ("require" only).
+     *
+     * @param string $directory
+     * @return array
+     */
+    public function getDependencies($directory)
+    {
+        if (is_null($manifest = $this->readManifest($directory))
+            or ! array_key_exists("require", $manifest)) {
+            return [];
+        }
+
+        return array_keys($manifest["require"]);
+    }
+
+    /**
      * Read the manifest file.
      *
      * @param string $directory

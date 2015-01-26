@@ -48,6 +48,14 @@ class ComposerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($composer->getSourceDirectories(ADVISER_DIR), ["src/Adviser/"]);
     }
 
+    /** @test */ public function it_returns_the_dependencies_list()
+    {
+        $composer = new Composer();
+
+        $this->assertCount(0, $composer->getDependencies($_SERVER["HOME"]));
+        $this->assertContains("symfony/console", $composer->getDependencies(ADVISER_DIR));
+    }
+
     public function tearDown()
     {
         Mockery::close();
