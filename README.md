@@ -19,6 +19,8 @@ Adviser is a CLI application written in PHP that checks your project for various
 
 5. Check for a README file.
 
+6. Check for a CONTRIB(UTING) file.
+
 #### In progress
 
 1. Check that the `composer.json` manifest file is present and valid.
@@ -35,8 +37,6 @@ Adviser is a CLI application written in PHP that checks your project for various
 
 5. Check for CI (Continuous Integration) configuration file.
     - [Travis](https://travis-ci.org) is supported.
-
-6. Check for a CONTRIB(UTING) file.
 
 ## Progress
 
@@ -80,7 +80,7 @@ Around `30%`.
 - `SemVerValidator` [x]
 - `ReadmeValidator` [x]
 - `LicenseValidator` [x]
-- `ContributingValidator` [ ]
+- `ContributingValidator` [x]
 - `ChangelogValidator` [x]
 
 ## License
