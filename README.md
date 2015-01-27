@@ -1,12 +1,10 @@
 # Adviser [![Build Status](https://travis-ci.org/bound1ess/adviser.svg?branch=master)](https://travis-ci.org/bound1ess/adviser)
 
-Adviser is a CLI application written in PHP that checks your project for various possible improvements. Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
+Adviser is a CLI application that checks your PHP project for various possible improvements.
+
+Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
 
 ## What It Does
-
-### PHP package
-
-#### Done
 
 1. Check that the current directory is a Git repository.
     - The `remote.origin.url` property should point to either **Github** or **Bitbucket**.
@@ -38,7 +36,7 @@ Adviser is a CLI application written in PHP that checks your project for various
 
 ## Progress
 
-Around `50%`.
+Around `55%`.
 
 ### Utility
 
