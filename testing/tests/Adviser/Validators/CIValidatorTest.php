@@ -1,30 +1,29 @@
 <?php namespace Adviser\Validators;
 
-use Mockery;
-use Adviser\Messages\Message;
-
-// Mock for testing purposes.
-function file_get_contents()
-{
-    return null;
-}
-
 class CIValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
-    /** @test */ public function it_does_its_job()
+    /**
+     * @test
+     */
+    public function it_does_its_job()
     {
         // Setup.
         $validator = new CIValidator(null);
 
-        $file = Mockery::mock("Adviser\Utility\File");
+        $file = $this->mockUtility("File");
 
         $file->shouldReceive("exists")
              ->times(3)
              ->with("/.travis.yml")
              ->andReturn(false, true, true);
 
-        $YAMLParser = Mockery::mock("Adviser\Utility\YAMLParser");
+        $file->shouldReceive("read")
+             ->twice()
+             ->with("/.travis.yml")
+             ->andReturn(null, null);
+
+        $YAMLParser = $this->mockUtility("YAMLParser");
 
         $YAMLParser->shouldReceive("parse")
                    ->twice()
@@ -38,21 +37,18 @@ class CIValidatorTest extends \Adviser\Testing\ValidatorTestCase
 
         // Test.
         // 1st scenario: no .travis.yml file was found in the root directory of the project.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::ERROR);
+        $this->assertTrue($messages->first()->isError());
 
         // 2nd scenario: .travis.yml file is present, but PHP versions are outdated.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::WARNING);
+        $this->assertTrue($messages->first()->isWarning());
 
         // 3rd scenario: everything is fine.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::NORMAL);
+        $this->assertTrue($messages->first()->isNormal());
     }
 }

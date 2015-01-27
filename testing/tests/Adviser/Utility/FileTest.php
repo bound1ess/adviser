@@ -3,7 +3,10 @@
 class FileTest extends \Adviser\Testing\UtilityTestCase
 {
 
-    /** @test */ public function it_checks_if_file_or_directory_exists()
+    /**
+     * @test
+     */
+    public function it_checks_if_file_or_directory_exists()
     {
         $file = new File;
 
@@ -13,7 +16,10 @@ class FileTest extends \Adviser\Testing\UtilityTestCase
         $this->assertFalse($file->exists(ADVISER_DIR.uniqid()));
     }
 
-    /** @test */ public function it_checks_if_any_of_given_files_or_directories_exists()
+    /**
+     * @test
+     */
+    public function it_checks_if_any_of_given_files_or_directories_exists()
     {
         $file = new File;
 
@@ -21,5 +27,17 @@ class FileTest extends \Adviser\Testing\UtilityTestCase
         $this->assertTrue($file->anyExists(ADVISER_DIR, ["Src", "src"]));
 
         $this->assertFalse($file->anyExists(ADVISER_DIR, [uniqid()]));
+    }
+
+    /**
+     * @test
+     */
+    public function it_reads_a_file()
+    {
+        $file = new File;
+
+        $this->assertEmpty($file->read(uniqid()));
+
+        $this->assertNotEmpty($file->read(__FILE__));
     }
 }

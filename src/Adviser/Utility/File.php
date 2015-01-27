@@ -31,4 +31,19 @@ class File extends AbstractUtility
 
         return false;
     }
+
+    /**
+     * Read a file.
+     *
+     * @param string $file
+     * @return string|null
+     */
+    public function read($file)
+    {
+        if ( ! $this->exists($file)) {
+            return null;
+        }
+
+        return file_get_contents($file);
+    }
 }

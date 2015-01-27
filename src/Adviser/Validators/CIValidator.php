@@ -34,7 +34,7 @@ class CIValidator extends AbstractValidator
             );
         }
 
-        $config = $this->utility("YAMLParser")->parse(file_get_contents($path));
+        $config = $this->utility("YAMLParser")->parse($this->utility("File")->read($path));
 
         if ( ! array_key_exists("php", $config) or ! $this->checkVersions($config["php"])) {
             return new Message(
