@@ -53,7 +53,7 @@ class AnalyseCommand extends Command
         $output->writeln("<comment>{$directory}</comment> <info>[{$projectName}]</info>...");
         $output->writeln("Running <info>".count($validators)."</info> validators...");
 
-        $output->writeln(PHP_EOL);
+        $output->writeln("");
 
         list($normal, $warnings, $errors) = [0, 0, 0];
 
@@ -68,13 +68,27 @@ class AnalyseCommand extends Command
             }
 
             $bag = $validator->handle();
+
+            // Update the counters.
+            $normal   += count($bag->getNormalMessages());
+            $warnings += count($bag->getWarnings());
+            $errors   += count($bag->getErrors());
+
+            // Display the messages.
+            $output->writeln("");
+
+            foreach ($bag->getAll() as $message) {
+                $output->writeln("        ".$message->format());
+            }
+
+            $output->writeln("");
         }
 
-        $output->writeln(PHP_EOL);
+        $output->writeln("");
 
         // Total:
-        $output->write("<info>{$normal} OK</info>/");
-        $output->write("<comment>{$warnings} WARNINGS</comment>/");
+        $output->write("<info>{$normal} OK</info> / ");
+        $output->write("<comment>{$warnings} WARNINGS</comment> / ");
         $output->writeln("<error>{$errors} ERRORS</error>");
 
         $output->writeln("Done!");
