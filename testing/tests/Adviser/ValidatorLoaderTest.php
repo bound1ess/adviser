@@ -1,9 +1,9 @@
-<?php namespace Adviser\Validators;
+<?php namespace Adviser;
 
-class ValidatorLoaderTest extends \PHPUnit_Framework_TestCase
+class ValidatorLoaderTest extends \Adviser\Testing\TestCase
 {
 
-    /** @test */ public function it_loads_validators_listed_in_the_config()
+    /** @test */ public function it_loads_validators_listed_in_the_configuration_file()
     {
         $this->assertInternalType("array", $validators = (new ValidatorLoader())->load());
         $this->assertNotCount(0, $validators);

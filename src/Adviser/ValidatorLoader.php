@@ -1,4 +1,4 @@
-<?php namespace Adviser\Validators;
+<?php namespace Adviser;
 
 class ValidatorLoader
 {

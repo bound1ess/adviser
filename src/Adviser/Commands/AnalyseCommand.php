@@ -4,7 +4,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface as Input;
 use Symfony\Component\Console\Output\OutputInterface as Output;
 
-use Adviser\Validators\ValidatorLoader;
+use Adviser\ValidatorLoader;
 
 class AnalyseCommand extends Command
 {

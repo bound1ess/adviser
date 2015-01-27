@@ -3,7 +3,7 @@
 use Mockery;
 use Adviser\Messages\Message;
 
-class CodeStyleValidatorTest extends ValidatorTestCase
+class CodeStyleValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
     /** @test */ public function it_does_its_job()

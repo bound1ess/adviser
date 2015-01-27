@@ -2,7 +2,7 @@
 
 use Adviser\Messages\MessageBag;
 
-abstract class AbstractValidator
+abstract class AbstractValidator implements ValidatorInterface
 {
 
     /**
@@ -25,7 +25,7 @@ abstract class AbstractValidator
     }
 
     /**
-     * Do your thing.
+     * Do a thing.
      *
      * @return MessageBag
      */

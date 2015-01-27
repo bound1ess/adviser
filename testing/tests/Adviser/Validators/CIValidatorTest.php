@@ -9,7 +9,7 @@ function file_get_contents()
     return null;
 }
 
-class CIValidatorTest extends ValidatorTestCase
+class CIValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
     /** @test */ public function it_does_its_job()

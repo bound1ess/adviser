@@ -3,7 +3,7 @@
 use Mockery;
 use Adviser\Messages\Message;
 
-class GitValidatorTest extends ValidatorTestCase
+class GitValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
     /** @test */ public function it_does_its_job()
