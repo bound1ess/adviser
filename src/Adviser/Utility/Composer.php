@@ -18,7 +18,7 @@ class Composer
     }
 
     /**
-     * Check if there is a composer.json file in $directory.
+     * Check if there is a composer.json file in given directory.
      *
      * @param string $directory
      * @return boolean
@@ -29,8 +29,8 @@ class Composer
     }
 
     /**
-     * Check if there is a composer.json file in $directory and it is valid.
-     * We will use the "validate" command on Composer CLI to check it.
+     * Check if there is a composer.json file in given directory and it is valid.
+     * We will use the "validate" command provided by the Composer CLI to find it out.
      *
      * @param string $directory
      * @return boolean
@@ -121,7 +121,7 @@ class Composer
     }
 
     /**
-     * Return either "./composer.phar" or "composer".
+     * This method returns either "./composer.phar" or just "composer".
      *
      * @param string $directory
      * @return string

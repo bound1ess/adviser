@@ -4,7 +4,7 @@ class File
 {
 
     /**
-     * Check if file/directory exists.
+     * Check if a file/directory exists.
      *
      * @param string $path
      * @return boolean

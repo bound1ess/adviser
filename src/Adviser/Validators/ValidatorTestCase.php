@@ -1,8 +1,6 @@
 <?php namespace Adviser\Validators;
 
 /**
- * For testing purposes.
- *
  * @codeCoverageIgnore
  */
 class ValidatorTestCase extends \PHPUnit_Framework_TestCase

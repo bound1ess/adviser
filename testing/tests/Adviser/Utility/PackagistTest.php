@@ -1,14 +1,13 @@
 <?php namespace Adviser\Utility;
 
-use Mockery;
 use GuzzleHttp\Exception\ClientException, GuzzleHttp\Message\Request;
 
-class PackagistTest extends \PHPUnit_Framework_TestCase
+class PackagistTest extends \Adviser\Testing\UtilityTestCase
 {
 
     /** @test */ public function it_checks_if_package_exists()
     {
-        $client = Mockery::mock("GuzzleHttp\Client");
+        $client = \Mockery::mock("GuzzleHttp\Client");
 
         $client->shouldReceive("get")
                ->once()
@@ -24,10 +23,5 @@ class PackagistTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($packagist->packageExists("phpunit/phpunit"));
         $this->assertFalse($packagist->packageExists("nonexistent/package"));
-    }
-
-    public function tearDown()
-    {
-        Mockery::close();
     }
 }

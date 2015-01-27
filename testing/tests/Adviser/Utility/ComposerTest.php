@@ -1,8 +1,6 @@
 <?php namespace Adviser\Utility;
 
-use Mockery;
-
-class ComposerTest extends \PHPUnit_Framework_TestCase
+class ComposerTest extends \Adviser\Testing\UtilityTestCase
 {
 
     /** @test */ public function it_checks_if_the_manifest_file_exists()
@@ -15,7 +13,8 @@ class ComposerTest extends \PHPUnit_Framework_TestCase
 
     /** @test */ public function it_checks_if_the_manifest_file_is_valid()
     {
-        $runner = Mockery::mock("Adviser\Utility\CommandRunner");
+        $runner = $this->mockUtility("CommandRunner");
+
         $runner->shouldReceive("run")
                ->twice()
                ->with("composer validate")
@@ -57,10 +56,5 @@ class ComposerTest extends \PHPUnit_Framework_TestCase
         $this->assertContains(
             "phpunit/phpunit", $composer->getDependencies(ADVISER_DIR, true)
         );
-    }
-
-    public function tearDown()
-    {
-        Mockery::close();
     }
 }

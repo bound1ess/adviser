@@ -1,6 +1,6 @@
 <?php namespace Adviser\Utility;
 
-class CommandRunnerTest extends \PHPUnit_Framework_TestCase
+class CommandRunnerTest extends \Adviser\Testing\UtilityTestCase
 {
 
     /** @test */ public function it_runs_a_command()

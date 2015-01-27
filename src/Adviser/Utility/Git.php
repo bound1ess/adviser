@@ -30,7 +30,7 @@ class Git
     /**
      * Check if given directory is a Git repository.
      *
-     * @param  string  $directory
+     * @param string $directory
      * @return boolean
      */
     public function isRepository($directory)
@@ -60,7 +60,7 @@ class Git
     /**
      * Split input string into lines.
      *
-     * @param  string $input
+     * @param string $input
      * @return array
      */
     protected function splitIntoLines($input)

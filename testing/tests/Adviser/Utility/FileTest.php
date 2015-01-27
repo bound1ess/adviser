@@ -1,6 +1,6 @@
 <?php namespace Adviser\Utility;
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends \Adviser\Testing\UtilityTestCase
 {
 
     /** @test */ public function it_checks_if_file_or_directory_exists()

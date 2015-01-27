@@ -1,15 +1,13 @@
 <?php namespace Adviser\Utility;
 
-use RuntimeException;
-
 class CommandRunner
 {
 
     /**
      * Run a command.
      *
-     * @throws RuntimeException
-     * @param  string           $command
+     * @throws \RuntimeException
+     * @param string $command
      * @return array
      */
     public function run($command)
@@ -23,8 +21,8 @@ class CommandRunner
 
         $process = proc_open($command, $specification, $pipes, getcwd(), null);
 
-        if (! is_resource($process)) {
-            throw new RuntimeException();
+        if ( ! is_resource($process)) {
+            throw new \RuntimeException("Not a resource.");
         }
 
         $output = [
@@ -38,9 +36,9 @@ class CommandRunner
     }
 
     /**
-     * Read stream contents and then close it.
+     * Read a stream and then close it.
      *
-     * @param  mixed  $pipe
+     * @param mixed $pipe
      * @return string
      */
     protected function readAndClose($pipe)
