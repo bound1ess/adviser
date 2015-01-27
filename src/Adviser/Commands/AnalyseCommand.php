@@ -66,7 +66,8 @@ class AnalyseCommand extends Command
             if (defined("ADVISER_UNDER_TEST")) {
                 continue;
             }
-
+            
+            // @codeCoverageIgnoreStart
             $bag = $validator->handle();
 
             // Update the counters.
@@ -82,6 +83,7 @@ class AnalyseCommand extends Command
             }
 
             $output->writeln("");
+            // @codeCoverageIgnoreStop
         }
 
         $output->writeln("");
