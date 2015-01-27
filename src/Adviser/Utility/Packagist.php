@@ -2,7 +2,7 @@
 
 use GuzzleHttp\Client, GuzzleHttp\Exception\ClientException;
 
-class Packagist
+class Packagist extends AbstractUtility
 {
 
     /**

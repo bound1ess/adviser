@@ -1,6 +1,6 @@
 <?php namespace Adviser\Utility;
 
-class File
+class File extends AbstractUtility
 {
 
     /**

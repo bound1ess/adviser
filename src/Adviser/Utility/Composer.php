@@ -1,6 +1,6 @@
 <?php namespace Adviser\Utility;
 
-class Composer
+class Composer extends AbstractUtility
 {
 
     /**
