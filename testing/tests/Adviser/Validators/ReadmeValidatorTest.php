@@ -1,17 +1,17 @@
 <?php namespace Adviser\Validators;
 
-use Mockery;
-use Adviser\Messages\Message;
-
 class ReadmeValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
-    /** @test */ public function it_does_its_job()
+    /**
+     * @test
+     */
+    public function it_does_its_job()
     {
         // Setup.
         $validator = new ReadmeValidator(null);
 
-        $file = Mockery::mock("Adviser\Utility\File");
+        $file = $this->mockUtility("File");
 
         $file->shouldReceive("exists")
              ->times(1 + 1 + 1)
@@ -29,21 +29,18 @@ class ReadmeValidatorTest extends \Adviser\Testing\ValidatorTestCase
 
         // Testing.
         // 1st scenario: there is a README.md file, everything is cool.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::NORMAL);
+        $this->assertTrue($messages->first()->isNormal());
 
         // 2nd scenario: there is a readme.md/Readme.md file.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::WARNING);
+        $this->assertTrue($messages->first()->isWarning());
 
         // 3rd scenario: there is nothing like that.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::ERROR);
+        $this->assertTrue($messages->first()->isError());
     }
 }

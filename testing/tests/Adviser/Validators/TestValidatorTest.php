@@ -1,17 +1,17 @@
 <?php namespace Adviser\Validators;
 
-use Mockery;
-use Adviser\Messages\Message;
-
 class TestValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
-    /** @test */ public function it_does_its_job()
+    /**
+     * @test
+     */
+    public function it_does_its_job()
     {
         // Setup.
         $validator = new TestValidator(null);
 
-        $file = Mockery::mock("Adviser\Utility\File");
+        $file = $this->mockUtility("File");
 
         $file->shouldReceive("exists")
              ->times(3)
@@ -20,7 +20,7 @@ class TestValidatorTest extends \Adviser\Testing\ValidatorTestCase
                  true // 3rd scenario.
              );
 
-        $composer = Mockery::mock("Adviser\Utility\Composer");
+        $composer = $this->mockUtility("Composer");
 
         $composer->shouldReceive("getDependencies")
                  ->times(3)
@@ -36,21 +36,18 @@ class TestValidatorTest extends \Adviser\Testing\ValidatorTestCase
 
         // Test.
         // 1st scenario: no testing frameworks were found in your composer.json.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::ERROR);
+        $this->assertTrue($messages->first()->isError());
 
         // 2nd scenario: a testing framework is present, but no configuration file was found.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::WARNING);
+        $this->assertTrue($messages->first()->isWarning());
 
         // 3rd scenario: a testing framework is present, and it is configured.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::NORMAL);
+        $this->assertTrue($messages->first()->isNormal());
     }
 }

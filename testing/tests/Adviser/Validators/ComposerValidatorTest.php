@@ -1,34 +1,32 @@
 <?php namespace Adviser\Validators;
 
-use Mockery;
-use Adviser\Messages\Message;
-
 class ComposerValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
-    /** @test */ public function it_does_its_job()
+    /**
+     * @test
+     */
+    public function it_does_its_job()
     {
         // Setup.
         $validator = new ComposerValidator(null);
+
         $this->mockUtilities($validator);
 
         // Test.
         // 1st scenario: the manifest was not found/invalid.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
         $this->assertCount(1, $messages->getAll());
-
-        $this->assertEquals($messages->first()->getLevel(), Message::ERROR);
+        $this->assertTrue($messages->first()->isError());
 
         // 2nd scenario: the manifest file (composer.json) is fine, everything else is not.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
         $this->assertCount(3, $messages->getAll());
-        
+
         foreach ($messages->getAll() as $message) {
-            $this->assertEquals($message->getLevel(), Message::WARNING);
+            $this->assertTrue($message->isWarning());
         }
 
         // 3rd scenario: the manifest is fine, so is everything else.
@@ -38,7 +36,7 @@ class ComposerValidatorTest extends \Adviser\Testing\ValidatorTestCase
         $this->assertCount(3, $messages->getAll());
 
         foreach ($messages->getAll() as $message) {
-            $this->assertEquals($message->getLevel(), Message::NORMAL);
+            $this->assertTrue($message->isNormal());
         }
     }
 
@@ -48,7 +46,7 @@ class ComposerValidatorTest extends \Adviser\Testing\ValidatorTestCase
             "name" => "test/package",
         ];
 
-        $packagist = Mockery::mock("Adviser\Utility\Packagist");
+        $packagist = $this->mockUtility("Adviser\Utility\Packagist");
 
         // We actually don't want to hit the Packagist API in our tests, so we use mocks.
         // We'll be called in "ComposerValidator::checkIfPackageWasPublished".
@@ -57,8 +55,7 @@ class ComposerValidatorTest extends \Adviser\Testing\ValidatorTestCase
                   ->with($manifest["name"])
                   ->andReturn(false, true);
 
-
-        $composer = Mockery::mock("Adviser\Utility\Composer");
+        $composer = $this->mockUtility("Composer");
 
         // We need to mock this method for "ComposerValidator::isManifestOK".
         $composer->shouldReceive("readManifest")
@@ -77,7 +74,6 @@ class ComposerValidatorTest extends \Adviser\Testing\ValidatorTestCase
                  ->twice()
                  ->with(null)
                  ->andReturn([], ["testing/tests", "src/Adviser/"]);
-
 
         $validator->utility("Packagist", $packagist);
         $validator->utility("Composer", $composer);

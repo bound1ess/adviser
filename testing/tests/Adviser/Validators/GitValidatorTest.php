@@ -1,16 +1,16 @@
 <?php namespace Adviser\Validators;
 
-use Mockery;
-use Adviser\Messages\Message;
-
 class GitValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
-    /** @test */ public function it_does_its_job()
+    /**
+     * @test
+     */
+    public function it_does_its_job()
     {
         $validator = new GitValidator(null);
 
-        $git = Mockery::mock("Adviser\Utility\Git");
+        $git = $this->mockUtility("Git");
 
         $git->shouldReceive("isRepository")
             ->times(4)
@@ -27,32 +27,28 @@ class GitValidatorTest extends \Adviser\Testing\ValidatorTestCase
 
         $validator->utility("Git", $git);
 
-        // First step: not a Git repository.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        // 1st scenario: not a Git repository.
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::ERROR);
+        $this->assertTrue($messages->first()->isError());
 
-        // First step: Git repository.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        // 2nd scenario: Git repository.
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::NORMAL);
+        $this->assertTrue($messages->first()->isNormal());
 
         // Second step (if Git repository).
-        // 2nd step: no remote.origin.url property.
-        $this->assertEquals($messages->last()->getLevel(), Message::ERROR);
+        // 1st scenario: no remote.origin.url property.
+        $this->assertTrue($messages->last()->isError());
 
-        // 2nd step: remote.origin.url is here, but doesn't point to Github or Bitbucket.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        // 2nd scenario: remote.origin.url is here, but doesn't point to Github or Bitbucket.
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->last()->getLevel(), Message::WARNING);
+        $this->assertTrue($messages->last()->isWarning());
 
-        // 2nd step: remote.origin.url is here and it points to Github/Bitbucket.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        // 3rd scenario: remote.origin.url is here and it points to Github/Bitbucket.
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->last()->getLevel(), Message::NORMAL);
+        $this->assertTrue($messages->last()->isNormal());
     }
 }

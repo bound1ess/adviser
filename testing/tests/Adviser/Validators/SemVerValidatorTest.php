@@ -1,17 +1,17 @@
 <?php namespace Adviser\Validators;
 
-use Mockery;
-use Adviser\Messages\Message;
-
 class SemVerValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
-    /** @test */ public function it_does_its_job()
+    /**
+     * @test
+     */
+    public function it_does_its_job()
     {
         // Setup.
         $validator = new SemVerValidator(null);
 
-        $git = Mockery::mock("Adviser\Utility\Git");
+        $git = $this->mockUtility("Git");
 
         $git->shouldReceive("isRepository")
             ->times(3)
@@ -25,23 +25,19 @@ class SemVerValidatorTest extends \Adviser\Testing\ValidatorTestCase
         $validator->utility("Git", $git);
 
         // Actual testing.
-
         // 1st scenario: not a Git repository.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::ERROR);
+        $this->assertTrue($messages->first()->isError());
 
         // 2nd scenario: Git repository, but tags are not SemVer.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::WARNING);
+        $this->assertTrue($messages->first()->isWarning());
 
         // 3rd scenario: Git repository, tags are fine, too.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::NORMAL);
+        $this->assertTrue($messages->first()->isNormal());
     }
 }

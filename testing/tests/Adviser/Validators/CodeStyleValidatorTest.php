@@ -1,17 +1,18 @@
 <?php namespace Adviser\Validators;
 
-use Mockery;
-use Adviser\Messages\Message;
-
 class CodeStyleValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
-    /** @test */ public function it_does_its_job()
+    /**
+     * @test
+     */
+    public function it_does_its_job()
     {
         // Setup.
         $validator = new CodeStyleValidator(null);
 
-        $commandRunner = Mockery::mock("Adviser\Utility\CommandRunner");
+        $commandRunner = $this->mockUtility("CommandRunner");
+
         $commandRunner->shouldReceive("run")
                       ->twice()
                       ->andReturn(
@@ -19,7 +20,8 @@ class CodeStyleValidatorTest extends \Adviser\Testing\ValidatorTestCase
                           ["stdout" => "......."] // 3rd scenario.
                       );
 
-        $file = Mockery::mock("Adivser\Utility\File");
+        $file = $this->mockUtility("File");
+
         $file->shouldReceive("exists")
              ->times(3 + 2 + 1)
              ->andReturn(
@@ -33,21 +35,18 @@ class CodeStyleValidatorTest extends \Adviser\Testing\ValidatorTestCase
 
         // Test.
         // 1st scenario: couldn't find the php-cs-fixer executable file.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::ERROR);
+        $this->assertTrue($messages->first()->isError());
 
         // 2nd scenario: PSR-2 coding standard violations.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::WARNING);
+        $this->assertTrue($messages->first()->isWarning());
 
         // 3rd scenario: everything is fine.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::NORMAL);
+        $this->assertTrue($messages->first()->isNormal());
     }
 }

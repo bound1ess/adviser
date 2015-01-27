@@ -1,17 +1,17 @@
 <?php namespace Adviser\Validators;
 
-use Mockery;
-use Adviser\Messages\Message;
-
 class LicenseValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
-    /** @test */ public function it_does_its_job()
+    /**
+     * @test
+     */
+    public function it_does_its_job()
     {
         // Setup.
         $validator = new LicenseValidator(null);
 
-        $file = Mockery::mock("Adviser\Utility\File");
+        $file = $this->mockUtility("File");
 
         $file->shouldReceive("exists")
              ->times(1 + 1 + 1)
@@ -29,21 +29,18 @@ class LicenseValidatorTest extends \Adviser\Testing\ValidatorTestCase
 
         // Test.
         // 1st scenario: LICENSE file was found.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::NORMAL);
+        $this->assertTrue($messages->first()->isNormal());
 
         // 2nd scenario: not LICENSE, but "License" or "license".
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::WARNING);
+        $this->assertTrue($messages->first()->isWarning());
 
         // 3rd scenario: no license files were found.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::ERROR);
+        $this->assertTrue($messages->first()->isError());
     }
 }

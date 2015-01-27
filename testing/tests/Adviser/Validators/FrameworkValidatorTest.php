@@ -1,18 +1,18 @@
 <?php namespace Adviser\Validators;
 
-use Mockery;
-use Adviser\Messages\Message;
-
 class FrameworkValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
-    /** @test */ public function it_does_its_job()
+    /**
+     * @test
+     */
+    public function it_does_its_job()
     {
         // Set everything up.
         $validator = new FrameworkValidator(null);
 
         // Mock Composer utility class.
-        $composer = Mockery::mock("Adviser\Utility\Composer");
+        $composer = $this->mockUtility("Composer");
 
         $composer->shouldReceive("getDependencies")
                  ->twice()
@@ -24,20 +24,13 @@ class FrameworkValidatorTest extends \Adviser\Testing\ValidatorTestCase
 
         // Test it!
         // 1st scenario: your project is framework agnostic.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::NORMAL);
+        $this->assertTrue($messages->first()->isNormal());
 
         // 2nd scenario: your project depends on a framework.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::WARNING);
-    }
-
-    public function tearDown()
-    {
-        Mockery::close();
+        $this->assertTrue($messages->first()->isWarning());
     }
 }

@@ -1,17 +1,17 @@
 <?php namespace Adviser\Validators;
 
-use Mockery;
-use Adviser\Messages\Message;
-
 class ContributingValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
-    /** @test */ public function it_does_its_job()
+    /**
+     * @test
+     */
+    public function it_does_its_job()
     {
         // Setup.
         $validator = new ContributingValidator(null);
 
-        $file = Mockery::mock("Adviser\Utility\File");
+        $file = $this->mockUtility("File");
 
         $file->shouldReceive("exists")
              ->times(3)
@@ -25,21 +25,18 @@ class ContributingValidatorTest extends \Adviser\Testing\ValidatorTestCase
 
         // Test.
         // 1st scenario: there is a CONTRIBUTING file.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::NORMAL);
+        $this->assertTrue($messages->first()->isNormal());
 
         // 2nd scenario: there is such a file, but it's not exactly CONTRIBUTING.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::WARNING);
+        $this->assertTrue($messages->first()->isWarning());
 
         // 3rd scenario: there are no contributing instructions for your project.
-        $messages = $validator->handle();
-        $this->isMessageBag($messages);
+        $messages = $this->runValidator($validator);
 
-        $this->assertEquals($messages->first()->getLevel(), Message::ERROR);
+        $this->assertTrue($messages->first()->isError());
     }
 }
