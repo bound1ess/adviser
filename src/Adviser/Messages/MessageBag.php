@@ -9,7 +9,7 @@ class MessageBag
     protected $messages;
 
     /**
-     * @param  array      $messages
+     * @param array $messages
      * @return MessageBag
      */
     public function __construct(array $messages = [])
@@ -20,7 +20,7 @@ class MessageBag
     /**
      * Add a new message to the bag.
      *
-     * @param  Message $message
+     * @param Message $message
      * @return void
      */
     public function throwIn(Message $message)
@@ -59,6 +59,8 @@ class MessageBag
     }
 
     /**
+     * Get all "normal" messages.
+     *
      * @return array
      */
     public function getNormalMessages()
@@ -67,6 +69,8 @@ class MessageBag
     }
 
     /**
+     * Get all warning messages.
+     *
      * @return array
      */
     public function getWarnings()
@@ -75,6 +79,8 @@ class MessageBag
     }
 
     /**
+     * Get all error messages.
+     *
      * @return array
      */
     public function getErrors()

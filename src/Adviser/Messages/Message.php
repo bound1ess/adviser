@@ -1,7 +1,5 @@
 <?php namespace Adviser\Messages;
 
-use InvalidArgumentException;
-
 class Message
 {
 
@@ -109,14 +107,14 @@ class Message
     /**
      * Validate and set appropriate level.
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @param integer $level
      * @return void
      */
     protected function setLevel($level)
     {
         if (! in_array($level, [static::NORMAL, static::WARNING, static::ERROR])) {
-            throw new InvalidArgumentException("Invalid message level: {$level}.");
+            throw new \InvalidArgumentException("Invalid message level: {$level}.");
         }
 
         $this->level = $level;
