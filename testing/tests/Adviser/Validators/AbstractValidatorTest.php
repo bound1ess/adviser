@@ -20,4 +20,9 @@ class AbstractValidatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($instance, $validator->utility("Git", $instance));
     }
+
+    /** @test */ public function it_returns_the_validator_name()
+    {
+        $this->assertEquals((new ConcreteValidator(null))->getName(), "Concrete");
+    }
 }

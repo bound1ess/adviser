@@ -46,6 +46,7 @@ class AnalyseCommand extends Command
     protected function execute(Input $input, Output $output)
     {
         list($directory, $projectName) = [getcwd(), basename(getcwd())];
+
         $validators = $this->loader->load();
 
         $output->write("Running Adviser for ");
@@ -53,10 +54,15 @@ class AnalyseCommand extends Command
         $output->writeln("Running <info>".count($validators)."</info> validators...");
         $output->writeln(PHP_EOL);
 
+        list($OK, $warnings, $errors) = [0, 0, 0];
+
         foreach ($validators as $validator) {
             $output->writeln(
                 "    Running <comment>".$validator->getName()."</comment> validator..."
             );
         }
+
+        $output->writeln(PHP_EOL);
+        $output->writeln("Done!");
     }
 }

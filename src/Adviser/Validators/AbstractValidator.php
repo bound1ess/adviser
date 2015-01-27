@@ -58,6 +58,6 @@ abstract class AbstractValidator
      */
     public function getName()
     {
-        return end(explode("\\", get_class($this)));
+        return str_replace("Validator", "", end(explode("\\", get_class($this))));
     }
 }
