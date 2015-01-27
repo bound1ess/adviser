@@ -32,15 +32,13 @@ Adviser is a CLI application written in PHP that checks your project for various
 10. Check that the `composer.json` manifest file is present and valid.
     - Check for a PSR-4 autoloader.
     - Check if your project is available on [Packagist](https://packagist.org).
-    - Extra: ensure that the source code is being stored in `src/`.
+    - Ensure that the source code is being stored in `src/`.
 
-#### In progress
-
-1. Check the source code using [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
+11. Check the source code using [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer).
 
 ## Progress
 
-Around `45%`.
+Around `50%`.
 
 ### Utility
 
@@ -53,6 +51,7 @@ Around `45%`.
 - `Packagist`:
     - `packageExists` [x]
 - `Composer`:
+    - `readManifest` [x]
     - `manifestExists` [x]
     - `isManifestValid` [x]
     - `hasAutoloader` [x]
