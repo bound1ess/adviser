@@ -24,7 +24,17 @@ class CodeStyleValidator extends AbstractValidator
                 Message::ERROR
             ));
         } else {
-            $bag->throwIn($this->runPhpCsFixer("psr2"));
+            if ($this->runPhpCsFixer("psr2")) {
+                $bag->throwIn(new Message(
+                    "Your project follows the PSR-2 coding standard strictly.",
+                    Message::NORMAL
+                ));
+            } else {
+                $bag->throwIn(new Message(
+                    "Your source code doesn't strictly follow the PSR-2 coding standard.",
+                    Message::WARNING
+                ));
+            }
         }
 
         return $bag;
@@ -41,7 +51,9 @@ class CodeStyleValidator extends AbstractValidator
 
         $output = $this->utility("CommandRunner")->run($command)["stdout"];
 
-        return $output && count($lines = explode(PHP_EOL, $output)) && ! trim($lines[0]);
+        return $output
+            && count($lines = explode(PHP_EOL, $output))
+            && $this->hasFixedFiles($lines[0]);
     }
 
     /**
@@ -62,11 +74,25 @@ class CodeStyleValidator extends AbstractValidator
         }
 
         // 3) See if it's in /usr/local/bin directory (obviously it doesn't work on Windows).
-        if (DIRECTORY_SEPARATOR == "\\") {
-            // Windows, give up.
-            return false;
+        if (DIRECTORY_SEPARATOR == "/") {
+            return $this->utility("File")->exists("/usr/local/bin/php-cs-fixer");
         }
 
-        return $this->utility("File")->exists("/usr/local/bin/php-cs-fixer");
+        return false;
+    }
+
+    /**
+     * @param string $report
+     * @return boolean
+     */
+    protected function hasFixedFiles($report)
+    {
+        foreach (str_split($report) as $marker) {
+            if ($marker != ".") {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
