@@ -23,9 +23,25 @@ class CodeStyleValidator extends AbstractValidator
                 ." Visit github.com/FriendsOfPHP/PHP-CS-Fixer to install PHP-CS-Fixer.",
                 Message::ERROR
             ));
+        } else {
+            $bag->throwIn($this->runPhpCsFixer("psr2"));
         }
 
         return $bag;
+    }
+
+    /**
+     * @param string $level
+     * @return Message
+     */
+    protected function runPhpCsFixer($level)
+    {
+        $command = 
+            "{$this->executable} fix {$this->directory} --dry-run --level={$level} --verbose";
+
+        $output = $this->utility("CommandRunner")->run($command)["stdout"];
+
+        return $output && count($lines = explode(PHP_EOL, $output)) && ! trim($lines[0]);
     }
 
     /**
