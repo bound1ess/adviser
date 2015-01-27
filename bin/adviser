@@ -9,7 +9,7 @@ findComposerAutoloader();
 $adviser = new Symfony\Component\Console\Application("Adviser", getAdviserVersion());
 
 // Add commands.
-$adviser->add(new Adviser\Commands\GiveAdviceCommand);
+$adviser->add(new Adviser\Commands\AnalyseCommand);
 
 // Run and exit with the returned status code.
 $adviser->setAutoExit(true);

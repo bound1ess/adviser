@@ -16,7 +16,7 @@ abstract class AbstractValidator
     protected $utilities = [];
 
     /**
-     * @param  string            $directory
+     * @param string $directory
      * @return AbstractValidator
      */
     public function __construct($directory)
@@ -34,8 +34,8 @@ abstract class AbstractValidator
     /**
      * Get an instance or set it (utility classes).
      *
-     * @param  string     $name
-     * @param  mixed|null $instance
+     * @param string $name
+     * @param mixed|null $instance
      * @return mixed
      */
     public function utility($name, $instance = null)
@@ -51,5 +51,13 @@ abstract class AbstractValidator
         }
 
         return $this->utilities[$name] = $instance;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return end(explode("\\", get_class($this)));
     }
 }
