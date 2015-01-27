@@ -5,33 +5,37 @@ use Mockery;
 class MessageBagTest extends \PHPUnit_Framework_TestCase
 {
 
-    protected $bag;
-
-    public function setUp()
-    {
-        $this->bag = new MessageBag();
-    }
-
     public function tearDown()
     {
         Mockery::close();
     }
 
-    protected function createMessage()
+    protected function createMessage($level)
     {
-        return Mockery::mock("Adviser\Messages\Message");
+        $message = Mockery::mock("Adviser\Messages\Message");
+
+        $message->shouldReceive("getLevel")->times(3)->andReturn($level);
+
+        return $message;
     }
 
     /** @test */ public function it_adds_a_message()
     {
-        $this->assertCount(0, $this->bag->getAll());
+        $bag = new MessageBag();
 
-        $this->bag->throwIn($message1 = $this->createMessage());
-        $this->bag->throwIn($message2 = $this->createMessage());
+        $this->assertCount(0, $bag->getAll());
 
-        $this->assertCount(2, $this->bag->getAll());
+        $bag->throwIn($message1 = $this->createMessage(Message::NORMAL));
+        $bag->throwIn($this->createMessage(Message::WARNING));
+        $bag->throwIn($message3 = $this->createMessage(Message::ERROR));
 
-        $this->assertEquals($this->bag->first(), $message1);
-        $this->assertEquals($this->bag->last(), $message2);
+        $this->assertCount(3, $bag->getAll());
+
+        $this->assertCount(1, $bag->getNormalMessages());
+        $this->assertCount(1, $bag->getWarnings());
+        $this->assertCount(1, $bag->getErrors());
+
+        $this->assertEquals($bag->first(), $message1);
+        $this->assertEquals($bag->last(), $message3);
     }
 }

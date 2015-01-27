@@ -57,4 +57,42 @@ class MessageBag
     {
         return count($this->messages) > 0 ? end($this->messages) : null;
     }
+
+    /**
+     * @return array
+     */
+    public function getNormalMessages()
+    {
+        return $this->filterByLevel(Message::NORMAL);
+    }
+
+    /**
+     * @return array
+     */
+    public function getWarnings()
+    {
+        return $this->filterByLevel(Message::WARNING);
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->filterByLevel(Message::ERROR);
+    }
+
+    /**
+     * Filter messages in the bag by their level.
+     *
+     * @param integer $level
+     * @return array
+     */
+    protected function filterByLevel($level)
+    {
+        return array_filter($this->messages, function(Message $message) use($level)
+        {
+            return $message->getLevel() == $level;
+        });
+    }
 }
