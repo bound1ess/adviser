@@ -1,0 +1,22 @@
+{
+    "main": "bin/adviser",
+    "output": "builds/adviser.phar",
+    "stub": true,
+
+    "finder": [
+        {
+            "in": "src",
+            "name": "*.php"
+        },
+        {
+            "in": "vendor",
+            "name": "*.php",
+            "exclude": ["mockery", "phpunit", "sebastian"]
+        }
+    ],
+    "files": [
+        "README.md",
+        "LICENSE",
+        "config.php"
+    ]
+}
