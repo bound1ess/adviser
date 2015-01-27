@@ -4,6 +4,17 @@ Adviser is a CLI application that checks your PHP project for various possible i
 
 Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
 
+## Status
+
+Active development, around 60% of work is already done for the first stable release.
+
+### @todo
+
+- Refactor the code and tests.
+- Write documentation.
+    - Add examples of work (output).
+- Publish on Packagist, build PHARs.
+
 ## What It Does
 
 1. Check that the current directory is a Git repository.
@@ -33,52 +44,6 @@ Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
     - Ensure that the source code is being stored in `src/`.
 
 11. Check the source code using [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer).
-
-## Progress
-
-Around `55%`.
-
-### Utility
-
-- `Git`:
-    - `getTags` [x]
-    - `isRepository` [x]
-    - `getConfig` [x]
-- `CommandRunner`:
-    - `run` [x]
-- `Packagist`:
-    - `packageExists` [x]
-- `Composer`:
-    - `readManifest` [x]
-    - `manifestExists` [x]
-    - `isManifestValid` [x]
-    - `hasAutoloader` [x]
-    - `getSourceDirectories` [x]
-    - `getDependencies` [x]
-- `File`:
-    - `exists` [x]
-    - `anyExists` [x]
-
-### Messages
-
-- `Message` [x]
-- `MessageBag` [x]
-
-### Validators
-
-- `AbstractValidator` [x]
-- `ValidatorLoader` [x]
-- `GitValidator` [x]
-- `ComposerValidator` [x]
-- `FrameworkValidator` [x]
-- `CodeStyleValidator` [ ]
-- `TestValidator` [x]
-- `CIValidator` [x]
-- `SemVerValidator` [x]
-- `ReadmeValidator` [x]
-- `LicenseValidator` [x]
-- `ContributingValidator` [x]
-- `ChangelogValidator` [x]
 
 ## License
 
