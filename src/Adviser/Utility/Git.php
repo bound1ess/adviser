@@ -45,7 +45,7 @@ class Git
      */
     public function getConfig()
     {
-        $lines = $this->splitIntoLines($this->runner->run("git config -l"));
+        $lines = $this->splitIntoLines($this->runner->run("git config -l")["stdout"]);
         $config = [];
 
         foreach ($lines as $line) {

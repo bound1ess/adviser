@@ -52,17 +52,31 @@ class AnalyseCommand extends Command
         $output->write("Running Adviser for ");
         $output->writeln("<comment>{$directory}</comment> <info>[{$projectName}]</info>...");
         $output->writeln("Running <info>".count($validators)."</info> validators...");
+
         $output->writeln(PHP_EOL);
 
-        list($OK, $warnings, $errors) = [0, 0, 0];
+        list($normal, $warnings, $errors) = [0, 0, 0];
 
         foreach ($validators as $validator) {
             $output->writeln(
                 "    Running <comment>".$validator->getName()."</comment> validator..."
             );
+
+            // We don't want to run the validators in our unit tests.
+            if (defined("ADVISER_UNDER_TEST")) {
+                continue;
+            }
+
+            $bag = $validator->handle();
         }
 
         $output->writeln(PHP_EOL);
+
+        // Total:
+        $output->write("<info>{$normal} OK</info>/");
+        $output->write("<comment>{$warnings} WARNINGS</comment>/");
+        $output->writeln("<error>{$errors} ERRORS</error>");
+
         $output->writeln("Done!");
     }
 }

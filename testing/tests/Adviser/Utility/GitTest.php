@@ -33,7 +33,7 @@ class GitTest extends \PHPUnit_Framework_TestCase
         $runner->shouldReceive("run")
                ->once()
                ->with("git config -l")
-               ->andReturn("foo=bar".PHP_EOL."baz=fuz".PHP_EOL);
+               ->andReturn(["stdout" => "foo=bar".PHP_EOL."baz=fuz".PHP_EOL]);
 
         $config = (new Git($runner))->getConfig();
 
