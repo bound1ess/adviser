@@ -21,10 +21,11 @@ class CodeStyleValidatorTest extends ValidatorTestCase
 
         $file = Mockery::mock("Adivser\Utility\File");
         $file->shouldReceive("exists")
-             ->times(3 + 1 + 1)
+             ->times(3 + 2 + 1)
              ->andReturn(
                  false, false, false, // 1st scenario.
-                 true // 2nd and 3rd scenarios.
+                 false, true, // 2nd scenario.
+                 true // 3rd scenario.
              );
 
         $validator->utility("CommandRunner", $commandRunner);

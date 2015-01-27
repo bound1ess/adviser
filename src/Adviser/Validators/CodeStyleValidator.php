@@ -68,17 +68,15 @@ class CodeStyleValidator extends AbstractValidator
             return true;
         }
 
-        // 2) See if it was installed globally via Composer.
-        if ($this->utility("File")->exists($_SERVER["HOME"]."/.composer/bin/php-cs-fixer")) {
-            return true;
-        }
-
-        // 3) See if it's in /usr/local/bin directory (obviously it doesn't work on Windows).
+        // 2) See if it's in /usr/local/bin directory (obviously it doesn't work on Windows).
         if (DIRECTORY_SEPARATOR == "/") {
-            return $this->utility("File")->exists("/usr/local/bin/php-cs-fixer");
+            if ($this->utility("File")->exists("/usr/local/bin/php-cs-fixer")) {
+                return true;
+            }
         }
 
-        return false;
+        // 3) See if it was installed globally via Composer.
+        return $this->utility("File")->exists($_SERVER["HOME"]."/.composer/bin/php-cs-fixer");
     }
 
     /**
