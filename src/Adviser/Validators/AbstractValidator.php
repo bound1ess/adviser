@@ -54,10 +54,14 @@ abstract class AbstractValidator
     }
 
     /**
+     * Get the validator's name.
+     *
      * @return string
      */
     public function getName()
     {
-        return str_replace("Validator", "", end(explode("\\", get_class($this))));
+        $chunks = explode("\\", get_class($this));
+
+        return str_replace("Validator", "", end($chunks));
     }
 }
