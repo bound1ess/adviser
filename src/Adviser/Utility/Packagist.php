@@ -1,8 +1,6 @@
 <?php namespace Adviser\Utility;
 
-use Packagist\Api\Client;
-// Guzzle ~3.0
-use Guzzle\Http\Exception\ClientErrorResponseException;
+use GuzzleHttp\Client, GuzzleHttp\Exception\ClientException;
 
 class Packagist
 {
@@ -24,16 +22,16 @@ class Packagist
     /**
      * Check if package was published to Packagist.
      *
-     * @param  string  $name
+     * @param string $name
      * @return boolean
      */
     public function packageExists($name)
     {
         try {
-            $this->client->get($name);
+            $this->client->get("https://packagist.org/packages/{$name}.json");
 
             return true;
-        } catch (ClientErrorResponseException $exception) {
+        } catch (ClientException $exception) {
             return false;
         }
     }
