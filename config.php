@@ -4,7 +4,7 @@
 
 return [
     // Adviser's current version.
-    "version" => "dev",
+    "version" => "0.1.0",
 
     "validators" => [
         "Adviser\Validators\GitValidator",
