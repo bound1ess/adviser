@@ -8,20 +8,26 @@ class ConcreteValidator extends AbstractValidator
     }
 }
 
-class AbstractValidatorTest extends \PHPUnit_Framework_TestCase
+class AbstractValidatorTest extends \Adviser\Testing\ValidatorTestCase
 {
 
-    /** @test */ public function it_manages_utility_classes()
+    /**
+     * @test
+     */
+    public function it_manages_utility_classes()
     {
         $validator = new ConcreteValidator(null);
+        $instance = $validator->utility("Git");
 
-        $this->assertInstanceOf("Adviser\Utility\Git", $instance = $validator->utility("Git"));
+        $this->assertInstanceOf("Adviser\Utility\Git", $instance);
         $this->assertEquals($instance, $validator->utility("Git"));
-
         $this->assertEquals($instance, $validator->utility("Git", $instance));
     }
 
-    /** @test */ public function it_returns_the_validator_name()
+    /**
+     * @test
+     */
+    public function it_returns_the_validator_name()
     {
         $this->assertEquals((new ConcreteValidator(null))->getName(), "Concrete");
     }
