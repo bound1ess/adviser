@@ -1,9 +1,12 @@
-<?php namespace Adviser\Messages;
+<?php namespace Adviser\Output;
 
-class MessageTest extends \PHPUnit_Framework_TestCase
+class MessageTest extends \Adviser\Testing\TestCase
 {
 
-    /** @test */ public function it_sets_level()
+    /**
+     * @test
+     */
+    public function it_sets_level()
     {
         $message = new Message("some message", Message::NORMAL);
 
@@ -26,7 +29,10 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($message->format(true), "some message");
     }
 
-    /** @test */ public function it_throws_an_exception_if_invalid_level_is_passed()
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_if_invalid_level_is_passed()
     {
         $this->setExpectedException("InvalidArgumentException");
 

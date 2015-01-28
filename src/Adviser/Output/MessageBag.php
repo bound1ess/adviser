@@ -1,4 +1,4 @@
-<?php namespace Adviser\Messages;
+<?php namespace Adviser\Output;
 
 class MessageBag
 {

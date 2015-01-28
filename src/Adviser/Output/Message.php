@@ -1,4 +1,4 @@
-<?php namespace Adviser\Messages;
+<?php namespace Adviser\Output;
 
 class Message
 {
@@ -40,7 +40,7 @@ class Message
     }
 
     /**
-     * Format the message according to its level.
+     * Format the message depending on its level.
      *
      * @param boolean $raw
      * @return string

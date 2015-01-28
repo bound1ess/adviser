@@ -1,6 +1,6 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\MessageBag, Adviser\Messages\Message;
+use Adviser\Output\MessageBag, Adviser\Output\Message;
 
 abstract class AbstractValidator implements ValidatorInterface
 {

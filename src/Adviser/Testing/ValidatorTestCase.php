@@ -16,7 +16,7 @@ class ValidatorTestCase extends TestCase
      */
     protected function isMessageBag($value)
     {
-        $this->assertInstanceOf("Adviser\Messages\MessageBag", $value);
+        $this->assertInstanceOf("Adviser\Output\MessageBag", $value);
         $this->assertNotCount(0, $value->getAll());
     }
 

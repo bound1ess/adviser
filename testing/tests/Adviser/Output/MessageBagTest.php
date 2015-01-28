@@ -1,25 +1,12 @@
-<?php namespace Adviser\Messages;
+<?php namespace Adviser\Output;
 
-use Mockery;
-
-class MessageBagTest extends \PHPUnit_Framework_TestCase
+class MessageBagTest extends \Adviser\Testing\TestCase
 {
 
-    public function tearDown()
-    {
-        Mockery::close();
-    }
-
-    protected function createMessage($level)
-    {
-        $message = Mockery::mock("Adviser\Messages\Message");
-
-        $message->shouldReceive("getLevel")->times(3)->andReturn($level);
-
-        return $message;
-    }
-
-    /** @test */ public function it_adds_a_message()
+    /**
+     * @test
+     */
+    public function it_adds_a_message()
     {
         $bag = new MessageBag();
 
@@ -37,5 +24,14 @@ class MessageBagTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($bag->first(), $message1);
         $this->assertEquals($bag->last(), $message3);
+    }
+
+    protected function createMessage($level)
+    {
+        $message = \Mockery::mock("Adviser\Output\Message");
+
+        $message->shouldReceive("getLevel")->times(3)->andReturn($level);
+
+        return $message;
     }
 }
