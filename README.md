@@ -6,44 +6,44 @@ Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
 
 ## Status
 
-Active development, around 60% of work is already done for the first stable release.
+Active development, around 75% of work is already done for the first stable release.
 
 ### @todo
 
-- Refactor the code and tests.
+- Add **YAML** configuration files.
+- Add various output formatters.
 - Write documentation.
-    - Add examples of work (output).
-- Publish on Packagist, build PHARs.
+- Add examples of work (output).
 
 ## What It Does
 
-1. Check that the current directory is a Git repository.
+1. Checks that the current directory is a Git repository.
     - The `remote.origin.url` property should point to either **Github** or **Bitbucket**.
 
-2. Check for [SemVer](http://semver.org) tags.
+2. Checks for [SemVer](http://semver.org) tags.
 
-3. Check for a [changelog](http://keepachangelog.com) file of some sort.
+3. Checks for a [changelog](http://keepachangelog.com) file of some sort.
 
-4. Check for a [license](http://choosealicense.com) file.
+4. Checks for a [license](http://choosealicense.com) file.
 
-5. Check for a README file.
+5. Checks for a README file.
 
-6. Check for a CONTRIB(UTING) file.
+6. Checks for a CONTRIB(UTING) file.
 
-7. Check if your project is framework agnostic or not.
+7. Checks if your project is framework agnostic or not.
 
-8. Check for tests folder and a proper testing framework configuration.
+8. Checks for tests folder and a proper testing framework configuration.
     - Support for **PhpSpec**, **PHPUnit**, **Behat**, **Codeception**.
 
-9. Check for CI (Continuous Integration) configuration file.
+9. Checks for CI (Continuous Integration) configuration file.
     - [Travis](https://travis-ci.org) is supported.
 
-10. Check that the `composer.json` manifest file is present and valid.
-    - Check for a PSR-4 autoloader.
-    - Check if your project is available on [Packagist](https://packagist.org).
-    - Ensure that the source code is being stored in `src/`.
+10. Checks that the `composer.json` manifest file is present and valid.
+    - Checks for a PSR-4 autoloader.
+    - Checks if your project is available on [Packagist](https://packagist.org).
+    - Checks that the source code is being stored in `src/`.
 
-11. Check the source code using [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer).
+11. Checks the source code using [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer).
 
 ## License
 
