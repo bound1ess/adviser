@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputInterface as Input;
 use Symfony\Component\Console\Output\OutputInterface as Output;
 
 use Adviser\ValidatorLoader;
+use Adviser\Validators\ValidatorInterface;
 
 class AnalyseCommand extends Command
 {
@@ -13,6 +14,27 @@ class AnalyseCommand extends Command
      * @var ValidatorLoader
      */
     protected $loader;
+
+    /**
+     * @var array
+     */
+    protected $messageCounter = [
+        "normal"  => 0,
+        "warning" => 0,
+        "error"   => 0,
+    ];
+
+    /**
+     * @var array
+     */
+    protected $validators = [];
+
+    /**
+     * Four spaces.
+     *
+     * @var string
+     */
+    protected $indentation = "    ";
 
     /**
      * @param ValidatorLoader|null $loader
@@ -45,53 +67,79 @@ class AnalyseCommand extends Command
      */
     protected function execute(Input $input, Output $output)
     {
-        list($directory, $projectName) = [getcwd(), basename(getcwd())];
+        $this->validators = $this->loader->load();
 
-        $validators = $this->loader->load();
+        $this->writeHead($output);
 
-        $output->write("Running Adviser for ");
-        $output->writeln("<comment>{$directory}</comment> <info>[{$projectName}]</info>...");
-        $output->writeln("Running <info>".count($validators)."</info> validators...");
+        foreach ($this->validators as $validator) {
+            $this->runValidator($validator, $output);
+        }
+
+        $this->writeSummary($output);
+    }
+
+    /**
+     * @codeCoverageIgnore
+     *
+     * @param ValidatorInterface $validator
+     * @param Output $output
+     * @return void
+     */
+    protected function runValidator(ValidatorInterface $validator, Output $output)
+    {
+        // We don't want to run the validators in our unit tests.
+        if (defined("ADVISER_UNDER_TEST")) {
+            return null;
+        }
+
+        $output->write($this->indentation);
+        $output->writeln("Running <comment>".$validator->getName()."</comment> validator...");
+
+        $bag = $validator->handle();
+
+        // Update the counters.
+        $this->messageCounter['normal']  += count($bag->getNormalMessages());
+        $this->messageCounter['warning'] += count($bag->getWarnings());
+        $this->messageCounter['error']   += count($bag->getErrors());
 
         $output->writeln("");
 
-        list($normal, $warnings, $errors) = [0, 0, 0];
-
-        foreach ($validators as $validator) {
-            $output->writeln(
-                "    Running <comment>".$validator->getName()."</comment> validator..."
-            );
-
-            // We don't want to run the validators in our unit tests.
-            if (defined("ADVISER_UNDER_TEST")) {
-                continue;
-            }
-            
-            // @codeCoverageIgnoreStart
-            $bag = $validator->handle();
-
-            // Update the counters.
-            $normal   += count($bag->getNormalMessages());
-            $warnings += count($bag->getWarnings());
-            $errors   += count($bag->getErrors());
-
-            // Display the messages.
-            $output->writeln("");
-
-            foreach ($bag->getAll() as $message) {
-                $output->writeln("        ".$message->format());
-            }
-
-            $output->writeln("");
-            // @codeCoverageIgnoreStop
+        // Display the messages stored in the bag.
+        foreach ($bag->getAll() as $message) {
+            $output->write(str_repeat($this->indentation, 2));
+            $output->writeln($message->format());
         }
 
         $output->writeln("");
+    }
 
-        // Total:
-        $output->write("<info>{$normal} OK</info> / ");
-        $output->write("<comment>{$warnings} WARNINGS</comment> / ");
-        $output->writeln("<error>{$errors} ERRORS</error>");
+    /**
+     * @param Output $output
+     * @return void
+     */
+    protected function writeHead(Output $output)
+    {
+        $directory = getcwd();
+        $projectName = basename($directory);
+
+        $output->write("Running Adviser for ");
+        $output->writeln("<comment>{$directory}</comment> <info>[{$projectName}]</info>...");
+        $output->writeln("Running <info>".count($this->validators)."</info> validators...");
+
+        $output->writeln("");
+    }
+
+    /**
+     * @param Output $output
+     * @return void
+     */
+    protected function writeSummary(Output $output)
+    {
+        $output->writeln("");
+
+        $output->write("<info>{$this->messageCounter['normal']} OK</info> / ");
+        $output->write("<comment>{$this->messageCounter['warning']} WARNINGS</comment> / ");
+        $output->writeln("<error>{$this->messageCounter['error']} ERRORS</error>");
 
         $output->writeln("Done!");
     }
