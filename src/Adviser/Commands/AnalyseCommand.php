@@ -5,8 +5,9 @@ use Symfony\Component\Console\Input\InputInterface as Input;
 use Symfony\Component\Console\Output\OutputInterface as Output;
 use Symfony\Component\Console\Input\InputOption;
 
-use Adviser\ValidatorLoader;
+use Adviser\ValidatorLoader, Adviser\FormatterLoader;
 use Adviser\Validators\ValidatorInterface;
+use Adviser\Output\MessageBag;
 
 class AnalyseCommand extends Command
 {
@@ -36,6 +37,11 @@ class AnalyseCommand extends Command
     protected $formatter;
 
     /**
+     * @var array
+     */
+    protected $formatters = [];
+
+    /**
      * Four spaces.
      *
      * @var string
@@ -43,12 +49,15 @@ class AnalyseCommand extends Command
     protected $indentation = "    ";
 
     /**
-     * @param ValidatorLoader|null $loader
+     * @param ValidatorLoader|null $validatorLoader
+     * @param FormatterLoader|null $formatterLoader
      * @return AnalyseCommand
      */
-    public function __construct(ValidatorLoader $loader = null)
+    public function __construct(ValidatorLoader $validatorLoader = null,
+        FormatterLoader $formatterLoader = null)
     {
-        $this->loader = $loader ?: new ValidatorLoader();
+        $this->validatorLoader = $validatorLoader ?: new ValidatorLoader();
+        $this->formatterLoader = $formatterLoader ?: new FormatterLoader();
 
         parent::__construct();
     }
@@ -75,8 +84,10 @@ class AnalyseCommand extends Command
      */
     protected function execute(Input $input, Output $output)
     {
-        $this->validators = $this->loader->loadFromConfigurationFile();
+        $this->validators = $this->validatorLoader->loadFromConfigurationFile();
+
         $this->formatter = $input->getOption("formatter");
+        $this->formatters = $this->formatterLoader->loadFromConfigurationFile();
 
         if ( ! $this->useFormatter($output)) {
             $this->writeHead($output);
@@ -101,7 +112,22 @@ class AnalyseCommand extends Command
             return false;
         }
 
-        $output->writeln("Hello, world!");
+        if ( ! array_key_exists($this->formatter, $this->formatters)) {
+            throw new \InvalidArgumentException("Invalid formatter name {$this->formatter}.");
+        }
+
+        $bag = new MessageBag();
+
+        foreach ($this->validators as $validator) {
+            $bag = new MessageBag(array_merge(
+                $validator->handle()->getAll(),
+                $bag->getAll()
+            ));
+        }
+
+        $output->writeln("Running formatter <comment>{$this->formatter}</comment>...");
+        $output->writeln("");
+        $output->writeln($this->formatters[$this->formatter]->format($bag));
 
         return true;
     }
