@@ -3,6 +3,7 @@
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface as Input;
 use Symfony\Component\Console\Output\OutputInterface as Output;
+use Symfony\Component\Console\Input\InputOption;
 
 use Adviser\ValidatorLoader;
 use Adviser\Validators\ValidatorInterface;
@@ -28,6 +29,11 @@ class AnalyseCommand extends Command
      * @var array
      */
     protected $validators = [];
+
+    /**
+     * @var null|string
+     */
+    protected $formatter;
 
     /**
      * Four spaces.
@@ -56,6 +62,8 @@ class AnalyseCommand extends Command
     {
         $this->setName("analyse")
              ->setDescription("Suggests you possible improvements for your project");
+
+        $this->addOption("formatter", null, InputOption::VALUE_REQUIRED, "Output formatter");
     }
 
     /**
@@ -68,14 +76,34 @@ class AnalyseCommand extends Command
     protected function execute(Input $input, Output $output)
     {
         $this->validators = $this->loader->loadFromConfigurationFile();
+        $this->formatter = $input->getOption("formatter");
 
-        $this->writeHead($output);
+        if ( ! $this->useFormatter($output)) {
+            $this->writeHead($output);
 
-        foreach ($this->validators as $validator) {
-            $this->runValidator($validator, $output);
+            foreach ($this->validators as $validator) {
+                $this->runValidator($validator, $output);
+            }
+
+            $this->writeSummary($output);
+        }
+    }
+
+    /**
+     * If a formatter was specified, run it, return true. Otherwise, return false.
+     *
+     * @param Output $output
+     * @return boolean
+     */
+    protected function useFormatter(Output $output)
+    {
+        if (is_null($this->formatter)) {
+            return false;
         }
 
-        $this->writeSummary($output);
+        $output->writeln("Hello, world!");
+
+        return true;
     }
 
     /**
