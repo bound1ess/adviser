@@ -6,11 +6,11 @@ Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
 
 ## Status
 
-Active development, around 75% of work is already done for the first stable release.
+Active development, around 80% of work is already done for the first stable release.
 
 ### @todo
 
-- Add various output formatters (plain text).
+- Add `analyse-repository` command.
 - Write documentation.
 - Add examples of work (output).
 
