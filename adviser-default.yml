@@ -12,3 +12,6 @@ validators:
     - "Adviser\Validators\\LicenseValidator"
     - "Adviser\Validators\CodeStyleValidator"
     - "Adviser\Validators\ComposerValidator"
+
+formatters:
+    - "Adviser\Output\Formatters\\PlainTextFormatter"

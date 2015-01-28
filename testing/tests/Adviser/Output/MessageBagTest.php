@@ -35,7 +35,7 @@ class MessageBagTest extends \Adviser\Testing\TestCase
     {
         $message = \Mockery::mock("Adviser\Output\Message");
 
-        $message->shouldReceive("getType")->times(3)->andReturn($type);
+        $message->shouldReceive("getType")->atLeast()->once()->andReturn($type);
 
         return $message;
     }
