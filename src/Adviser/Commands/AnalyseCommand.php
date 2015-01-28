@@ -102,6 +102,7 @@ class AnalyseCommand extends Command
 
     /**
      * If a formatter was specified, run it, return true. Otherwise, return false.
+     * @codeCoverageIgnore
      *
      * @param Output $output
      * @return boolean
@@ -116,7 +117,11 @@ class AnalyseCommand extends Command
             throw new \InvalidArgumentException("Invalid formatter name {$this->formatter}.");
         }
 
+        $output->writeln("Running formatter <comment>{$this->formatter}</comment>...");
+        $output->writeln("");
+
         $bag = new MessageBag();
+        $startTime = microtime(true);
 
         foreach ($this->validators as $validator) {
             $bag = new MessageBag(array_merge(
@@ -125,9 +130,13 @@ class AnalyseCommand extends Command
             ));
         }
 
-        $output->writeln("Running formatter <comment>{$this->formatter}</comment>...");
-        $output->writeln("");
         $output->writeln($this->formatters[$this->formatter]->format($bag));
+
+        $output->writeln("");
+        $output->writeln(sprintf(
+            "Done in %s seconds.",
+            round(microtime(true) - $startTime, 5)
+        ));
 
         return true;
     }

@@ -67,7 +67,7 @@ class ComposerValidator extends AbstractValidator
         }
 
         return $this->createNormalMessage(
-            "Your project is available at packagist.org/packages/{$manifest['name']}"
+            "Your project is available at packagist.org/packages/{$manifest['name']}."
         );
     }
 
