@@ -95,7 +95,15 @@ class AnalyseCommand extends Command
         $output->write($this->indentation);
         $output->writeln("Running <comment>".$validator->getName()."</comment> validator...");
 
+        $startTime = microtime(true);
+
         $bag = $validator->handle();
+
+        // Display how many seconds it took to run this validator.
+        $output->write($this->indentation);
+        $output->write("Done in ");
+        $output->write(round(microtime(true) - $startTime, 5));
+        $output->writeln(" seconds.");
 
         // Update the counters.
         $this->messageCounter['normal']  += count($bag->getNormalMessages());
