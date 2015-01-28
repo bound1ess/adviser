@@ -65,7 +65,7 @@ class MessageBag
      */
     public function getNormalMessages()
     {
-        return $this->filterByLevel(Message::NORMAL);
+        return $this->filterByType(Message::NORMAL);
     }
 
     /**
@@ -75,7 +75,7 @@ class MessageBag
      */
     public function getWarnings()
     {
-        return $this->filterByLevel(Message::WARNING);
+        return $this->filterByType(Message::WARNING);
     }
 
     /**
@@ -85,20 +85,20 @@ class MessageBag
      */
     public function getErrors()
     {
-        return $this->filterByLevel(Message::ERROR);
+        return $this->filterByType(Message::ERROR);
     }
 
     /**
-     * Filter messages in the bag by their level.
+     * Filter messages in the bag by their type.
      *
-     * @param integer $level
+     * @param integer $type
      * @return array
      */
-    protected function filterByLevel($level)
+    protected function filterByType($type)
     {
-        return array_filter($this->messages, function(Message $message) use($level)
+        return array_filter($this->messages, function(Message $message) use($type)
         {
-            return $message->getLevel() == $level;
+            return $message->getType() == $type;
         });
     }
 }

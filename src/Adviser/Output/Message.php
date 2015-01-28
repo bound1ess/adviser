@@ -26,52 +26,36 @@ class Message
     /**
      * @var integer
      */
-    protected $level;
+    protected $type;
 
     /**
      * @param string $message
-     * @param int $level
+     * @param integer $type
      * @return Message
      */
-    public function __construct($message, $level)
+    public function __construct($message, $type)
     {
         $this->message = (string) $message;
-        $this->setLevel($level);
+        $this->setType($type);
     }
 
     /**
-     * Format the message depending on its level.
+     * Format the message depending on its type.
      *
      * @param boolean $raw
      * @return string
      */
     public function format($raw = false)
     {
-        $level = $raw ? null : $this->level;
+        $type = $raw ? null : $this->type;
 
-        if ($level == static::NORMAL) {
-            return "<info>{$this->message}</info>";
+        switch($type) {
+            case static::NORMAL:  return "<info>{$this->message}</info>";
+            case static::WARNING: return "<comment>{$this->message}</comment>";
+            case static::ERROR:   return "<error>{$this->message}</error>";
+
+            default: return $this->message;
         }
-
-        if ($level == static::WARNING) {
-            return "<comment>{$this->message}</comment>";
-        }
-
-        if ($level == static::ERROR) {
-            return "<error>{$this->message}</error>";
-        }
-
-        return $this->message;
-    }
-
-    /**
-     * Get the message level.
-     *
-     * @return integer
-     */
-    public function getLevel()
-    {
-        return $this->level;
     }
 
     /**
@@ -81,7 +65,7 @@ class Message
      */
     public function isNormal()
     {
-        return $this->level == static::NORMAL;
+        return $this->type == static::NORMAL;
     }
 
     /**
@@ -91,7 +75,7 @@ class Message
      */
     public function isWarning()
     {
-        return $this->level == static::WARNING;
+        return $this->type == static::WARNING;
     }
 
     /**
@@ -101,22 +85,32 @@ class Message
      */
     public function isError()
     {
-        return $this->level == static::ERROR;
+        return $this->type == static::ERROR;
     }
 
     /**
-     * Validate and set appropriate level.
+     * Get the message type.
+     *
+     * @return integer
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Validate and set message type.
      *
      * @throws \InvalidArgumentException
-     * @param integer $level
+     * @param integer $type
      * @return void
      */
-    protected function setLevel($level)
+    protected function setType($type)
     {
-        if (! in_array($level, [static::NORMAL, static::WARNING, static::ERROR])) {
-            throw new \InvalidArgumentException("Invalid message level: {$level}.");
+        if (! in_array($type, [static::NORMAL, static::WARNING, static::ERROR])) {
+            throw new \InvalidArgumentException("Invalid message type: {$type}.");
         }
 
-        $this->level = $level;
+        $this->type = $type;
     }
 }
