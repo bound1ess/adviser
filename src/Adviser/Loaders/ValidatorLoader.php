@@ -1,6 +1,8 @@
-<?php namespace Adviser;
+<?php namespace Adviser\Loaders;
 
-class ValidatorLoader
+use Adviser\ConfigurationLoader;
+
+class ValidatorLoader extends AbstractLoader
 {
 
     /**

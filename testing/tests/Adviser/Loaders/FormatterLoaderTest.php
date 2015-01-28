@@ -1,6 +1,6 @@
-<?php namespace Adviser;
+<?php namespace Adviser\Loaders;
 
-class FormatterLoaderTest extends Testing\TestCase
+class FormatterLoaderTest extends \Adviser\Testing\TestCase
 {
 
     /**

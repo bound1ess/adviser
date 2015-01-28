@@ -5,7 +5,7 @@ use Symfony\Component\Console\Input\InputInterface as Input;
 use Symfony\Component\Console\Output\OutputInterface as Output;
 use Symfony\Component\Console\Input\InputOption;
 
-use Adviser\ValidatorLoader, Adviser\FormatterLoader;
+use Adviser\Loaders\ValidatorLoader, Adviser\Loaders\FormatterLoader;
 use Adviser\Validators\ValidatorInterface;
 use Adviser\Output\MessageBag;
 

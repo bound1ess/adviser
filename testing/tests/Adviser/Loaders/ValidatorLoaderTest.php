@@ -1,6 +1,6 @@
-<?php namespace Adviser;
+<?php namespace Adviser\Loaders;
 
-class ValidatorLoaderTest extends Testing\TestCase
+class ValidatorLoaderTest extends \Adviser\Testing\TestCase
 {
 
     /**

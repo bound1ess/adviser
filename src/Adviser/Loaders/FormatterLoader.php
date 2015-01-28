@@ -1,6 +1,8 @@
-<?php namespace Adviser;
+<?php namespace Adviser\Loaders;
 
-class FormatterLoader
+use Adviser\ConfigurationLoader;
+
+class FormatterLoader extends AbstractLoader
 {
 
     /**
