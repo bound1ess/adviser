@@ -28,6 +28,8 @@ class MessageTest extends \Adviser\Testing\TestCase
         $this->assertEquals($message->format(true), "some message");
 
         $this->assertTrue($message->isError());
+        // The the "getType" method.
+        $this->assertEquals($message->getType(), Message::ERROR);
     }
 
     /**
