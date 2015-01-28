@@ -15,6 +15,8 @@ function findComposerAutoloader()
     if (file_exists($path = ADVISER_DIR."/vendor/autoload.php")) {
         return require_once $path;
     }
+
+    return require_once ADVISER_DIR."/../../autoload.php";
 }
 
 /**
