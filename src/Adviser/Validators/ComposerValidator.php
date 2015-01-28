@@ -1,7 +1,5 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\Message, Adviser\Messages\MessageBag;
-
 class ComposerValidator extends AbstractValidator
 {
 
@@ -10,11 +8,11 @@ class ComposerValidator extends AbstractValidator
      */
     public function handle()
     {
-        $bag = new MessageBag();
+        $bag = $this->createMessageBag();
 
         $message = $this->isManifestOK();
 
-        if ($message->getLevel() != Message::ERROR) {
+        if ( ! $message->isError()) {
             $bag->throwIn($this->lookForAutoloader("psr-4"));
             $bag->throwIn($this->checkIfPackageWasPublished());
             $bag->throwIn($this->checkIfSourceCodeIsStoredIn("src"));
@@ -33,13 +31,12 @@ class ComposerValidator extends AbstractValidator
         $composer = $this->utility("Composer");
 
         if ( ! is_null($composer->readManifest($this->directory))) {
-            return new Message(
-                "Your manifest file (composer.json) is just fine.",
-                Message::NORMAL
+            return $this->createNormalMessage(
+                "Your manifest file (composer.json) is just fine."
             );
         }
 
-        return new Message("Something is wrong with your composer.json file.", Message::ERROR);
+        return $this->createErrorMessage("Something is wrong with your composer.json file.");
     }
 
     /**
@@ -49,13 +46,12 @@ class ComposerValidator extends AbstractValidator
     protected function lookForAutoloader($name)
     {
         if ( ! $this->utility("Composer")->hasAutoloader($this->directory, $name)) {
-            return new Message(
-                "You should be using the {$name} autoloader for your project instead.",
-                Message::WARNING
+            return $this->createWarningMessage(
+                "You should be using the {$name} autoloader for your project instead."
             );
         }
 
-        return new Message("Your project uses the {$name} autoloader.", Message::NORMAL);
+        return $this->createNormalMessage("Your project uses the {$name} autoloader.");
     }
 
     /**
@@ -66,12 +62,11 @@ class ComposerValidator extends AbstractValidator
         $manifest = $this->utility("Composer")->readManifest($this->directory);
 
         if ( ! $this->utility("Packagist")->packageExists($manifest["name"])) {
-            return new Message("Your project is not on Packagist.", Message::WARNING);
+            return $this->createWarningMessage("Your project is not on Packagist.");
         }
 
-        return new Message(
-            "Your project is available at packagist.org/packages/{$manifest['name']}",
-            Message::NORMAL
+        return $this->createNormalMessage(
+            "Your project is available at packagist.org/packages/{$manifest['name']}"
         );
     }
 
@@ -83,16 +78,14 @@ class ComposerValidator extends AbstractValidator
     {
         foreach ($this->utility("Composer")->getSourceDirectories($this->directory) as $path) {
             if (strpos($path, $directory) === 0) {
-                return new Message(
-                    "Your project's source code is in the {$directory}/ directory.",
-                    Message::NORMAL
+                return $this->createNormalMessage(
+                    "Your project's source code is in the {$directory}/ directory."
                 );
             }
         }
 
-        return new Message(
-            "Your project's source code is not in the {$directory}/ directory.",
-            Message::WARNING
+        return $this->createWarningMessage(
+            "Your project's source code is not in the {$directory}/ directory."
         );
     }
 }

@@ -1,7 +1,5 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\Message, Adviser\Messages\MessageBag;
-
 class LicenseValidator extends AbstractValidator
 {
 
@@ -15,7 +13,7 @@ class LicenseValidator extends AbstractValidator
      */
     public function handle()
     {
-        $bag = new MessageBag();
+        $bag = $this->createMessageBag();
 
         $bag->throwIn($this->lookForLicenseFile());
 
@@ -30,16 +28,15 @@ class LicenseValidator extends AbstractValidator
         $file = $this->utility("File");
 
         if ($file->exists($this->directory."/LICENSE")) {
-            return new Message("Your project has a LICENSE file.", Message::NORMAL);
+            return $this->createNormalMessage("Your project has a LICENSE file.");
         }
 
         if ($file->anyExists($this->directory, $this->files)) {
-            return new Message(
-                "Looks like your project has a license file, but it's not LICENSE.",
-                Message::WARNING
+            return $this->createWarningMessage(
+                "Looks like your project has a license file, but it's not LICENSE."
             );
         }
 
-        return new Message("Your project doesn't have a license file.", Message::ERROR);
+        return $this->createErrorMessage("Your project doesn't have a license file.");
     }
 }

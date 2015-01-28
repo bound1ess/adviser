@@ -1,7 +1,5 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\Message, Adviser\Messages\MessageBag;
-
 class CIValidator extends AbstractValidator
 {
 
@@ -15,7 +13,7 @@ class CIValidator extends AbstractValidator
      */
     public function handle()
     {
-        $bag = new MessageBag();
+        $bag = $this->createMessageBag();
 
         $bag->throwIn($this->checkTravisConfigurationFile());
 
@@ -28,24 +26,21 @@ class CIValidator extends AbstractValidator
     protected function checkTravisConfigurationFile()
     {
         if ( ! $this->utility("File")->exists($path = $this->directory."/.travis.yml")) {
-            return new Message(
-                "Your project doesn't seem to be using Travis CI platform (travis-ci.org).",
-                Message::ERROR
+            return $this->createErrorMessage(
+                "Your project doesn't seem to be using Travis CI platform (travis-ci.org)."
             );
         }
 
         $config = $this->utility("YAMLParser")->parse($this->utility("File")->read($path));
 
         if ( ! array_key_exists("php", $config) or ! $this->checkVersions($config["php"])) {
-            return new Message(
-                "Your .travis.yml file seems to be using the outdated versions of PHP.",
-                Message::WARNING
+            return $this->createWarningMessage(
+                "Your .travis.yml file seems to be using the outdated versions of PHP."
             );
         }
 
-        return new Message(
-            "Your project uses Travis and the settings are fine.",
-            Message::NORMAL
+        return $this->createNormalMessage(
+            "Your project uses Travis and the settings are fine."
         );
     }
 

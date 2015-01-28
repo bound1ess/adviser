@@ -1,7 +1,5 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\Message, Adviser\Messages\MessageBag;
-
 class ChangelogValidator extends AbstractValidator
 {
 
@@ -19,7 +17,7 @@ class ChangelogValidator extends AbstractValidator
      */
     public function handle()
     {
-        $bag = new MessageBag();
+        $bag = $this->createMessageBag();
 
         $bag->throwIn($this->lookForChangelogFile());
 
@@ -34,16 +32,15 @@ class ChangelogValidator extends AbstractValidator
         $file = $this->utility("File");
 
         if ($file->exists($this->directory."/CHANGELOG")) {
-            return new Message("Your project has a CHANGELOG file.", Message::NORMAL);
+            return $this->createNormalMessage("Your project has a CHANGELOG file.");
         }
 
         if ($file->anyExists($this->directory, $this->files)) {
-            return new Message(
-                "Looks like your project has a change log, but it's not CHANGELOG.",
-                Message::WARNING
+            return $this->createWarningMessage(
+                "Looks like your project has a change log, but it's not CHANGELOG."
             );
         }
 
-        return new Message("Your project doesn't have a change log.", Message::ERROR);
+        return $this->createErrorMessage("Your project doesn't have a change log.");
     }
 }

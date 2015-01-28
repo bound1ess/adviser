@@ -1,7 +1,5 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\MessageBag, Adviser\Messages\Message;
-
 class ReadmeValidator extends AbstractValidator
 {
 
@@ -15,7 +13,7 @@ class ReadmeValidator extends AbstractValidator
      */
     public function handle()
     {
-        $bag = new MessageBag();
+        $bag = $this->createMessageBag();
 
         $bag->throwIn($this->lookForReadmeFile());
 
@@ -30,16 +28,15 @@ class ReadmeValidator extends AbstractValidator
         $file = $this->utility("File");
 
         if ($file->exists($this->directory."/README.md")) {
-            return new Message("Your project has a README.md file.", Message::NORMAL);
+            return $this->createNormalMessage("Your project has a README.md file.");
         }
 
         if ($file->anyExists($this->directory, $this->files)) {
-            return new Message(
-                "Looks like your project has a readme file, but it's not README.md.",
-                Message::WARNING
+            return $this->createWarningMessage(
+                "Looks like your project has a readme file, but it's not README.md."
             );
         }
 
-        return new Message("Your project does not have a readme file.", Message::ERROR);
+        return $this->createErrorMessage("Your project does not have a readme file.");
     }
 }

@@ -1,7 +1,5 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\Message, Adviser\Messages\MessageBag;
-
 class ContributingValidator extends AbstractValidator
 {
 
@@ -19,7 +17,7 @@ class ContributingValidator extends AbstractValidator
      */
     public function handle()
     {
-        $bag = new MessageBag();
+        $bag = $this->createMessageBag();
 
         $bag->throwIn($this->lookForContributingInstructions());
 
@@ -32,19 +30,17 @@ class ContributingValidator extends AbstractValidator
     protected function lookForContributingInstructions()
     {
         if ($this->utility("File")->exists($this->directory."/CONTRIBUTING")) {
-            return new Message("Your project has a CONTRIBUTING file.", Message::NORMAL);
+            return $this->createNormalMessage("Your project has a CONTRIBUTING file.");
         }
 
         if ($this->utility("File")->anyExists($this->directory, $this->files)) {
-            return new Message(
-                "Your project has contributing instructions, but not in a CONTRIBUTING file.",
-                Message::WARNING
+            return $this->createWarningMessage(
+                "Your project has contributing instructions, but not in a CONTRIBUTING file."
             );
         }
 
-        return new Message(
-            "There are no contributing instructions for your project.",
-            Message::ERROR
+        return $this->createErrorMessage(
+            "There are no contributing instructions for your project."
         );
     }
 }

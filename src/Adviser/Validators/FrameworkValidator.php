@@ -1,7 +1,5 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\Message, Adviser\Messages\MessageBag;
-
 class FrameworkValidator extends AbstractValidator
 {
 
@@ -20,7 +18,7 @@ class FrameworkValidator extends AbstractValidator
 
     public function handle()
     {
-        $bag = new MessageBag();
+        $bag = $this->createMessageBag();
 
         $bag->throwIn($this->lookForFrameworksBeingUsed());
 
@@ -34,13 +32,12 @@ class FrameworkValidator extends AbstractValidator
     {
         foreach ($this->utility("Composer")->getDependencies($this->directory) as $package) {
             if (in_array($package, $this->frameworks)) {
-                return new Message("Your project depends on {$package}.", Message::WARNING);
+                return $this->createWarningMessage("Your project depends on {$package}.");
             }
         }
 
-        return new Message(
-            "Looks like your project doesn't depend on any framework.",
-            Message::NORMAL
+        return $this->createNormalMessage(
+            "Looks like your project doesn't depend on any framework."
         );
     }
 }

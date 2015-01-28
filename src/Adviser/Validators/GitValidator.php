@@ -1,8 +1,5 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\Message;
-use Adviser\Messages\MessageBag;
-
 class GitValidator extends AbstractValidator
 {
 
@@ -11,14 +8,13 @@ class GitValidator extends AbstractValidator
      */
     public function handle()
     {
-        // 1) Check if $this->directory is a Git repository.
-        // 2) If yes, check that remote.origin.url contains "github.com" or "bitbucket.org".
-        $bag = new MessageBag();
+        $bag = $this->createMessageBag();
 
         $message = $this->checkIfGitRepository();
+
         $bag->throwIn($message);
 
-        if ($message->getLevel() != Message::ERROR) {
+        if ( ! $message->isError()) {
             $bag->throwIn($this->checkIfRepositoryUrlIsCorrect());
         }
 
@@ -31,10 +27,10 @@ class GitValidator extends AbstractValidator
     protected function checkIfGitRepository()
     {
         if ($this->utility("Git")->isRepository($this->directory)) {
-            return new Message("Your project is a Git repository.", Message::NORMAL);
+            return $this->createNormalMessage("Your project is a Git repository.");
         }
 
-        return new Message("Your project is not a Git repository.", Message::ERROR);
+        return $this->createErrorMessage("Your project is not a Git repository.");
     }
 
     /**
@@ -48,15 +44,14 @@ class GitValidator extends AbstractValidator
             $url = $config["remote.origin.url"];
 
             if (strpos($url, "github.com") || strpos($url, "bitbucket.org")) {
-                return new Message("Your remote repo's URL is fine.", Message::NORMAL);
+                return $this->createNormalMessage("Your remote repo's URL is fine.");
             }
 
-            return new Message(
-                "Your remote repo's URL doesn't point to Github/Bitbucket.",
-                Message::WARNING
+            return $this->createWarningMessage(
+                "Your remote repo's URL doesn't point to Github/Bitbucket."
             );
         }
 
-        return new Message("Your remote repo's URL is not configured.", Message::ERROR);
+        return $this->createErrorMessage("Your remote repo's URL is not configured.");
     }
 }

@@ -1,7 +1,5 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\Message, Adviser\Messages\MessageBag;
-
 class CodeStyleValidator extends AbstractValidator
 {
 
@@ -15,24 +13,21 @@ class CodeStyleValidator extends AbstractValidator
      */
     public function handle()
     {
-        $bag = new MessageBag();
+        $bag = $this->createMessageBag();
 
         if ( ! $this->findPhpCsFixerExecutable()) {
-            $bag->throwIn(new Message(
+            $bag->throwIn($this->createErrorMessage(
                 "Couldn't find the php-cs-fixer executable file."
-                ." Visit github.com/FriendsOfPHP/PHP-CS-Fixer to install PHP-CS-Fixer.",
-                Message::ERROR
+                ." Visit github.com/FriendsOfPHP/PHP-CS-Fixer to install PHP-CS-Fixer."
             ));
         } else {
             if ($this->runPhpCsFixer("psr2")) {
-                $bag->throwIn(new Message(
-                    "Your project follows the PSR-2 coding standard strictly.",
-                    Message::NORMAL
+                $bag->throwIn($this->createNormalMessage(
+                    "Your project follows the PSR-2 coding standard strictly."
                 ));
             } else {
-                $bag->throwIn(new Message(
-                    "Your source code doesn't strictly follow the PSR-2 coding standard.",
-                    Message::WARNING
+                $bag->throwIn($this->createWarningMessage(
+                    "Your source code doesn't strictly follow the PSR-2 coding standard."
                 ));
             }
         }

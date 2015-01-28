@@ -1,7 +1,5 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\Message, Adviser\Messages\MessageBag;
-
 class TestValidator extends AbstractValidator
 {
 
@@ -30,13 +28,7 @@ class TestValidator extends AbstractValidator
      */
     public function handle()
     {
-        $bag = new MessageBag();
-
-        foreach ($this->checkTestingFrameworksConfiguration()->getAll() as $message) {
-            $bag->throwIn($message);
-        }
-
-        return $bag;
+        return $this->checkTestingFrameworksConfiguration();
     }
 
     /**
@@ -45,7 +37,8 @@ class TestValidator extends AbstractValidator
     protected function checkTestingFrameworksConfiguration()
     {
         $packages = $this->utility("Composer")->getDependencies($this->directory, true);
-        $bag = new MessageBag();
+
+        $bag = $this->createMessageBag();
 
         foreach ($packages as $package) {
             if ( ! in_array($package, $this->testingFrameworks)) {
@@ -63,9 +56,8 @@ class TestValidator extends AbstractValidator
                 // If there is a configuration file for this testing framework, that's cool.
                 if ($this->utility("File")->exists($this->directory."/".$file)) {
                     // Add a message to the message bag.
-                    $bag->throwIn(new Message(
-                        "Testing framework {$package} is configured in ./{$file}.",
-                        Message::NORMAL
+                    $bag->throwIn($this->createNormalMessage(
+                        "Testing framework {$package} is configured in ./{$file}."
                     ));
 
                     $configured = true;
@@ -75,18 +67,16 @@ class TestValidator extends AbstractValidator
             }
 
             if ( ! $configured) {
-                $bag->throwIn(new Message(
-                    "Package {$package} is not configured via a configuration file.",
-                    Message::WARNING
+                $bag->throwIn($this->createWarningMessage(
+                    "Package {$package} is not configured via a configuration file."
                 ));
             }
         }
 
         if (1 > count($bag->getAll())) {
             // If no messages were added, something is probably wrong.
-            $bag->throwIn(new Message(
-                "Looks like you don't test your code, do you?",
-                Message::ERROR
+            $bag->throwIn($this->createErrorMessage(
+                "Looks like you don't test your code, do you?"
             ));
         }
 
