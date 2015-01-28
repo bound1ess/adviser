@@ -61,7 +61,8 @@ class ComposerValidator extends AbstractValidator
     {
         $manifest = $this->utility("Composer")->readManifest($this->directory);
 
-        if ( ! $this->utility("Packagist")->packageExists($manifest["name"])) {
+        if (is_null($manifest) || ! array_key_exists("name", $manifest)
+            || ! $this->utility("Packagist")->packageExists($manifest["name"])) {
             return $this->createWarningMessage("Your project is not on Packagist.");
         }
 
