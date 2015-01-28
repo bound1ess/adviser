@@ -16,7 +16,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function mockUtility($name)
     {
-        return Mockery::mock("Adviser\Utility\\".$name);
+        return Mockery::mock("Adviser\Utilities\\".$name."Utility");
     }
 
     public function tearDown()

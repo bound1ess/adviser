@@ -1,6 +1,6 @@
-<?php namespace Adviser\Utility;
+<?php namespace Adviser\Utilities;
 
-class File extends AbstractUtility
+class FileUtility extends AbstractUtility
 {
 
     /**

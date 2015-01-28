@@ -1,6 +1,6 @@
-<?php namespace Adviser\Utility;
+<?php namespace Adviser\Utilities;
 
-class CommandRunner extends AbstractUtility
+class CommandRunnerUtility extends AbstractUtility
 {
 
     /**

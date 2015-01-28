@@ -1,6 +1,6 @@
-<?php namespace Adviser\Utility;
+<?php namespace Adviser\Utilities;
 
-class FileTest extends \Adviser\Testing\UtilityTestCase
+class FileUtilityTest extends \Adviser\Testing\UtilityTestCase
 {
 
     /**
@@ -8,7 +8,7 @@ class FileTest extends \Adviser\Testing\UtilityTestCase
      */
     public function it_checks_if_file_or_directory_exists()
     {
-        $file = new File;
+        $file = new FileUtility;
 
         $this->assertTrue($file->exists(ADVISER_DIR));
         $this->assertTrue($file->exists(ADVISER_DIR."/composer.json"));
@@ -21,7 +21,7 @@ class FileTest extends \Adviser\Testing\UtilityTestCase
      */
     public function it_checks_if_any_of_given_files_or_directories_exists()
     {
-        $file = new File;
+        $file = new FileUtility;
 
         $this->assertTrue($file->anyExists(ADVISER_DIR, ["README.md", "readme"]));
         $this->assertTrue($file->anyExists(ADVISER_DIR, ["Src", "src"]));
@@ -34,7 +34,7 @@ class FileTest extends \Adviser\Testing\UtilityTestCase
      */
     public function it_reads_a_file()
     {
-        $file = new File;
+        $file = new FileUtility;
 
         $this->assertEmpty($file->read(uniqid()));
 

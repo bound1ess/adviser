@@ -1,20 +1,20 @@
-<?php namespace Adviser\Utility;
+<?php namespace Adviser\Utilities;
 
-class Composer extends AbstractUtility
+class ComposerUtility extends AbstractUtility
 {
 
     /**
-     * @var CommandRunner
+     * @var CommandRunnerUtility
      */
     protected $runner;
 
     /**
-     * @param CommandRunner|null $runner
+     * @param CommandRunnerUtility|null $runner
      * @return Composer
      */
-    public function __construct(CommandRunner $runner = null)
+    public function __construct(CommandRunnerUtility $runner = null)
     {
-        $this->runner = $runner ?: new CommandRunner;
+        $this->runner = $runner ?: new CommandRunnerUtility;
     }
 
     /**

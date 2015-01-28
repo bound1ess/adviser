@@ -1,8 +1,8 @@
-<?php namespace Adviser\Utility;
+<?php namespace Adviser\Utilities;
 
 use GuzzleHttp\Client, GuzzleHttp\Exception\ClientException;
 
-class Packagist extends AbstractUtility
+class PackagistUtility extends AbstractUtility
 {
 
     /**

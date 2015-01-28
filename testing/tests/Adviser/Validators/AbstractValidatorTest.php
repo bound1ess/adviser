@@ -19,7 +19,7 @@ class AbstractValidatorTest extends \Adviser\Testing\ValidatorTestCase
         $validator = new ConcreteValidator(null);
         $instance = $validator->utility("Git");
 
-        $this->assertInstanceOf("Adviser\Utility\Git", $instance);
+        $this->assertInstanceOf("Adviser\Utilities\GitUtility", $instance);
         $this->assertEquals($instance, $validator->utility("Git"));
         $this->assertEquals($instance, $validator->utility("Git", $instance));
     }

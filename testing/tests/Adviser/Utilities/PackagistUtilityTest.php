@@ -1,8 +1,8 @@
-<?php namespace Adviser\Utility;
+<?php namespace Adviser\Utilities;
 
 use GuzzleHttp\Exception\ClientException, GuzzleHttp\Message\Request;
 
-class PackagistTest extends \Adviser\Testing\UtilityTestCase
+class PackagistUtilityTest extends \Adviser\Testing\UtilityTestCase
 {
 
     /** @test */ public function it_checks_if_package_exists()
@@ -19,7 +19,7 @@ class PackagistTest extends \Adviser\Testing\UtilityTestCase
                ->with("https://packagist.org/packages/nonexistent/package.json")
                ->andThrow(new ClientException("message", new Request("method", "url")));
 
-        $packagist = new Packagist($client);
+        $packagist = new PackagistUtility($client);
 
         $this->assertTrue($packagist->packageExists("phpunit/phpunit"));
         $this->assertFalse($packagist->packageExists("nonexistent/package"));

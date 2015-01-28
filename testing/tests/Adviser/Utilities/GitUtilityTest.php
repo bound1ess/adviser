@@ -1,6 +1,6 @@
-<?php namespace Adviser\Utility;
+<?php namespace Adviser\Utilities;
 
-class GitTest extends \Adviser\Testing\UtilityTestCase
+class GitUtilityTest extends \Adviser\Testing\UtilityTestCase
 {
 
     /** @test */ public function it_returns_the_tags_list()
@@ -14,15 +14,14 @@ class GitTest extends \Adviser\Testing\UtilityTestCase
                    "stdout" => "0.0.0".PHP_EOL,
                ]);
 
-        $this->assertEquals((new Git($runner))->getTags(), ["0.0.0"]);
+        $this->assertEquals((new GitUtility($runner))->getTags(), ["0.0.0"]);
     }
 
     /** @test */ public function it_checks_if_git_repository_exists()
     {
-        $git = new Git();
+        $git = new GitUtility();
 
         $this->assertTrue($git->isRepository(getcwd()));
-        // Unless....unless...
         $this->assertFalse($git->isRepository($_SERVER["HOME"]));
     }
 
@@ -35,7 +34,7 @@ class GitTest extends \Adviser\Testing\UtilityTestCase
                ->with("git config -l")
                ->andReturn(["stdout" => "foo=bar".PHP_EOL."baz=fuz".PHP_EOL]);
 
-        $config = (new Git($runner))->getConfig();
+        $config = (new GitUtility($runner))->getConfig();
 
         $this->assertArrayHasKey("baz", $config);
         $this->assertEquals($config["foo"], "bar");

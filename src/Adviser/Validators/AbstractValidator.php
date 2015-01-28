@@ -42,7 +42,7 @@ abstract class AbstractValidator implements ValidatorInterface
     {
         if (is_null($instance)) {
             if (! array_key_exists($name, $this->utilities)) {
-                $class = "Adviser\Utility\\".$name;
+                $class = "Adviser\Utilities\\".$name."Utility";
 
                 return $this->utilities[$name] = new $class();
             }

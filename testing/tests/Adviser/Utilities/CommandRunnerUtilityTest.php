@@ -1,11 +1,11 @@
-<?php namespace Adviser\Utility;
+<?php namespace Adviser\Utilities;
 
-class CommandRunnerTest extends \Adviser\Testing\UtilityTestCase
+class CommandRunnerUtilityTest extends \Adviser\Testing\UtilityTestCase
 {
 
     /** @test */ public function it_runs_a_command()
     {
-        $output = (new CommandRunner())->run(getcwd()."/testing/utility-command.sh");
+        $output = (new CommandRunnerUtility())->run(getcwd()."/testing/utility-command.sh");
 
         $this->assertTrue(is_array($output));
 
@@ -23,6 +23,6 @@ class CommandRunnerTest extends \Adviser\Testing\UtilityTestCase
             return false;
         }
 
-        (new CommandRunner())->run("something");
+        (new CommandRunnerUtility())->run("something");
     }
 }

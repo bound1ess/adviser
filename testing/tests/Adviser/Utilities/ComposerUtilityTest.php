@@ -1,11 +1,11 @@
-<?php namespace Adviser\Utility;
+<?php namespace Adviser\Utilities;
 
-class ComposerTest extends \Adviser\Testing\UtilityTestCase
+class ComposerUtilityTest extends \Adviser\Testing\UtilityTestCase
 {
 
     /** @test */ public function it_checks_if_the_manifest_file_exists()
     {
-        $composer = new Composer;
+        $composer = new ComposerUtility;
 
         $this->assertTrue($composer->manifestExists(ADVISER_DIR));
         $this->assertFalse($composer->manifestExists($_SERVER["HOME"]));
@@ -23,7 +23,7 @@ class ComposerTest extends \Adviser\Testing\UtilityTestCase
                    ["stdout" => "./composer.json is invalid"]
                );
 
-        $composer = new Composer($runner);
+        $composer = new ComposerUtility($runner);
 
         $this->assertTrue($composer->isManifestValid(ADVISER_DIR));
         $this->assertFalse($composer->isManifestValid(ADVISER_DIR));
@@ -31,7 +31,7 @@ class ComposerTest extends \Adviser\Testing\UtilityTestCase
 
     /** @test */ public function it_checks_if_autoloader_was_configured_in_the_manifest_file()
     {
-        $composer = new Composer();
+        $composer = new ComposerUtility();
 
         $this->assertFalse($composer->hasAutoloader(ADVISER_DIR, "psr-0"));
         $this->assertTrue($composer->hasAutoloader(ADVISER_DIR, "psr-4"));
@@ -41,7 +41,7 @@ class ComposerTest extends \Adviser\Testing\UtilityTestCase
 
     /** @test */ public function it_returns_the_source_directories_listed_in_the_manifest()
     {
-        $composer = new Composer();
+        $composer = new ComposerUtility();
 
         $this->assertCount(0, $composer->getSourceDirectories($_SERVER["HOME"]));
         $this->assertEquals($composer->getSourceDirectories(ADVISER_DIR), ["src/Adviser/"]);
@@ -49,7 +49,7 @@ class ComposerTest extends \Adviser\Testing\UtilityTestCase
 
     /** @test */ public function it_returns_the_dependencies_list()
     {
-        $composer = new Composer();
+        $composer = new ComposerUtility();
 
         $this->assertCount(0, $composer->getDependencies($_SERVER["HOME"]));
         $this->assertContains("symfony/console", $composer->getDependencies(ADVISER_DIR));
