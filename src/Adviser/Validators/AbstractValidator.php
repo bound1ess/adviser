@@ -1,6 +1,6 @@
 <?php namespace Adviser\Validators;
 
-use Adviser\Messages\MessageBag;
+use Adviser\Messages\MessageBag, Adviser\Messages\Message;
 
 abstract class AbstractValidator implements ValidatorInterface
 {
@@ -63,5 +63,48 @@ abstract class AbstractValidator implements ValidatorInterface
         $chunks = explode("\\", get_class($this));
 
         return str_replace("Validator", "", end($chunks));
+    }
+
+    /**
+     * Create a new MessageBag instance.
+     *
+     * @return MessageBag
+     */
+    public function createMessageBag()
+    {
+        return new MessageBag();
+    }
+
+    /**
+     * Create a new message of type "normal".
+     *
+     * @param string $text
+     * @return Message
+     */
+    public function createNormalMessage($text)
+    {
+        return new Message($text, Message::NORMAL);
+    }
+
+    /**
+     * Create a new message of type "warning".
+     *
+     * @param string $text
+     * @return Message
+     */
+    public function createWarningMessage($text)
+    {
+        return new Message($text, Message::WARNING);
+    }
+
+    /**
+     * Create a new message of type "error".
+     *
+     * @param string $text
+     * @return Message
+     */
+    public function createErrorMessage($text)
+    {
+        return new Message($text, Message::ERROR);
     }
 }
