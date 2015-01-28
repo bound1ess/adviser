@@ -3,7 +3,10 @@
 class GitUtilityTest extends \Adviser\Testing\UtilityTestCase
 {
 
-    /** @test */ public function it_returns_the_tags_list()
+    /**
+     * @test
+     */
+    public function it_returns_the_list_of_tags_for_this_repository()
     {
         $runner = $this->mockUtility("CommandRunner");
 
@@ -17,7 +20,10 @@ class GitUtilityTest extends \Adviser\Testing\UtilityTestCase
         $this->assertEquals((new GitUtility($runner))->getTags(), ["0.0.0"]);
     }
 
-    /** @test */ public function it_checks_if_git_repository_exists()
+    /**
+     * @test
+     */
+    public function it_checks_if_given_directory_is_a_Git_repository()
     {
         $git = new GitUtility();
 
@@ -25,7 +31,10 @@ class GitUtilityTest extends \Adviser\Testing\UtilityTestCase
         $this->assertFalse($git->isRepository($_SERVER["HOME"]));
     }
 
-    /** @test */ public function it_returns_the_configuration_as_an_array()
+    /**
+     * @test
+     */
+    public function it_returns_the_repository_configuration_as_an_associative_array()
     {
         $runner = $this->mockUtility("CommandRunner");
 

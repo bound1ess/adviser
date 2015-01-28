@@ -5,7 +5,10 @@ use GuzzleHttp\Exception\ClientException, GuzzleHttp\Message\Request;
 class PackagistUtilityTest extends \Adviser\Testing\UtilityTestCase
 {
 
-    /** @test */ public function it_checks_if_package_exists()
+    /**
+     * @test
+     */
+    public function it_checks_if_given_package_was_published_to_Packagist()
     {
         $client = \Mockery::mock("GuzzleHttp\Client");
 
