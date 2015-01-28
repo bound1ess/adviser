@@ -1,10 +1,8 @@
 <?php
 
-// All values that I don't want to be hardcoded are stored here.
-
 return [
     // Adviser's current version.
-    "version" => "0.1.0",
+    "version" => "0.1.1",
 
     "validators" => [
         "Adviser\Validators\GitValidator",

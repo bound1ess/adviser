@@ -1,18 +1,27 @@
 <?php
 
-if (! defined("ADVISER_DIR")) {
+// The project's root directory.
+if ( ! defined("ADVISER_DIR")) {
     define("ADVISER_DIR", __DIR__."/..");
 }
 
-// This function attempts to load Composer's autoloader.
+/**
+ * Attempt to find the autoloader.
+ *
+ * @return mixed
+ */
 function findComposerAutoloader()
 {
     if (file_exists($path = ADVISER_DIR."/vendor/autoload.php")) {
-        return require $path;
+        return require_once $path;
     }
 }
 
-// This function returns Adviser's current version value.
+/**
+ * Get Adviser's current version.
+ *
+ * @return string
+ */
 function getAdviserVersion()
 {
     $config = require ADVISER_DIR."/config.php";
