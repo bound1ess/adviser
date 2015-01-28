@@ -8,7 +8,7 @@ class ValidatorLoaderTest extends Testing\TestCase
      */
     public function it_loads_validators_listed_in_the_configuration_file()
     {
-        $validators = (new ValidatorLoader)->loadFromConfigurationFile();
+        $validators = (new ValidatorLoader())->loadFromConfigurationFile();
 
         $this->assertInternalType("array", $validators);
         $this->assertNotCount(0, $validators);
