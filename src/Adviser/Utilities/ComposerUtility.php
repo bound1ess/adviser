@@ -128,6 +128,6 @@ class ComposerUtility extends AbstractUtility
      */
     protected function getComposerExecutablePath($directory)
     {
-        return file_exists($path = $directory."/composer.phar") ? $path : "composer";
+        return file_exists($directory."/composer.phar") ? "./composer.phar" : "composer";
     }
 }
