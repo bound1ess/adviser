@@ -3,7 +3,10 @@
 class ValidatorLoaderTest extends \Adviser\Testing\TestCase
 {
 
-    /** @test */ public function it_loads_validators_listed_in_the_configuration_file()
+    /**
+     * @test
+     */
+    public function it_loads_validators_listed_in_the_configuration_file()
     {
         $this->assertInternalType("array", $validators = (new ValidatorLoader())->load());
         $this->assertNotCount(0, $validators);

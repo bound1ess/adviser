@@ -3,7 +3,10 @@
 class AnalyseCommandTest extends \Adviser\Testing\CommandTestCase
 {
 
-    /** @test */ public function it_has_the_right_name_and_description()
+    /**
+     * @test
+     */
+    public function it_has_the_right_name_and_description()
     {
         $command = new AnalyseCommand();
 
@@ -15,7 +18,10 @@ class AnalyseCommandTest extends \Adviser\Testing\CommandTestCase
         );
     }
 
-    /** @test */ public function it_returns_something()
+    /**
+     * @test
+     */
+    public function it_returns_something()
     {
         $this->assertNotEmpty($this->runCommand(new AnalyseCommand()));
     }
