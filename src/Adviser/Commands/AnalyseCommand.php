@@ -67,7 +67,7 @@ class AnalyseCommand extends Command
      */
     protected function execute(Input $input, Output $output)
     {
-        $this->validators = $this->loader->load();
+        $this->validators = $this->loader->loadFromConfigurationFile();
 
         $this->writeHead($output);
 
