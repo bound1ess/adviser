@@ -17,8 +17,8 @@ class ConfigurationLoader
      */
     public function __construct(FileUtility $file = null, YAMLParserUtility $parser = null)
     {
-        $this->file = $file ?: new FileUtility;
-        $this->parser = $parser ?: new YAMLParser;
+        $this->file = $file ?: new FileUtility();
+        $this->parser = $parser ?: new YAMLParserUtility();
     }
 
     /**

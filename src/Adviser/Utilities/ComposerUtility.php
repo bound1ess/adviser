@@ -14,7 +14,7 @@ class ComposerUtility extends AbstractUtility
      */
     public function __construct(CommandRunnerUtility $runner = null)
     {
-        $this->runner = $runner ?: new CommandRunnerUtility;
+        $this->runner = $runner ?: new CommandRunnerUtility();
     }
 
     /**

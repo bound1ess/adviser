@@ -24,7 +24,7 @@ function findComposerAutoloader()
  */
 function getAdviserVersion()
 {
-    $config = require ADVISER_DIR."/config.php";
+    $configuration = (new Adviser\ConfigurationLoader())->load();
 
-    return $config["version"];
+    return $configuration["version"];
 }

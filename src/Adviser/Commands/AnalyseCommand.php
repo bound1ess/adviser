@@ -42,7 +42,7 @@ class AnalyseCommand extends Command
      */
     public function __construct(ValidatorLoader $loader = null)
     {
-        $this->loader = $loader ?: new ValidatorLoader;
+        $this->loader = $loader ?: new ValidatorLoader();
 
         parent::__construct();
     }
