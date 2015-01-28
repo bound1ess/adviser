@@ -36,8 +36,6 @@ class ConfigurationLoader
             );
         }
 
-        if ($this->file->exists($path = ADVISER_DIR."/adviser-default.yml")) {
-            return $this->parser->parse($this->file->read($path));
-        }
+        return $this->parser->parse($this->file->read(ADVISER_DIR."/adviser-default.yml"));
     }
 }
