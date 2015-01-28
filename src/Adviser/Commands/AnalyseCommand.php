@@ -145,9 +145,9 @@ class AnalyseCommand extends Command
     {
         $output->writeln("");
 
-        $output->write("<info>{$this->messageCounter['normal']} OK</info> / ");
-        $output->write("<comment>{$this->messageCounter['warning']} WARNINGS</comment> / ");
-        $output->writeln("<error>{$this->messageCounter['error']} ERRORS</error>");
+        $output->write("<info>{$this->messageCounter['normal']} OK</info>, ");
+        $output->write("<comment>{$this->messageCounter['warning']} WARNING(S)</comment>, ");
+        $output->writeln("<error>{$this->messageCounter['error']} ERROR(S)</error>");
 
         $output->writeln("Done!");
     }
