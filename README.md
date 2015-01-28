@@ -10,8 +10,7 @@ Active development, around 75% of work is already done for the first stable rele
 
 ### @todo
 
-- Add **YAML** configuration files.
-- Add various output formatters.
+- Add various output formatters (plain text).
 - Write documentation.
 - Add examples of work (output).
 
