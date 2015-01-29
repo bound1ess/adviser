@@ -6,10 +6,12 @@ class ChangelogValidator extends AbstractValidator
     /**
      * @var array
      */
-    protected $files = [
-        "Changelog", "changelog", // Most common.
-        "HISTORY", "History", "history", // Sometimes.
-        "CHANGES", "Changes", "changes", // Very rare.
+    protected $configuration = [
+        "files" => [
+            "Changelog", "changelog", // Most common.
+            "HISTORY", "History", "history", // Sometimes.
+            "CHANGES", "Changes", "changes", // Very rare.
+        ],
     ];
 
     /**
@@ -35,7 +37,7 @@ class ChangelogValidator extends AbstractValidator
             return $this->createNormalMessage("Your project has a CHANGELOG file.");
         }
 
-        if ($file->anyExists($this->directory, $this->files)) {
+        if ($file->anyExists($this->directory, $this->configuration["files"])) {
             return $this->createWarningMessage(
                 "Looks like your project has a change log, but it's not CHANGELOG."
             );

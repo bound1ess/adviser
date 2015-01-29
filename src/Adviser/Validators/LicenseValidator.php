@@ -6,7 +6,9 @@ class LicenseValidator extends AbstractValidator
     /**
      * @var array
      */
-    protected $files = ["License", "license"];
+    protected $configuration = [
+        "files" => ["License", "license"],
+    ];
 
     /**
      * @inheritdoc
@@ -31,7 +33,7 @@ class LicenseValidator extends AbstractValidator
             return $this->createNormalMessage("Your project has a LICENSE file.");
         }
 
-        if ($file->anyExists($this->directory, $this->files)) {
+        if ($file->anyExists($this->directory, $this->configuration["files"])) {
             return $this->createWarningMessage(
                 "Looks like your project has a license file, but it's not LICENSE."
             );

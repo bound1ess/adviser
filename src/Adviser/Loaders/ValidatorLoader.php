@@ -26,11 +26,15 @@ class ValidatorLoader extends AbstractLoader
      */
     public function loadFromConfigurationFile()
     {
-        $config = $this->loader->load();
+        $configuration = $this->loader->load();
         $validators = [];
 
-        foreach ($config["validators"] as $validator) {
-            $validators[] = new $validator(getcwd());
+        foreach ($configuration["validators"] as $validator) {
+            if (array_key_exists($validator, $configuration)) {
+                $validators[] = new $validator(getcwd(), $configuration[$validator]);
+            } else {
+                $validators[] = new $validator(getcwd());
+            }
         }
 
         return $validators;

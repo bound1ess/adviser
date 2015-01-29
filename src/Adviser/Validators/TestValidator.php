@@ -6,21 +6,19 @@ class TestValidator extends AbstractValidator
     /**
      * @var array
      */
-    protected $testingFrameworks = [
-        "phpunit/phpunit", // PHPUnit.
-        "phpspec/phpspec", // PhpSpec.
-        "behat/behat", // Behat.
-        "codeception/codeception", // Codeception.
-        // More could be added via configuration file (@todo).
-    ];
+    protected $configuration = [
+        "testingFrameworks" => [
+            "phpunit/phpunit", // PHPUnit.
+            "phpspec/phpspec", // PhpSpec.
+            "behat/behat", // Behat.
+            "codeception/codeception", // Codeception.
+        ],
 
-    /**
-     * @var array
-     */
-    protected $frameworkToConfiguration = [
-        "phpunit/phpunit"         => ["phpunit.xml", "phpunit.xml.dist"],
-        "phpspec/phpspec"         => ["phpspec.yml", "phpspec.yml.dist"],
-        "codeception/codeception" => ["codeception.yml"],
+        "frameworkToFiles" => [
+            "phpunit/phpunit"         => ["phpunit.xml", "phpunit.xml.dist"],
+            "phpspec/phpspec"         => ["phpspec.yml", "phpspec.yml.dist"],
+            "codeception/codeception" => ["codeception.yml"],
+        ],
     ];
 
     /**
@@ -41,18 +39,18 @@ class TestValidator extends AbstractValidator
         $bag = $this->createMessageBag();
 
         foreach ($packages as $package) {
-            if ( ! in_array($package, $this->testingFrameworks)) {
+            if ( ! in_array($package, $this->configuration["testingFrameworks"])) {
                 continue; // This is not what we're looking for, skip.
             }
 
-            if ( ! array_key_exists($package, $this->frameworkToConfiguration)) {
+            if ( ! array_key_exists($package, $this->configuration["frameworkToFiles"])) {
                 continue; // This testing framework doesn't need a configuration file, skip.
             }
 
             // Whether $package has a configuration file.
             $configured = false;
 
-            foreach ($this->frameworkToConfiguration[$package] as $file) {
+            foreach ($this->configuration["frameworkToFiles"][$package] as $file) {
                 // If there is a configuration file for this testing framework, that's cool.
                 if ($this->utility("File")->exists($this->directory."/".$file)) {
                     // Add a message to the message bag.

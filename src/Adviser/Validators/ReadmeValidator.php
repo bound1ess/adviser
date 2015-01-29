@@ -6,7 +6,9 @@ class ReadmeValidator extends AbstractValidator
     /**
      * @var array
      */
-    protected $files = ["Readme", "readme", "Readme.md", "readme.md"];
+    protected $configuration = [
+        "files" => ["Readme", "readme", "Readme.md", "readme.md"],
+    ];
 
     /**
      * @inheritdoc
@@ -31,7 +33,7 @@ class ReadmeValidator extends AbstractValidator
             return $this->createNormalMessage("Your project has a README.md file.");
         }
 
-        if ($file->anyExists($this->directory, $this->files)) {
+        if ($file->anyExists($this->directory, $this->configuration["files"])) {
             return $this->createWarningMessage(
                 "Looks like your project has a readme file, but it's not README.md."
             );

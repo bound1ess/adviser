@@ -6,16 +6,20 @@ class FrameworkValidator extends AbstractValidator
     /**
      * @var array
      */
-    protected $frameworks = [
-        // 5 most used PHP frameworks (as for now).
-        "laravel/framework", // Laravel 5.
-        "symfony/symfony", // Symfony 2.
-        "yiisoft/yii2", // Yii 2.
-        "zendframework/zendframework", // Zend 2.
-        "cakephp/cakephp", // CakePHP 2.
-        // More could be added via Adviser configuration file (@todo).
+    protected $configuration = [
+        "frameworks" => [
+            // 5 most used PHP frameworks (as for now).
+            "laravel/framework", // Laravel 5.
+            "symfony/symfony", // Symfony 2.
+            "yiisoft/yii2", // Yii 2.
+            "zendframework/zendframework", // Zend 2.
+            "cakephp/cakephp", // CakePHP 2.
+        ],
     ];
 
+    /**
+     * @inheritdoc
+     */
     public function handle()
     {
         $bag = $this->createMessageBag();
@@ -31,7 +35,7 @@ class FrameworkValidator extends AbstractValidator
     protected function lookForFrameworksBeingUsed()
     {
         foreach ($this->utility("Composer")->getDependencies($this->directory) as $package) {
-            if (in_array($package, $this->frameworks)) {
+            if (in_array($package, $this->configuration["frameworks"])) {
                 return $this->createWarningMessage("Your project depends on {$package}.");
             }
         }

@@ -6,7 +6,9 @@ class CIValidator extends AbstractValidator
     /**
      * @var array
      */
-    protected $allowedVersions = ["hhvm", "5.6", "5.5", "5.4"];
+    protected $configuration = [
+        "allowedVersions" => ["hhvm", "5.6", "5.5", "5.4"],
+    ];
 
     /**
      * @inheritdoc
@@ -53,7 +55,7 @@ class CIValidator extends AbstractValidator
     protected function checkVersions(array $versions)
     {
         foreach ($versions as $version) {
-            if ( ! in_array($version, $this->allowedVersions)) {
+            if ( ! in_array($version, $this->configuration["allowedVersions"])) {
                 return false;
             }
         }

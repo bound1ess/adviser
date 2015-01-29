@@ -6,10 +6,12 @@ class ContributingValidator extends AbstractValidator
     /**
      * @var array
      */
-    protected $files = [
-        "Contributing", "contributing", // Common.
-        "CONTRIB", "Contrib", "contrib", // Quite common as well.
-        "CONTRIBUTION", "Contribution", "contribution", // I've seen this, too.
+    protected $configuration = [
+        "files" => [
+            "Contributing", "contributing", // Common.
+            "CONTRIB", "Contrib", "contrib", // Quite common as well.
+            "CONTRIBUTION", "Contribution", "contribution", // I've seen this, too.
+        ],
     ];
 
     /**
@@ -29,11 +31,13 @@ class ContributingValidator extends AbstractValidator
      */
     protected function lookForContributingInstructions()
     {
-        if ($this->utility("File")->exists($this->directory."/CONTRIBUTING")) {
+        $file = $this->utility("File");
+
+        if ($file->exists($this->directory."/CONTRIBUTING")) {
             return $this->createNormalMessage("Your project has a CONTRIBUTING file.");
         }
 
-        if ($this->utility("File")->anyExists($this->directory, $this->files)) {
+        if ($file->anyExists($this->directory, $this->configuration["files"])) {
             return $this->createWarningMessage(
                 "Your project has contributing instructions, but not in a CONTRIBUTING file."
             );

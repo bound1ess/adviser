@@ -16,12 +16,19 @@ abstract class AbstractValidator implements ValidatorInterface
     protected $utilities = [];
 
     /**
+     * @var array
+     */
+    protected $configuration = [];
+
+    /**
      * @param string $directory
+     * @param array $configuration
      * @return AbstractValidator
      */
-    public function __construct($directory)
+    public function __construct($directory, array $configuration = [])
     {
         $this->directory = $directory;
+        $this->configuration = array_merge_recursive($this->configuration, $configuration);
     }
 
     /**
