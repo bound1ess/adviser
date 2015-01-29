@@ -14,13 +14,13 @@ class CommandTestCase extends TestCase
      * Run given command and return its output.
      *
      * @param Command $command
-     * @param ArrayInput|null $input
+     * @param array $input
      * @return string
      */
-    protected function runCommand(Command $command, ArrayInput $input = null)
+    protected function runCommand(Command $command, array $input = [])
     {
         $stream = fopen("php://memory", "r+");
-        $input = $input ?: new ArrayInput([]);
+        $input = new ArrayInput($input);
 
         $command->run($input, new StreamOutput($stream));
         rewind($stream);
