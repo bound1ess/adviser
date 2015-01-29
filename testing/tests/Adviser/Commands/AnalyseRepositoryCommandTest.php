@@ -27,4 +27,14 @@ class AnalyseRepositoryCommandTest extends \Adviser\Testing\CommandTestCase
             ["name" => "repository/name"]
         ));
     }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_if_something_goes_wrong()
+    {
+        $this->setExpectedException("InvalidArgumentException");
+
+        $this->runCommand(new AnalyseRepositoryCommand(), ["name" => "invalid"]);
+    }
 }
