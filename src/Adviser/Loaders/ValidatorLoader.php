@@ -31,7 +31,7 @@ class ValidatorLoader extends AbstractLoader
 
         foreach ($configuration["validators"] as $validator) {
             if (array_key_exists($validator, $configuration)) {
-                $validators[] = new $validator(getcwd(), $configuration[$validator]);
+                $validators[] = new $validator(getcwd(), end($configuration[$validator]));
             } else {
                 $validators[] = new $validator(getcwd());
             }
