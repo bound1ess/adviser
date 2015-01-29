@@ -123,5 +123,7 @@ class AnalyseRepositoryCommand extends Command
                 unlink($element->getRealPath());
             }
         }
+
+        rmdir($path);
     }
 }

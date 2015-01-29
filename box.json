@@ -17,6 +17,6 @@
     "files": [
         "README.md",
         "LICENSE",
-        "config.php"
+        "adviser-default.yml"
     ]
 }
