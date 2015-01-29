@@ -30,7 +30,7 @@ class ConfigurationLoader
     public function load($searchInWorkingDir = true)
     {
         if ($searchInWorkingDir && $this->file->exists($path = getcwd()."/adviser.yml")) {
-            return array_merge(
+            return array_merge_recursive(
                 $this->load(false),
                 $this->parser->parse($this->file->read($path))
             );

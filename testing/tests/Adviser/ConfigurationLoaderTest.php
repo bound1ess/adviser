@@ -37,6 +37,6 @@ class ConfigurationLoaderTest extends Testing\TestCase
         $loader = new ConfigurationLoader($file, $YAMLParser);
 
         $this->assertInternalType("array", $configuration = $loader->load(true));
-        $this->assertEquals($configuration, ["foo" => "baz", "qux" => 123]);
+        $this->assertEquals($configuration, ["foo" => ["bar", "baz"], "qux" => 123]);
     }
 }
