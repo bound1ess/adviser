@@ -10,6 +10,7 @@ $adviser = new Symfony\Component\Console\Application("Adviser", getAdviserVersio
 
 // Add commands.
 $adviser->add(new Adviser\Commands\AnalyseCommand);
+$adviser->add(new Adviser\Commands\AnalyseRepositoryCommand);
 
 // Run and exit with the returned status code.
 $adviser->setAutoExit(true);
