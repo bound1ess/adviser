@@ -16,5 +16,6 @@ validators:
 formatters:
     - "Adviser\Output\Formatters\\PlainTextFormatter"
 
-Adviser\Validators\:
-    - ""
+Adviser\Validators\ContributingValidator:
+    - files:
+        - "CONTRIBUTING.md"
