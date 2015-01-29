@@ -64,7 +64,28 @@ Now you can use `adviser` (everywhere!) instead of `builds/adviser.phar`:
 
 ## Extending
 
-...
+### Creating a new Validator
+
+1. Create a new PHP class, just like that:
+
+```php
+use Adviser\Validators\AbstractValidator, Adviser\Validators\ValidatorInterface;
+
+class YourValidator extends AbstractValidator
+{
+}
+
+# If you don't want to extend AbstractValidator:
+
+class YourValidator implements ValidatorInterface
+{
+}
+```
+
+2. Write the logic you need (Adviser's source code can help, it's *completely* tested and *decently* documented).
+3. Don't forget to test it!
+4. Add it to the `adviser.yml` configuration file (see [Configuring](#configuring)).
+5. Done! Share it with others if you want to.
 
 ## Contributing
 
