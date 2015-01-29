@@ -81,7 +81,25 @@ This command will make a local clone of it, run the `analyse` command, then remo
 
 ## Configuring
 
-...
+*Adviser* can be configured via an `adviser.yml` file, placed in the directory you run it in.
+
+An example:
+
+```yaml
+# Add a new formatter.
+formatters:
+    - "Your\Custom\Formatter\ClassName"
+
+# Add a new validator.
+validators:
+    - "Your\Custom\Validator\ClassName"
+
+# Configure a validator.
+Some\Validator\ClassName:
+    - foo: 123
+    - bar:
+        - "baz"
+```
 
 ## Extending
 
