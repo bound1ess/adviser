@@ -58,6 +58,21 @@ class GitUtility extends AbstractUtility
     }
 
     /**
+     * Clone a Github repository.
+     *
+     * @param string $name
+     * @return boolean
+     */
+    public function cloneGithubRepository($name)
+    {
+        $command = "git clone https://github.com/{$name}.git";
+
+        $output = $this->runner->run($command)["stdout"];
+
+        return strpos($output, "remote: Repository not found.") === false;
+    }
+
+    /**
      * Split input string into lines.
      *
      * @param string $input

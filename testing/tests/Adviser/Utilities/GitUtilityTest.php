@@ -48,4 +48,25 @@ class GitUtilityTest extends \Adviser\Testing\UtilityTestCase
         $this->assertArrayHasKey("baz", $config);
         $this->assertEquals($config["foo"], "bar");
     }
+
+    /**
+     * @test
+     */
+    public function it_clones_a_Github_repository()
+    {
+        $runner = $this->mockUtility("CommandRunner");
+
+        $runner->shouldReceive("run")
+               ->twice()
+               ->with("git clone https://github.com/repository/name.git")
+               ->andReturn(
+                   ["stdout" => "Cloning into 'name'..."],
+                   ["stdout" => "remote: Repository not found."]
+               );
+
+        $git = new GitUtility($runner);
+
+        $this->assertTrue($git->cloneGithubRepository("repository/name"));
+        $this->assertFalse($git->cloneGithubRepository("repository/name"));
+    }
 }
