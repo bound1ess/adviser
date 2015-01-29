@@ -56,7 +56,28 @@ Now you can use `adviser` (everywhere!) instead of `builds/adviser.phar`:
 
 ## Using
 
-...
+### analyse
+
+This command will analyse (*suggest possible improvements*) the current working directory.
+
+![](http://i.imgur.com/GylrC0R.png)
+
+### analyse --formatter="FormatterName"
+
+Same, but the output will be formatted depending on the formatter you choose.
+
+![](http://i.imgur.com/zEHGkWZ.png)
+
+Available formatters:
+
+- `PlainText` (`Adviser\Output\Formatters\PlainTextFormatter`)
+
+### analyse-repository name
+
+The `name` argument here is a Github repository name (e.g. `bound1ess/adviser`).
+This command will make a local clone of it, run the `analyse` command, then remove it (directory).
+
+![](http://i.imgur.com/j8Cthjc.png)
 
 ## Configuring
 
