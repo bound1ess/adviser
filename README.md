@@ -4,15 +4,6 @@ Adviser is a CLI application that checks your PHP project for various possible i
 
 Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
 
-## Status
-
-Active development, around 90% of work is already done for the first stable release.
-
-### @todo
-
-- Write documentation.
-- Add examples of work (output).
-
 ## What It Does
 
 1. Checks that the current directory is a Git repository.

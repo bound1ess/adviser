@@ -12,8 +12,15 @@
             "role": "developer"
         }
     ],
+
     "bin": ["bin/adviser"],
-    
+    "scripts": {
+        "post-install-cmd": [
+            "mkdir builds",
+            "mkdir coverage"
+        ]
+    },
+
     "require": {
         "php": ">=5.4.0",
         "symfony/console": "2.6.*",
@@ -22,7 +29,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "4.4.*",
-        "mockery/mockery": "0.9.*"
+        "mockery/mockery": "0.9.*",
+        "kherge/box": "2.5.*"
     },
 
     "autoload": {
