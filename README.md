@@ -10,6 +10,7 @@ Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
 - [Using](#using)
 - [Configuring](#configuring)
 - [Extending](#extending)
+- [Contributing](#contributing)
 - [Additional information](#additional-information)
 
 ## Installing
@@ -64,6 +65,24 @@ Now you can use `adviser` (everywhere!) instead of `builds/adviser.phar`:
 ## Extending
 
 ...
+
+## Contributing
+
+1. Fork the project and create a local clone of it.
+2. Install the dependencies: `composer update` or `composer install --dev`.
+3. Make a fix.
+4. Run the tests: `make tests`. ![](http://i.imgur.com/1CZZw84.png)
+5. Build the coverage report:
+
+```shell
+make code-coverage
+make boot-server
+```
+
+Now open `localhost:8000` in your browser.
+![](http://i.imgur.com/bmGTxz9.png)
+
+6. Commit and pull!
 
 ## Additional information
 
