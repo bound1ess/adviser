@@ -57,8 +57,9 @@ class AnalyseRepositoryCommand extends Command
         }
 
         $output->writeln(sprintf(
-            "Cloning <comment>%s</comment> into <info>./%s</info>...",
+            "Cloning <comment>%s</comment> into <info>%s/%s</info>...",
             $name,
+            getcwd(),
             end($chunks)
         ));
 
@@ -75,6 +76,52 @@ class AnalyseRepositoryCommand extends Command
             );
         }
 
+        // Change the working directory.
+        chdir($path = getcwd()."/".end($chunks));
+
+        $output->writeln(sprintf(
+            "Changed the current working directory to <comment>%s</comment>.",
+            $path
+        ));
+        $output->writeln("");
+
+        // Running "AnalyseCommand"...
+        $this->getApplication()->find("analyse")->run(new ArrayInput([""]), $output);
+
+        // Change back, remove the directory.
+        chdir(getcwd()."/..");
+        $this->removeDirectory($path);
+
+        $output->writeln("");
+        $output->writeln(sprintf(
+            "Switching back to <info>%s</info>, removing <comment>%s</comment>...",
+            getcwd(),
+            $path
+        ));
+
         // @codeCoverageIgnoreStop
+    }
+
+    /**
+     * Remove a directory recursively (with all files/directories stored in it).
+     * @codeCoverageIgnore
+     *
+     * @param string $path
+     * @return void
+     */
+    protected function removeDirectory($path)
+    {
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::CHILD_FIRST
+        );
+
+        foreach ($iterator as $element) {
+            if ($element->isDir()) {
+                rmdir($element->getRealPath());
+            } else {
+                unlink($element->getRealPath());
+            }
+        }
     }
 }
