@@ -67,7 +67,7 @@ class GitUtility extends AbstractUtility
     {
         $command = "git clone https://github.com/{$name}.git";
 
-        $output = $this->runner->run($command)["stdout"];
+        $output = $this->runner->run($command)["stderr"];
 
         return strpos($output, "remote: Repository not found.") === false;
     }

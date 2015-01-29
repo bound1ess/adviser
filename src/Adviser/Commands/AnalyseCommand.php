@@ -114,7 +114,9 @@ class AnalyseCommand extends Command
         }
 
         if ( ! array_key_exists($this->formatter, $this->formatters)) {
-            throw new \InvalidArgumentException("Invalid formatter name {$this->formatter}.");
+            throw new \InvalidArgumentException(
+                "Invalid formatter name '{$this->formatter}'."
+            );
         }
 
         $output->writeln("Running formatter <comment>{$this->formatter}</comment>...");

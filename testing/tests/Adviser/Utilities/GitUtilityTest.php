@@ -13,9 +13,7 @@ class GitUtilityTest extends \Adviser\Testing\UtilityTestCase
         $runner->shouldReceive("run")
                ->once()
                ->with("git tag")
-               ->andReturn([
-                   "stdout" => "0.0.0".PHP_EOL,
-               ]);
+               ->andReturn(["stdout" => "0.0.0".PHP_EOL]);
 
         $this->assertEquals((new GitUtility($runner))->getTags(), ["0.0.0"]);
     }
@@ -60,8 +58,8 @@ class GitUtilityTest extends \Adviser\Testing\UtilityTestCase
                ->twice()
                ->with("git clone https://github.com/repository/name.git")
                ->andReturn(
-                   ["stdout" => "Cloning into 'name'..."],
-                   ["stdout" => "remote: Repository not found."]
+                   ["stdout" => "Cloning into 'name'...", "stderr" => ""],
+                   ["stderr" => "remote: Repository not found."]
                );
 
         $git = new GitUtility($runner);
