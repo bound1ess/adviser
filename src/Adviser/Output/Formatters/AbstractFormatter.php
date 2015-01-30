@@ -17,6 +17,6 @@ abstract class AbstractFormatter implements FormatterInterface
     {
         $chunks = explode("\\", get_class($this));
 
-        return str_replace("Formatter", "", end($chunks));
+        return strtolower(str_replace("Formatter", "", end($chunks)));
     }
 }

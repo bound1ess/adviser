@@ -62,7 +62,7 @@ This command will analyse (*suggest possible improvements*) the current working 
 
 ![](http://i.imgur.com/GylrC0R.png)
 
-### analyse --formatter="FormatterName"
+### analyse --formatter="formattername"
 
 Same, but the output will be formatted depending on the formatter you choose.
 
@@ -70,9 +70,9 @@ Same, but the output will be formatted depending on the formatter you choose.
 
 Available formatters:
 
-- `PlainText` (`Adviser\Output\Formatters\PlainTextFormatter`)
+- `plaintext` (`Adviser\Output\Formatters\PlainTextFormatter`).
 
-### analyse-repository name
+### analyse-repository name [--formatter="..."]
 
 The `name` argument here is a Github repository name (e.g. `bound1ess/adviser`).
 This command will make a local clone of it, run the `analyse` command, then remove it (directory).
