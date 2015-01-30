@@ -7,7 +7,7 @@ class TestValidator extends AbstractValidator
      * @var array
      */
     protected $configuration = [
-        "testingFrameworks" => [
+        "frameworks" => [
             "phpunit/phpunit", // PHPUnit.
             "phpspec/phpspec", // PhpSpec.
             "behat/behat", // Behat.
@@ -39,7 +39,7 @@ class TestValidator extends AbstractValidator
         $bag = $this->createMessageBag();
 
         foreach ($packages as $package) {
-            if ( ! in_array($package, $this->configuration["testingFrameworks"])) {
+            if ( ! in_array($package, $this->configuration["frameworks"])) {
                 continue; // This is not what we're looking for, skip.
             }
 

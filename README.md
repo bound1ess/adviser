@@ -111,6 +111,76 @@ Adviser\Validators\ChangelogValidator:
         # ...
 ```
 
+#### CIValidator
+
+```yaml
+Adviser\Validators\CIValidator:
+    - allowedVersions:
+        - "5.6"
+        - "5.5"
+        - "5.4"
+        - "hhvm"
+        # ...
+```
+
+#### ComposerValidator
+
+```yaml
+Adviser\Validators\ComposerValidator:
+    - autoloader: "psr-4"
+    - source_directory: "src"
+```
+
+#### ContributingValidator
+
+```yaml
+Adviser\Validators\ContributingValidator:
+    - files:
+        - "CONTRIBUTING.md"
+        # ...
+```
+
+#### FrameworkValidator
+
+```yaml
+Adviser\Validators\FrameworkValidator:
+    - frameworks:
+        - "laravel/framework"
+        # ...
+```
+
+#### LicenseValidator
+
+```yaml
+Adviser\Validators\LicenseValidator:
+    - files:
+        - "LICENSE.md"
+        # ...
+```
+
+#### ReadmeValidator
+
+```yaml
+Adviser\Validators\ReadmeValidator:
+    - files:
+        - "README.md"
+        # ...
+```
+
+#### TestValidator
+
+```yaml
+Adviser\Validators\TestValidator:
+    - frameworks:
+        - "phpunit/phpunit"
+        # ...
+    - frameworkToFiles:
+        - phpunit/phpunit:
+            - "phpunit.xml"
+            - "phpunit.xml.dist"
+        # ...
+```
+
 ## Extending
 
 ### Creating a new Validator
