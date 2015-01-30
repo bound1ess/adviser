@@ -25,11 +25,10 @@ class PlainTextFormatterTest extends \Adviser\Testing\FormatterTestCase
         // Make testing a little bit easier.
         $lines = explode(PHP_EOL, $output);
 
-        $this->assertCount(3 + 1, $lines);
+        $this->assertCount(3, $lines);
 
-        $this->assertEquals($lines[0], "1 OK, 1 WARNING(S), 1 ERROR(S)");
-        $this->assertEquals($lines[1], "[OK] foo");
-        $this->assertEquals($lines[2], "[WARNING] bar");
-        $this->assertEquals($lines[3], "[ERROR] baz");
+        $this->assertEquals($lines[0], "[OK] foo");
+        $this->assertEquals($lines[1], "[WARNING] bar");
+        $this->assertEquals($lines[2], "[ERROR] baz");
     }
 }

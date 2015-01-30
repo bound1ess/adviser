@@ -85,19 +85,18 @@ class AnalyseCommand extends Command
     protected function execute(Input $input, Output $output)
     {
         $this->validators = $this->validatorLoader->loadFromConfigurationFile();
-
-        $this->formatter = $input->getOption("formatter");
+        $this->formatter  = $input->getOption("formatter");
         $this->formatters = $this->formatterLoader->loadFromConfigurationFile();
 
-        if ( ! $this->useFormatter($output)) {
-            $this->writeHead($output);
+        $this->writeHead($output);
 
+        if ( ! $this->useFormatter($output)) {
             foreach ($this->validators as $validator) {
                 $this->runValidator($validator, $output);
             }
-
-            $this->writeSummary($output);
         }
+
+        $this->writeSummary($output);
     }
 
     /**
@@ -131,6 +130,9 @@ class AnalyseCommand extends Command
                 $bag->getAll()
             ));
         }
+
+        // Update the counters.
+        $this->updateCounters($bag);
 
         $output->writeln($this->formatters[$this->formatter]->format($bag));
 
@@ -171,9 +173,7 @@ class AnalyseCommand extends Command
         $output->writeln(" seconds.");
 
         // Update the counters.
-        $this->messageCounter['normal']  += count($bag->getNormalMessages());
-        $this->messageCounter['warning'] += count($bag->getWarnings());
-        $this->messageCounter['error']   += count($bag->getErrors());
+        $this->updateCounters($bag);
 
         $output->writeln("");
 
@@ -215,5 +215,16 @@ class AnalyseCommand extends Command
         $output->writeln("<error>{$this->messageCounter['error']} ERROR(S)</error>");
 
         $output->writeln("Done!");
+    }
+
+    /**
+     * @param MessageBag $bag
+     * @return void
+     */
+    protected function updateCounters(MessageBag $bag)
+    {
+        $this->messageCounter["normal"]  += count($bag->getNormalMessages());
+        $this->messageCounter["warning"] += count($bag->getWarnings());
+        $this->messageCounter["error"]   += count($bag->getErrors());
     }
 }

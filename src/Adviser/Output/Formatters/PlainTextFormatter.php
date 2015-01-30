@@ -12,13 +12,6 @@ class PlainTextFormatter extends AbstractFormatter
     {
         $output = [];
 
-        $output[] = sprintf(
-            "%s OK, %s WARNING(S), %s ERROR(S)",
-            count($bag->getNormalMessages()),
-            count($bag->getWarnings()),
-            count($bag->getErrors())
-        );
-
         foreach ($bag->getAll() as $message) {
             $output[] = sprintf("[%s] %s",
                 $this->formatType($message),
