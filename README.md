@@ -30,9 +30,7 @@ curl -sS https://getcomposer.org/installer | php
 ./composer.phar require --dev bound1ess/adviser
 ```
 
-
-Now you should be able to run `vendor/bin/adviser` and see something like this:
-![](http://i.imgur.com/rNT39gP.png)
+Now you should be able to run `vendor/bin/adviser` and see Adviser's CLI.
 
 ### Building a PHAR
 
@@ -45,14 +43,15 @@ composer update # Assuming that it's installed globally.
 make build-phar
 ```
 
-Now you can just run `builds/adviser.phar`, or (only if you want to!) you can also do this:
+![](http://i.imgur.com/GSDqCYc.png)
+
+Now you can use `builds/adviser.phar`, or (only if you want to!) you can also do this:
 
 ```shell
 sudo mv builds/adviser.phar /usr/local/bin/adviser
 ```
 
-Now you can use `adviser` (everywhere!) instead of `builds/adviser.phar`:
-![](http://i.imgur.com/JUXDdhz.png)
+Now you can use `adviser` (everywhere!) instead of `builds/adviser.phar`.
 
 ## Using
 
