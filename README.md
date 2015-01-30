@@ -183,28 +183,45 @@ Adviser\Validators\TestValidator:
 
 ## Extending
 
-### Creating a new Validator
+1. Write the code.
+2. Don't forget to test it!
+3. Add it to the `adviser.yml` configuration file (see [Configuring](#configuring) section).
+4. Done! Share your work with others if you want to.
 
-1. Create a new PHP class, just like that:
+### Creating a Validator
 
 ```php
-use Adviser\Validators\AbstractValidator, Adviser\Validators\ValidatorInterface;
-
-class YourValidator extends AbstractValidator
+class YourValidator extends \Adviser\Validators\AbstractValidator
 {
-}
 
-# If you don't want to extend AbstractValidator:
-
-class YourValidator implements ValidatorInterface
-{
+    /**
+     * @return \Adviser\Output\MessageBag
+     */
+    public function handle()
+    {
+        // @todo
+    }
 }
 ```
 
-2. Write the logic you need (Adviser's source code can help, it's *completely* tested and *decently* documented).
-3. Don't forget to test it!
-4. Add it to the `adviser.yml` configuration file (see [Configuring](#configuring)).
-5. Done! Share it with others if you want to.
+### Creating a Formatter
+
+```php
+use Adviser\Output\MessageBag;
+
+class YourFormatter extends \Adviser\Output\Formatters\AbstractFormatter
+{
+
+    /**
+     * @param MessageBag $bag
+     * @return string
+     */
+    public function format(MessageBag $bag)
+    {
+        // @todo
+    }
+}
+```
 
 ## Contributing
 
