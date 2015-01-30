@@ -4,6 +4,14 @@ class ComposerValidator extends AbstractValidator
 {
 
     /**
+     * @var array
+     */
+    protected $configuration = [
+        "autoloader"       => "psr-4",
+        "source_directory" => "src",
+    ];
+
+    /**
      * @inheritdoc
      */
     public function handle()
@@ -13,9 +21,11 @@ class ComposerValidator extends AbstractValidator
         $message = $this->isManifestOK();
 
         if ( ! $message->isError()) {
-            $bag->throwIn($this->lookForAutoloader("psr-4"));
+            $bag->throwIn($this->lookForAutoloader($this->configuration["autoloader"]));
             $bag->throwIn($this->checkIfPackageWasPublished());
-            $bag->throwIn($this->checkIfSourceCodeIsStoredIn("src"));
+            $bag->throwIn($this->checkIfSourceCodeIsStoredIn(
+                $this->configuration["source_directory"]
+            ));
         } else {
             $bag->throwIn($message);
         }
