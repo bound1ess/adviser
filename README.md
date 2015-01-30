@@ -65,7 +65,7 @@ This command will analyse (*suggest possible improvements*) the current working 
 
 Same, but the output will be formatted depending on the formatter you choose.
 
-![](http://i.imgur.com/zEHGkWZ.png)
+![](http://i.imgur.com/9FqeIkR.png)
 
 Available formatters:
 
@@ -76,7 +76,7 @@ Available formatters:
 The `name` argument here is a Github repository name (e.g. `bound1ess/adviser`).
 This command will make a local clone of it, run the `analyse` command, then remove it (directory).
 
-![](http://i.imgur.com/j8Cthjc.png)
+![](http://i.imgur.com/59kfBcc.png)
 
 ## Configuring
 
@@ -130,7 +130,10 @@ class YourValidator implements ValidatorInterface
 1. Fork the project and create a local clone of it.
 2. Install the dependencies: `composer update` or `composer install --dev`.
 3. Make a fix.
-4. Run the tests: `make tests`. ![](http://i.imgur.com/1CZZw84.png)
+4. Run the tests: `make tests`. 
+
+![](http://i.imgur.com/u2ofyLc.png)
+
 5. Build the coverage report:
 
 ```shell
@@ -139,7 +142,7 @@ make boot-server
 ```
 
 Now open `localhost:8000` in your browser.
-![](http://i.imgur.com/bmGTxz9.png)
+![](http://i.imgur.com/1nPU5Uu.png)
 
 6. Commit and pull!
 
