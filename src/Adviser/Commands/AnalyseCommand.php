@@ -218,6 +218,7 @@ class AnalyseCommand extends Command
     }
 
     /**
+     * @codeCoverageIgnore
      * @param MessageBag $bag
      * @return void
      */

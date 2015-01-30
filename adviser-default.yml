@@ -24,12 +24,12 @@ formatters:
 #    - files:
 #        - "CHANGELOG.md"
 
-#Adviser\Validators\CIValidator:
-#    - allowedVersions:
-#        - "5.6"
-#        - "5.5"
-#        - "5.4"
-#        - "hhvm"
+Adviser\Validators\CIValidator:
+    - allowedVersions:
+        - "5.6"
+        - "5.5"
+        - "5.4"
+        - "hhvm"
 
 #Adviser\Validators\FrameworkValidator:
 #    - frameworks:
