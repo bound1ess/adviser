@@ -47,7 +47,7 @@ class ComposerValidator extends AbstractValidator
     {
         if ( ! $this->utility("Composer")->hasAutoloader($this->directory, $name)) {
             return $this->createWarningMessage(
-                "You should be using the {$name} autoloader for your project instead."
+                "You should be using a {$name} autoloader for your project instead."
             );
         }
 

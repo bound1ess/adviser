@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputInterface as Input;
 use Symfony\Component\Console\Output\OutputInterface as Output;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\InputOption;
 
 use Adviser\Utilities\GitUtility;
 
@@ -38,6 +39,7 @@ class AnalyseRepositoryCommand extends Command
              ->setDescription("Clones a GitHub repository and runs 'analyse' command on it");
 
         $this->addArgument("name", InputArgument::REQUIRED, "Repository name");
+        $this->addOption("formatter", null, InputOption::VALUE_REQUIRED, "Output formatter");
     }
 
     /**
@@ -86,7 +88,16 @@ class AnalyseRepositoryCommand extends Command
         $output->writeln("");
 
         // Running "AnalyseCommand"...
-        $this->getApplication()->find("analyse")->run(new ArrayInput([""]), $output);
+        $arrayInput = [""];
+
+        if ( ! is_null($input->getOption("formatter"))) {
+            $arrayInput["--formatter"] = $input->getOption("formatter");
+        }
+
+        $this->getApplication()->find("analyse")->run(
+            new ArrayInput($arrayInput),
+            $output
+        );
 
         // Change back, remove the directory.
         chdir(getcwd()."/..");
