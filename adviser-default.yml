@@ -16,13 +16,18 @@ validators:
 formatters:
     - "Adviser\Output\Formatters\\PlainTextFormatter"
 
-#Adviser\Validators\ContributingValidator:
-#    - files:
-#        - "CONTRIBUTING.md"
+# Configuration example.
+Adviser\Validators\ComposerValidator:
+    - source_directory: "src"
+    - autoloader: "psr-4"
 
-#Adviser\Validators\ChangelogValidator:
-#    - files:
-#        - "CHANGELOG.md"
+Adviser\Validators\TestValidator:
+    - frameworks:
+        - "phpunit/phpunit"
+    - frameworkToFiles:
+        - phpunit/phpunit:
+            - "phpunit.xml"
+            - "phpunit.xml.dist"
 
 Adviser\Validators\CIValidator:
     - allowedVersions:
@@ -30,23 +35,3 @@ Adviser\Validators\CIValidator:
         - "5.5"
         - "5.4"
         - "hhvm"
-
-#Adviser\Validators\FrameworkValidator:
-#    - frameworks:
-#        - "laravel/framework"
-
-#Adviser\Validators\LicenseValidator:
-#    - files:
-#        - "LICENSE.md"
-
-#Adviser\Validators\ReadmeValidator:
-#    - files:
-#        - "README.md"
-
-#Adviser\Validators\TestValidator:
-#    - testingFrameworks:
-#        - "phpunit/phpunit"
-#    - frameworkToFiles:
-#        - phpunit/phpunit:
-#            - "phpunit.xml"
-#            - "phpunit.xml.dist"
