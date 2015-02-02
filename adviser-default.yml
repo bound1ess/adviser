@@ -18,19 +18,19 @@ formatters:
 
 # Configuration example.
 Adviser\Validators\ComposerValidator:
-    - source_directory: "src"
-    - autoloader: "psr-4"
+    source_directory: "src"
+    autoloader: "psr-4"
 
 Adviser\Validators\TestValidator:
-    - frameworks:
+    frameworks:
         - "phpunit/phpunit"
-    - frameworkToFiles:
-        - phpunit/phpunit:
+    frameworkToFiles:
+        phpunit/phpunit:
             - "phpunit.xml"
             - "phpunit.xml.dist"
 
 Adviser\Validators\CIValidator:
-    - allowedVersions:
+    allowedVersions:
         - "5.6"
         - "5.5"
         - "5.4"

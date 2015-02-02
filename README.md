@@ -106,7 +106,7 @@ validators:
 
 ```yaml
 Adviser\Validators\ChangelogValidator:
-    - files:
+    files:
         - "CHANGELOG.md"
         # ...
 ```
@@ -115,7 +115,7 @@ Adviser\Validators\ChangelogValidator:
 
 ```yaml
 Adviser\Validators\CIValidator:
-    - allowedVersions:
+    allowedVersions:
         - "5.6"
         - "5.5"
         - "5.4"
@@ -127,15 +127,15 @@ Adviser\Validators\CIValidator:
 
 ```yaml
 Adviser\Validators\ComposerValidator:
-    - autoloader: "psr-4"
-    - source_directory: "src"
+    autoloader: "psr-4"
+    source_directory: "src"
 ```
 
 #### ContributingValidator
 
 ```yaml
 Adviser\Validators\ContributingValidator:
-    - files:
+    files:
         - "CONTRIBUTING.md"
         # ...
 ```
@@ -144,7 +144,7 @@ Adviser\Validators\ContributingValidator:
 
 ```yaml
 Adviser\Validators\FrameworkValidator:
-    - frameworks:
+    frameworks:
         - "laravel/framework"
         # ...
 ```
@@ -153,7 +153,7 @@ Adviser\Validators\FrameworkValidator:
 
 ```yaml
 Adviser\Validators\LicenseValidator:
-    - files:
+    files:
         - "LICENSE.md"
         # ...
 ```
@@ -162,7 +162,7 @@ Adviser\Validators\LicenseValidator:
 
 ```yaml
 Adviser\Validators\ReadmeValidator:
-    - files:
+    files:
         - "README.md"
         # ...
 ```
@@ -171,13 +171,14 @@ Adviser\Validators\ReadmeValidator:
 
 ```yaml
 Adviser\Validators\TestValidator:
-    - frameworks:
+    frameworks:
         - "phpunit/phpunit"
         # ...
-    - frameworkToFiles:
-        - phpunit/phpunit:
+    frameworkToFiles:
+        phpunit/phpunit:
             - "phpunit.xml"
             - "phpunit.xml.dist"
+            # ...
         # ...
 ```
 

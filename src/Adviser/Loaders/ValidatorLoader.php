@@ -31,32 +31,12 @@ class ValidatorLoader extends AbstractLoader
 
         foreach ($configuration["validators"] as $validator) {
             if (array_key_exists($validator, $configuration)) {
-                $validators[] = new $validator(
-                    getcwd(),
-                    $this->transform($configuration[$validator])
-                );
+                $validators[] = new $validator(getcwd(), $configuration[$validator]);
             } else {
                 $validators[] = new $validator(getcwd());
             }
         }
 
         return $validators;
-    }
-
-    /**
-     * @var array $configuration
-     * @return array
-     */
-    protected function transform(array $configuration)
-    {
-        foreach ($configuration as $key => $value) {
-            if (is_int($key)) {
-                $configuration = array_merge($configuration, $this->transform($value));
-            } else {
-                $configuration[$key] = $value;
-            }
-        }
-
-        return $configuration;
     }
 }
