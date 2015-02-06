@@ -4,6 +4,17 @@ Adviser is a CLI application that checks your PHP project for various possible i
 
 Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
 
+## Motivation
+
+- Do I have some sort of a license file?
+- Is my composer.json valid?
+- Is my code PSR-2 compatible?
+- Are the repository tags and settings OK?
+
+I usually ask myself such questions.
+And I got tired of checking it all manually every time.
+Here comes Adviser to make things a lot easier.
+
 ## Navigation
 
 - [Installing](#installing)
