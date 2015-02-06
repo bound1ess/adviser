@@ -15,7 +15,7 @@ class ContributingValidator extends AbstractValidator
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle()
     {

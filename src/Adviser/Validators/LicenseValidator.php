@@ -14,7 +14,7 @@ class LicenseValidator extends AbstractValidator
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle()
     {

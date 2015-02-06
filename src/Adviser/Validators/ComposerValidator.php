@@ -12,7 +12,7 @@ class ComposerValidator extends AbstractValidator
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle()
     {

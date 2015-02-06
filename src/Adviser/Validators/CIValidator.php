@@ -11,7 +11,7 @@ class CIValidator extends AbstractValidator
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle()
     {

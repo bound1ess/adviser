@@ -18,7 +18,7 @@ class FrameworkValidator extends AbstractValidator
     ];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle()
     {

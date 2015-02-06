@@ -9,7 +9,7 @@ class CodeStyleValidator extends AbstractValidator
     protected $executable = "php-cs-fixer";
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handle()
     {
