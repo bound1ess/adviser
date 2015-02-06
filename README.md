@@ -256,6 +256,12 @@ Now open `localhost:8000` in your browser.
 
 6. Commit and pull!
 
+### Extra: building the documentation
+
+```shell
+make build-docs boot-docs-server
+```
+
 ## Additional information
 
 License and support information, as well as my thanks to everyone who made *Adviser* possible.
