@@ -7,7 +7,7 @@ class ReadmeValidator extends AbstractValidator
      * @var array
      */
     protected $configuration = [
-        "files" => ["Readme", "readme", "Readme.md", "readme.md"],
+        "files" => ["Readme.md", "readme.md"],
     ];
 
     /**

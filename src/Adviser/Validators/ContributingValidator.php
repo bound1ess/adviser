@@ -8,9 +8,9 @@ class ContributingValidator extends AbstractValidator
      */
     protected $configuration = [
         "files" => [
-            "Contributing", "contributing", // Common.
-            "CONTRIB", "Contrib", "contrib", // Quite common as well.
-            "CONTRIBUTION", "Contribution", "contribution", // I've seen this, too.
+            "Contributing.md", "contributing.md", // Common.
+            "CONTRIB.md", "Contrib.md", "contrib.md", // Quite common as well.
+            "CONTRIBUTION.md", "Contribution.md", "contribution.md", // I've seen this, too.
         ],
     ];
 
@@ -33,7 +33,7 @@ class ContributingValidator extends AbstractValidator
     {
         $file = $this->utility("File");
 
-        if ($file->exists($this->directory."/CONTRIBUTING")) {
+        if ($file->exists($this->directory."/CONTRIBUTING.md")) {
             return $this->createNormalMessage("Your project has a CONTRIBUTING file.");
         }
 

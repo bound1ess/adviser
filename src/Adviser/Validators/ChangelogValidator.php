@@ -8,9 +8,9 @@ class ChangelogValidator extends AbstractValidator
      */
     protected $configuration = [
         "files" => [
-            "Changelog", "changelog", // Most common.
-            "HISTORY", "History", "history", // Sometimes.
-            "CHANGES", "Changes", "changes", // Very rare.
+            "Changelog.md", "changelog.md", // Most common.
+            "HISTORY.md", "History.md", "history.md", // Sometimes.
+            "CHANGES.md", "Changes.md", "changes.md", // Very rare.
         ],
     ];
 
@@ -33,7 +33,7 @@ class ChangelogValidator extends AbstractValidator
     {
         $file = $this->utility("File");
 
-        if ($file->exists($this->directory."/CHANGELOG")) {
+        if ($file->exists($this->directory."/CHANGELOG.md")) {
             return $this->createNormalMessage("Your project has a CHANGELOG file.");
         }
 

@@ -11,7 +11,7 @@ Heavily inspired by [phppackagechecklist.com](http://phppackagechecklist.com).
 - Is my code PSR-2 compatible?
 - Are the repository tags and settings OK?
 
-I usually ask myself such questions.
+I often ask myself such questions.
 And I got tired of checking it all manually every time.
 Here comes Adviser to make things a lot easier.
 

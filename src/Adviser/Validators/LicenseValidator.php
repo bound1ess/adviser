@@ -7,7 +7,10 @@ class LicenseValidator extends AbstractValidator
      * @var array
      */
     protected $configuration = [
-        "files" => ["License", "license"],
+        "files" => [
+            "License", "license",
+            "LICENSE.md", "License.md", "license.md",
+        ],
     ];
 
     /**
