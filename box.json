@@ -11,7 +11,12 @@
         {
             "in": "vendor",
             "name": "*.php",
-            "exclude": ["mockery", "phpunit", "sebastian"]
+            "exclude": [
+                "phpunit",
+                "mockery",
+                "sebastian",
+                "doctrine"
+            ]
         }
     ],
     "files": [
