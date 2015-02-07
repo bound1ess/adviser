@@ -43,11 +43,12 @@ curl -sS https://getcomposer.org/installer | php
 
 Now you should be able to run `vendor/bin/adviser` and see Adviser's CLI.
 
-### Building a PHAR
+### Building a PHAR (Box is required)
 
 This is not very difficult to do either, just run:
 
 ```shell
+box --version
 git clone https://github.com/bound1ess/adviser.git
 cd adviser
 composer update # Assuming that it's installed globally.
@@ -256,9 +257,10 @@ Now open `localhost:8000` in your browser.
 
 6. Commit and pull!
 
-### Extra: building the documentation
+### Extra: building the documentation (ApiGen is required)
 
 ```shell
+apigen --version
 make build-docs boot-docs-server
 ```
 
