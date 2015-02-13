@@ -8,7 +8,7 @@ class CommandRunnerUtilityTest extends \Adviser\Testing\UtilityTestCase
      */
     public function it_runs_a_terminal_command()
     {
-        $output = (new CommandRunnerUtility())->run(getcwd()."/testing/utility-command.sh");
+        $output = (new CommandRunnerUtility())->run(ADVISER_DIR."/testing/utility-command.sh");
 
         $this->assertInternalType("array", $output);
 
