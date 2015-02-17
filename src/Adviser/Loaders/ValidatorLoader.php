@@ -17,6 +17,8 @@ class ValidatorLoader extends AbstractLoader
     public function __construct(ConfigurationLoader $loader = null)
     {
         $this->loader = $loader ?: new ConfigurationLoader();
+
+        $this->loadAutoloader();
     }
 
     /**
@@ -38,5 +40,16 @@ class ValidatorLoader extends AbstractLoader
         }
 
         return $validators;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     * @return void
+     */
+    protected function loadAutoloader()
+    {
+        if (\Phar::running()) {
+            require getcwd()."/vendor/autoload.php";
+        }
     }
 }

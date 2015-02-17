@@ -8,15 +8,15 @@ if ( ! defined("ADVISER_DIR")) {
 /**
  * Attempt to find the autoloader.
  *
- * @return mixed
+ * @return void
  */
 function findComposerAutoloader()
 {
     if (file_exists($path = ADVISER_DIR."/vendor/autoload.php")) {
-        return require_once $path;
+        return require $path;
     }
 
-    return require_once ADVISER_DIR."/../../autoload.php";
+    require ADVISER_DIR."/../../autoload.php";
 }
 
 /**
