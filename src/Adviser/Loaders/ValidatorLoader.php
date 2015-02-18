@@ -48,7 +48,7 @@ class ValidatorLoader extends AbstractLoader
      */
     protected function checkForAutoloader()
     {
-        if (\Phar::running()) {
+        if (\Phar::running() and strpos(getcwd(), "projects/adviser") === false) {
             require getcwd()."/vendor/autoload.php";
         }
     }
