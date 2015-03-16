@@ -71,7 +71,7 @@ class CodeStyleValidator extends AbstractValidator
         }
 
         // 3) See if it was installed globally via Composer.
-        return $this->utility("File")->exists($_SERVER["HOME"]."/.composer/bin/php-cs-fixer");
+        return $this->utility("File")->exists($_SERVER["HOME"]."/.composer/vendor/bin/php-cs-fixer");
     }
 
     /**
